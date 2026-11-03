@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens — warm ivory paper, deep espresso ink, wine as the signature colour
+ * and a muted champagne gold for detail. Editorial serif display + clean geometric sans.
+ */
+@theme {
+  --color-ivory: #f6f1ea;
+  --color-paper: #fbf8f3;
+  --color-sand: #ebe2d6;
+  --color-linen: #ddd0bf;
+  --color-ink: #231a16;
+  --color-muted: #6f625a;
+  --color-wine: #5b1f2e;
+  --color-wine-deep: #401520;
+  --color-blush: #e9d6d0;
+  --color-gold: #b08d57;
+  --color-sage: #8a9a82;
+
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-jost), "Jost", system-ui, sans-serif;
+
+  --tracking-eyebrow: 0.22em;
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-rise: rise 0.9s var(--ease-soft) both;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-wine);
+  color: var(--color-ivory);
+}
+
+@utility eyebrow {
+  @apply text-[11px] font-medium uppercase tracking-[0.22em] text-gold;
+}
+@utility display {
+  @apply font-display font-medium leading-[0.95] tracking-[-0.01em];
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[13px] font-medium uppercase tracking-[0.14em] transition duration-300;
+}
+@utility btn-primary {
+  @apply btn bg-wine text-ivory hover:bg-wine-deep;
+}
+@utility btn-dark {
+  @apply btn bg-ink text-ivory hover:bg-wine;
+}
+@utility btn-outline {
+  @apply btn border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-ivory;
+}
+@utility btn-light {
+  @apply btn bg-ivory text-ink hover:bg-white;
+}
+@utility field {
+  @apply w-full rounded-xl border border-ink/15 bg-paper px-4 py-3 text-[15px] outline-none transition placeholder:text-muted/60 focus:border-wine focus:ring-2 focus:ring-wine/15;
+}
+@utility label {
+  @apply mb-1.5 block text-[12px] font-medium uppercase tracking-[0.14em] text-muted;
+}
+@utility container-x {
+  @apply mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-10;
+}
+@utility link-underline {
+  @apply relative after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-500 hover:after:origin-left hover:after:scale-x-100;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

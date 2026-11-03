@@ -1,0 +1,627 @@
+[
+  {
+    "id": "p001",
+    "slug": "amara-pleated-maxi",
+    "name": "Amara Pleated Maxi Dress",
+    "gender": "women",
+    "category": "dresses",
+    "occasions": [
+      "Church & Faith",
+      "Weddings & Owambe"
+    ],
+    "price": 68000,
+    "description": "A floor-sweeping pleated maxi with a high round neckline, full-length sleeves and a self-tie belt that defines the waist without clinging.",
+    "details": [
+      "Soft crepe with sunray pleats",
+      "Fully lined, non-sheer",
+      "Concealed back zip",
+      "Hand wash cold"
+    ],
+    "garmentType": "maxi-dress",
+    "colors": [
+      {
+        "name": "Wine",
+        "hex": "#6B2333"
+      },
+      {
+        "name": "Sage",
+        "hex": "#8C9A7E"
+      },
+      {
+        "name": "Midnight",
+        "hex": "#1F2A44"
+      },
+      {
+        "name": "Sand",
+        "hex": "#C9B08F"
+      }
+    ],
+    "sizes": [
+      "UK 6",
+      "UK 8",
+      "UK 10",
+      "UK 12",
+      "UK 14",
+      "UK 16",
+      "UK 18",
+      "UK 20",
+      "UK 22"
+    ],
+    "renderStatus": "illustration",
+    "isNew": true,
+    "featured": true,
+    "createdAt": "2026-10-01T10:00:00.000Z"
+  },
+  {
+    "id": "p002",
+    "slug": "zuri-belted-midi",
+    "name": "Zuri Belted Midi",
+    "gender": "women",
+    "category": "dresses",
+    "occasions": [
+      "Corporate",
+      "Everyday"
+    ],
+    "price": 52000,
+    "compareAtPrice": 58000,
+    "description": "A graceful A-line midi with three-quarter sleeves and a contrast belt \u2014 boardroom to brunch.",
+    "details": [
+      "Mid-weight stretch crepe",
+      "Below-the-knee length",
+      "Side pockets",
+      "Machine wash gentle"
+    ],
+    "garmentType": "midi-dress",
+    "colors": [
+      {
+        "name": "Emerald",
+        "hex": "#1F5A4A"
+      },
+      {
+        "name": "Dusty Rose",
+        "hex": "#C08A88"
+      },
+      {
+        "name": "Black",
+        "hex": "#1E1E1E"
+      },
+      {
+        "name": "Cobalt",
+        "hex": "#2D4C9B"
+      }
+    ],
+    "sizes": [
+      "UK 6",
+      "UK 8",
+      "UK 10",
+      "UK 12",
+      "UK 14",
+      "UK 16",
+      "UK 18",
+      "UK 20",
+      "UK 22"
+    ],
+    "renderStatus": "illustration",
+    "isNew": true,
+    "featured": false,
+    "createdAt": "2026-10-02T10:00:00.000Z"
+  },
+  {
+    "id": "p003",
+    "slug": "noor-flow-abaya",
+    "name": "Noor Flow Abaya",
+    "gender": "women",
+    "category": "abayas-kaftans",
+    "occasions": [
+      "Church & Faith",
+      "Everyday",
+      "Evening"
+    ],
+    "price": 75000,
+    "description": "A fluid open-front abaya with bell sleeves and hand-finished contrast trim. Loose, light and covered.",
+    "details": [
+      "Premium nida fabric",
+      "Embroidered placket trim",
+      "Inner tie for closure",
+      "Dry clean recommended"
+    ],
+    "garmentType": "kaftan",
+    "colors": [
+      {
+        "name": "Mocha",
+        "hex": "#6B4F3F",
+        "accent": "#D8C3A5"
+      },
+      {
+        "name": "Onyx",
+        "hex": "#1C1A1A",
+        "accent": "#B8955A"
+      },
+      {
+        "name": "Olive",
+        "hex": "#5E6B3F",
+        "accent": "#E4D9B8"
+      },
+      {
+        "name": "Dove",
+        "hex": "#B9B3AA",
+        "accent": "#5A4E44"
+      }
+    ],
+    "sizes": [
+      "UK 6",
+      "UK 8",
+      "UK 10",
+      "UK 12",
+      "UK 14",
+      "UK 16",
+      "UK 18",
+      "UK 20",
+      "UK 22"
+    ],
+    "renderStatus": "illustration",
+    "isNew": false,
+    "featured": true,
+    "createdAt": "2026-10-03T10:00:00.000Z"
+  },
+  {
+    "id": "p004",
+    "slug": "adaeze-power-suit",
+    "name": "Adaeze Power Suit",
+    "gender": "women",
+    "category": "corporate",
+    "occasions": [
+      "Corporate",
+      "Evening"
+    ],
+    "price": 120000,
+    "description": "A tailored single-button blazer with high-waisted wide-leg trousers. Sharp shoulders, generous length, total confidence.",
+    "details": [
+      "Structured suiting with stretch",
+      "Blazer fully lined",
+      "Trousers with pressed crease",
+      "Sold as a set"
+    ],
+    "garmentType": "suit",
+    "colors": [
+      {
+        "name": "Camel",
+        "hex": "#B48A5A"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1E2B47"
+      },
+      {
+        "name": "Ivory",
+        "hex": "#E6DFD1"
+      },
+      {
+        "name": "Plum",
+        "hex": "#4E2A45"
+      }
+    ],
+    "sizes": [
+      "UK 6",
+      "UK 8",
+      "UK 10",
+      "UK 12",
+      "UK 14",
+      "UK 16",
+      "UK 18",
+      "UK 20",
+      "UK 22"
+    ],
+    "renderStatus": "illustration",
+    "isNew": true,
+    "featured": true,
+    "createdAt": "2026-10-04T10:00:00.000Z"
+  },
+  {
+    "id": "p005",
+    "slug": "kemi-two-piece",
+    "name": "Kemi Two-Piece Set",
+    "gender": "women",
+    "category": "sets",
+    "occasions": [
+      "Weddings & Owambe",
+      "Church & Faith"
+    ],
+    "price": 85000,
+    "description": "A peplum blouse with gathered sleeves paired with a flowing A-line maxi skirt in a deeper tone.",
+    "details": [
+      "Satin-finish crepe",
+      "Blouse with back button closure",
+      "Skirt with elastic back waist",
+      "Sold as a set"
+    ],
+    "garmentType": "two-piece",
+    "colors": [
+      {
+        "name": "Lilac",
+        "hex": "#A99BC4",
+        "accent": "#6E5E91"
+      },
+      {
+        "name": "Mustard",
+        "hex": "#C9962E",
+        "accent": "#7A5520"
+      },
+      {
+        "name": "Teal",
+        "hex": "#2F6F73",
+        "accent": "#1C4246"
+      }
+    ],
+    "sizes": [
+      "UK 6",
+      "UK 8",
+      "UK 10",
+      "UK 12",
+      "UK 14",
+      "UK 16",
+      "UK 18",
+      "UK 20",
+      "UK 22"
+    ],
+    "renderStatus": "illustration",
+    "isNew": true,
+    "featured": false,
+    "createdAt": "2026-10-05T10:00:00.000Z"
+  },
+  {
+    "id": "p006",
+    "slug": "ifeoma-wide-leg-jumpsuit",
+    "name": "Ifeoma Wide-Leg Jumpsuit",
+    "gender": "women",
+    "category": "sets",
+    "occasions": [
+      "Corporate",
+      "Evening",
+      "Everyday"
+    ],
+    "price": 64000,
+    "description": "A long-sleeve wide-leg jumpsuit with a soft V-neckline and a contrast belt \u2014 one piece, fully put together.",
+    "details": [
+      "Fluid twill",
+      "Full-length wide legs",
+      "Removable belt",
+      "Machine wash gentle"
+    ],
+    "garmentType": "jumpsuit",
+    "colors": [
+      {
+        "name": "Terracotta",
+        "hex": "#A4553B",
+        "accent": "#E8D3B9"
+      },
+      {
+        "name": "Black",
+        "hex": "#1E1E1E",
+        "accent": "#C9A86A"
+      },
+      {
+        "name": "Stone",
+        "hex": "#A79C8E",
+        "accent": "#4E4036"
+      }
+    ],
+    "sizes": [
+      "UK 6",
+      "UK 8",
+      "UK 10",
+      "UK 12",
+      "UK 14",
+      "UK 16",
+      "UK 18",
+      "UK 20",
+      "UK 22"
+    ],
+    "renderStatus": "illustration",
+    "isNew": false,
+    "featured": false,
+    "createdAt": "2026-10-06T10:00:00.000Z"
+  },
+  {
+    "id": "p007",
+    "slug": "tiwa-festive-kaftan",
+    "name": "Tiwa Festive Kaftan",
+    "gender": "women",
+    "category": "abayas-kaftans",
+    "occasions": [
+      "Weddings & Owambe",
+      "Evening"
+    ],
+    "price": 92000,
+    "description": "A statement kaftan with metallic trim made for owambe season. Regal and roomy, with room to dance.",
+    "details": [
+      "Jacquard with subtle sheen",
+      "Metallic thread trim",
+      "Matching gele available",
+      "Dry clean only"
+    ],
+    "garmentType": "kaftan",
+    "colors": [
+      {
+        "name": "Gold",
+        "hex": "#C29A45",
+        "accent": "#5B2A1E"
+      },
+      {
+        "name": "Royal Blue",
+        "hex": "#24438A",
+        "accent": "#E2C27A"
+      },
+      {
+        "name": "Burgundy",
+        "hex": "#5C1A26",
+        "accent": "#E2C27A"
+      }
+    ],
+    "sizes": [
+      "UK 6",
+      "UK 8",
+      "UK 10",
+      "UK 12",
+      "UK 14",
+      "UK 16",
+      "UK 18",
+      "UK 20",
+      "UK 22"
+    ],
+    "renderStatus": "illustration",
+    "isNew": true,
+    "featured": false,
+    "createdAt": "2026-10-07T10:00:00.000Z"
+  },
+  {
+    "id": "p008",
+    "slug": "bisi-corporate-midi",
+    "name": "Bisi Corporate Midi",
+    "gender": "women",
+    "category": "corporate",
+    "occasions": [
+      "Corporate"
+    ],
+    "price": 56000,
+    "description": "Clean lines and a gently flared skirt \u2014 the corporate midi you'll reach for every week.",
+    "details": [
+      "Wrinkle-resistant suiting",
+      "Covered sleeves to below the elbow",
+      "Gold-tone belt buckle",
+      "Machine wash"
+    ],
+    "garmentType": "midi-dress",
+    "colors": [
+      {
+        "name": "Charcoal",
+        "hex": "#3A3B40",
+        "accent": "#B79A6B"
+      },
+      {
+        "name": "Burgundy",
+        "hex": "#5C1A26",
+        "accent": "#C9A86A"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1E2B47",
+        "accent": "#C9A86A"
+      }
+    ],
+    "sizes": [
+      "UK 6",
+      "UK 8",
+      "UK 10",
+      "UK 12",
+      "UK 14",
+      "UK 16",
+      "UK 18",
+      "UK 20",
+      "UK 22"
+    ],
+    "renderStatus": "illustration",
+    "isNew": false,
+    "featured": false,
+    "createdAt": "2026-10-08T10:00:00.000Z"
+  },
+  {
+    "id": "p009",
+    "slug": "ada-wrap-maxi",
+    "name": "Ada Flow Maxi",
+    "gender": "women",
+    "category": "dresses",
+    "occasions": [
+      "Everyday",
+      "Church & Faith"
+    ],
+    "price": 49000,
+    "description": "An airy everyday maxi with full sleeves \u2014 modest coverage that still moves with you.",
+    "details": [
+      "Breathable viscose",
+      "Lightweight lining",
+      "Elasticated cuffs",
+      "Machine wash"
+    ],
+    "garmentType": "maxi-dress",
+    "colors": [
+      {
+        "name": "Blush",
+        "hex": "#D4A39A"
+      },
+      {
+        "name": "Ocean",
+        "hex": "#2E5E7E"
+      },
+      {
+        "name": "Forest",
+        "hex": "#2F4A36"
+      }
+    ],
+    "sizes": [
+      "UK 6",
+      "UK 8",
+      "UK 10",
+      "UK 12",
+      "UK 14",
+      "UK 16",
+      "UK 18",
+      "UK 20",
+      "UK 22"
+    ],
+    "renderStatus": "illustration",
+    "isNew": false,
+    "featured": false,
+    "createdAt": "2026-10-09T10:00:00.000Z"
+  },
+  {
+    "id": "p010",
+    "slug": "tunde-senator-set",
+    "name": "Tunde Senator Set",
+    "gender": "men",
+    "category": "men",
+    "occasions": [
+      "Weddings & Owambe",
+      "Church & Faith",
+      "Corporate"
+    ],
+    "price": 95000,
+    "description": "A sharply cut senator tunic with embroidered placket and matching trousers.",
+    "details": [
+      "Cashmere-blend wool",
+      "Embroidered placket and neckline",
+      "Side slits for movement",
+      "Sold as a set"
+    ],
+    "garmentType": "senator",
+    "colors": [
+      {
+        "name": "Ash",
+        "hex": "#8C8A86",
+        "accent": "#2B2B2B"
+      },
+      {
+        "name": "Navy",
+        "hex": "#1E2B47",
+        "accent": "#C9A86A"
+      },
+      {
+        "name": "Wine",
+        "hex": "#5C1A26",
+        "accent": "#D9C29A"
+      },
+      {
+        "name": "Cream",
+        "hex": "#E4DACA",
+        "accent": "#7A5A3A"
+      }
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "renderStatus": "illustration",
+    "isNew": true,
+    "featured": true,
+    "createdAt": "2026-10-10T10:00:00.000Z"
+  },
+  {
+    "id": "p011",
+    "slug": "emeka-classic-set",
+    "name": "Emeka Shirt & Trousers",
+    "gender": "men",
+    "category": "men",
+    "occasions": [
+      "Corporate",
+      "Everyday"
+    ],
+    "price": 58000,
+    "description": "A crisp long-sleeve shirt paired with slim tailored trousers. Your weekday uniform, perfected.",
+    "details": [
+      "Cotton poplin shirt",
+      "Stretch-wool trousers",
+      "Includes leather belt",
+      "Machine wash shirt, dry clean trousers"
+    ],
+    "garmentType": "shirt-trousers",
+    "colors": [
+      {
+        "name": "White",
+        "hex": "#EEECE7",
+        "accent": "#2C2F3A"
+      },
+      {
+        "name": "Sky",
+        "hex": "#A9C3DD",
+        "accent": "#2C2F3A"
+      },
+      {
+        "name": "Black",
+        "hex": "#1E1E1E",
+        "accent": "#3A3B40"
+      }
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "renderStatus": "illustration",
+    "isNew": false,
+    "featured": false,
+    "createdAt": "2026-10-11T10:00:00.000Z"
+  },
+  {
+    "id": "p012",
+    "slug": "kunle-kaftan",
+    "name": "Kunle Kaftan",
+    "gender": "men",
+    "category": "men",
+    "occasions": [
+      "Weddings & Owambe",
+      "Evening"
+    ],
+    "price": 88000,
+    "description": "A knee-length kaftan with contrast embroidery \u2014 made to be seen at every celebration.",
+    "details": [
+      "Premium Swiss voile",
+      "Hand-finished embroidery",
+      "Matching trousers",
+      "Dry clean only"
+    ],
+    "garmentType": "senator",
+    "colors": [
+      {
+        "name": "Olive",
+        "hex": "#4E5A36",
+        "accent": "#D9C29A"
+      },
+      {
+        "name": "Black",
+        "hex": "#1E1E1E",
+        "accent": "#C9A86A"
+      },
+      {
+        "name": "Royal",
+        "hex": "#24438A",
+        "accent": "#E2C27A"
+      }
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "renderStatus": "illustration",
+    "isNew": true,
+    "featured": false,
+    "createdAt": "2026-10-12T10:00:00.000Z"
+  }
+]
