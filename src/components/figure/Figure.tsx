@@ -262,12 +262,12 @@ export function Figure({
       body2 = sleeve([11, 8, 6], 0.94);
       break;
     }
-    case "suit": {
-      body1 = (
+    case "suit":
+    case "skirt-suit":
+    case "mens-suit": {
+      const men = garment === "mens-suit";
+      const blazer = (
         <>
-          {trousers([b.hip * 0.58, 16.5, 20])}
-          <Fold stroke={fold} d={`M${s.leg[1][0]},${Y.hip + 30} L${s.leg[2][0] - 2},${Y.ankle + 4}`} />
-          <Fold stroke={fold} d={`M${2 * CX - s.leg[1][0]},${Y.hip + 30} L${2 * CX - s.leg[2][0] + 2},${Y.ankle + 4}`} />
           <Piece
             sid={shadeId}
             base={color}
@@ -276,13 +276,14 @@ export function Figure({
                 [-9, Y.shoulder - 8],
                 [-(b.shoulder + 3), Y.shoulder + 1],
                 [-(b.bust + 3), Y.bust],
-                [-(b.waist + 3), Y.waist],
-                [-(b.hip + 5), Y.hip + 14],
+                [-(b.waist + (men ? 4 : 3)), Y.waist],
+                [-(b.hip + 5), Y.hip + (men ? 18 : 14)],
               ],
               { hem: 2, neck: 6 },
             )}
           />
-          <path d={`M${CX - 9},${Y.shoulder - 7} L${CX + 9},${Y.shoulder - 7} L${CX},${Y.bust + 22} Z`} fill="#F1ECE4" />
+          <path d={`M${CX - 9},${Y.shoulder - 7} L${CX + 9},${Y.shoulder - 7} L${CX},${Y.bust + 22} Z`} fill={men ? "#F4F2EE" : "#F1ECE4"} />
+          {men && <path d={`M${CX - 2.5},${Y.shoulder - 4} L${CX + 2.5},${Y.shoulder - 4} L${CX + 3.5},${Y.bust + 12} L${CX},${Y.bust + 20} L${CX - 3.5},${Y.bust + 12} Z`} fill={accent ?? "#5B1F2E"} />}
           <path
             d={`M${CX - 10},${Y.shoulder - 8} L${CX - 16},${Y.bust - 6} L${CX},${Y.bust + 24} M${CX + 10},${Y.shoulder - 8} L${CX + 16},${Y.bust - 6} L${CX},${Y.bust + 24}`}
             fill="none"
@@ -290,11 +291,44 @@ export function Figure({
             strokeWidth={1.4}
           />
           <Fold stroke={fold} d={`M${CX},${Y.bust + 24} L${CX},${Y.hip + 15}`} />
-          <circle cx={CX + 2.5} cy={Y.waist - 4} r={2} fill={accent ?? "#C9A86A"} />
+          <circle cx={CX + 2.5} cy={Y.waist - 4} r={2} fill={men ? deep : (accent ?? "#C9A86A")} />
           <Fold stroke={fold} d={`M${CX - b.waist - 2},${Y.waist + 18} l12,0 M${CX + b.waist + 2},${Y.waist + 18} l-12,0`} w={1.2} />
         </>
       );
-      body2 = sleeve([9, 8, 6.6], 0.95);
+      const lower =
+        garment === "skirt-suit" ? (
+          <>
+            <Piece
+              sid={shadeId}
+              base={color}
+              d={outline(
+                [
+                  [-(b.waist + 1), Y.waist - 2],
+                  [-(b.hip + 3), Y.hip],
+                  [-(b.hip + 10), 400],
+                  [-(b.hip + 15), 474],
+                ],
+                { hem: 4 },
+              )}
+            />
+            {skirtFolds(Y.hip + 24, 476, b.hip + 15, 3)}
+          </>
+        ) : men ? (
+          trousers([b.hip * 0.55, 12.5, 11])
+        ) : (
+          <>
+            {trousers([b.hip * 0.58, 16.5, 20])}
+            <Fold stroke={fold} d={`M${s.leg[1][0]},${Y.hip + 30} L${s.leg[2][0] - 2},${Y.ankle + 4}`} />
+            <Fold stroke={fold} d={`M${2 * CX - s.leg[1][0]},${Y.hip + 30} L${2 * CX - s.leg[2][0] + 2},${Y.ankle + 4}`} />
+          </>
+        );
+      body1 = (
+        <>
+          {lower}
+          {blazer}
+        </>
+      );
+      body2 = sleeve(men ? [10, 8.8, 7.4] : [9, 8, 6.6], 0.95);
       break;
     }
     case "jumpsuit": {

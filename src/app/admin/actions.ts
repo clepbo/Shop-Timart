@@ -104,3 +104,12 @@ export async function deleteProductAction(form: FormData) {
   revalidatePath("/", "layout");
   redirect("/admin");
 }
+
+export async function setOrderStatus(form: FormData) {
+  await guard();
+  const status = String(form.get("status"));
+  if (!["awaiting_payment", "paid", "shipped", "delivered", "cancelled"].includes(status)) return;
+  const { updateRecord } = await import("@/lib/store");
+  await updateRecord("orders", String(form.get("id")), { status });
+  revalidatePath("/admin/orders");
+}

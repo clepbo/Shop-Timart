@@ -8,11 +8,17 @@ function secret() {
   return process.env.ADMIN_PASSWORD || "timart-admin";
 }
 
+/** In production the default password is never accepted — ADMIN_PASSWORD must be set. */
+function loginAllowed() {
+  return !!process.env.ADMIN_PASSWORD || process.env.NODE_ENV !== "production";
+}
+
 function sign(value: string) {
   return createHmac("sha256", secret()).update(value).digest("hex");
 }
 
 export function checkPassword(pw: string) {
+  if (!loginAllowed()) return false;
   const a = Buffer.from(pw);
   const b = Buffer.from(secret());
   return a.length === b.length && timingSafeEqual(a, b);

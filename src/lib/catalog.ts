@@ -1,11 +1,11 @@
 import type { GarmentType } from "./types";
 
 export const categories = [
-  { slug: "dresses", name: "Dresses", blurb: "Flowing maxis and graceful midis" },
-  { slug: "corporate", name: "Corporate", blurb: "Polished suits for the boardroom" },
+  { slug: "corporate", name: "Corporate", blurb: "Suits, skirt suits and workwear" },
+  { slug: "dresses", name: "Dresses", blurb: "Graceful midis and maxis" },
   { slug: "sets", name: "Sets & Jumpsuits", blurb: "Effortless coordinated looks" },
   { slug: "abayas-kaftans", name: "Abayas & Kaftans", blurb: "Covered, comfortable, regal" },
-  { slug: "men", name: "Men", blurb: "Senator wear and sharp classics" },
+  { slug: "men", name: "Men", blurb: "Sharp suits, shirts and senator wear" },
 ] as const;
 
 export const occasions = [
@@ -21,9 +21,11 @@ export const garmentTypes: { value: GarmentType; label: string; gender: "women" 
   { value: "midi-dress", label: "Midi dress", gender: "women" },
   { value: "kaftan", label: "Kaftan / Abaya", gender: "women" },
   { value: "two-piece", label: "Two-piece set (top + skirt)", gender: "women" },
-  { value: "suit", label: "Suit (blazer + trousers)", gender: "women" },
+  { value: "suit", label: "Trouser suit (blazer + trousers)", gender: "women" },
+  { value: "skirt-suit", label: "Skirt suit (blazer + long skirt)", gender: "women" },
   { value: "jumpsuit", label: "Jumpsuit", gender: "women" },
-  { value: "senator", label: "Senator / Kaftan set", gender: "men" },
+  { value: "mens-suit", label: "Men's suit", gender: "men" },
+  { value: "senator", label: "Senator set", gender: "men" },
   { value: "shirt-trousers", label: "Shirt & trousers", gender: "men" },
 ];
 

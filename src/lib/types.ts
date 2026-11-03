@@ -7,6 +7,8 @@ export type GarmentType =
   | "kaftan"
   | "two-piece"
   | "suit"
+  | "skirt-suit"
+  | "mens-suit"
   | "jumpsuit"
   | "senator"
   | "shirt-trousers";
@@ -49,7 +51,7 @@ export interface Product {
   /** AI renders keyed by body profile id (and optionally `${bodyId}:${colour}`). */
   renders?: Record<string, FitRender>;
   renderStatus: RenderStatus;
-  renderError?: string;
+  renderError?: string | null;
   isNew?: boolean;
   featured?: boolean;
   createdAt: string;

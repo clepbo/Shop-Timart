@@ -9,6 +9,10 @@ import { getTryOnProvider } from "@/lib/ai/tryon";
 import { logout, regenerateAction } from "./actions";
 import type { RenderStatus } from "@/lib/types";
 
+// AI renders run in the background after saving; give them time to finish on Vercel.
+export const maxDuration = 300;
+
+
 export const dynamic = "force-dynamic";
 
 const statusStyle: Record<RenderStatus, [string, string]> = {
@@ -21,9 +25,9 @@ const statusStyle: Record<RenderStatus, [string, string]> = {
 export default async function AdminHome({ searchParams }: PageProps<"/admin">) {
   if (!(await isAdmin())) redirect("/admin/login");
   const sp = await searchParams;
-  const [products, orders, bookings] = await Promise.all([getProducts(), listRecords<{ total?: number }>("orders"), listRecords("bookings")]);
+  const [products, orders, bookings] = await Promise.all([getProducts(), listRecords<{ total?: number; status?: string }>("orders"), listRecords("bookings")]);
   const ai = !!getTryOnProvider();
-  const revenue = orders.reduce((n, o) => n + (o.total ?? 0), 0);
+  const revenue = orders.filter((o) => o.status === "paid" || o.status === "shipped" || o.status === "delivered").reduce((n, o) => n + (o.total ?? 0), 0);
 
   return (
     <div className="container-x py-10">
@@ -34,6 +38,7 @@ export default async function AdminHome({ searchParams }: PageProps<"/admin">) {
         </div>
         <div className="flex gap-3">
           <form action={logout}><button className="btn-outline !py-3">Sign out</button></form>
+          <Link href="/admin/orders" className="btn-outline !py-3">Orders & bookings</Link>
           <Link href="/admin/products/new" className="btn-primary !py-3">+ New product</Link>
         </div>
       </div>
@@ -44,7 +49,7 @@ export default async function AdminHome({ searchParams }: PageProps<"/admin">) {
         {[
           ["Products", products.length],
           ["Orders", orders.length],
-          ["Order value", formatPrice(revenue)],
+          ["Paid revenue", formatPrice(revenue)],
           ["Styling requests", bookings.length],
         ].map(([k, v]) => (
           <div key={k as string} className="rounded-2xl bg-paper p-5">
@@ -91,7 +96,7 @@ export default async function AdminHome({ searchParams }: PageProps<"/admin">) {
                     <div className="flex gap-1">{p.colors.map((c) => <span key={c.name} title={c.name} className="size-4 rounded-full ring-1 ring-ink/10" style={{ background: c.hex }} />)}</div>
                   </td>
                   <td className="p-4">
-                    <span className={`rounded-full px-2.5 py-1 text-[11px] ${cls}`} title={p.renderError}>{label}</span>
+                    <span className={`rounded-full px-2.5 py-1 text-[11px] ${cls}`} title={p.renderError ?? undefined}>{label}</span>
                   </td>
                   <td className="p-4 text-right">
                     <div className="flex justify-end gap-3 text-[12px] uppercase tracking-[0.12em]">

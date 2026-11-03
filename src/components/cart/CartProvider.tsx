@@ -56,7 +56,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const remove = useCallback((key: string) => setItems((prev) => prev.filter((p) => itemKey(p) !== key)), []);
-  const clear = useCallback(() => setItems([]), []);
+  const clear = useCallback(() => {
+    try {
+      localStorage.removeItem(KEY); // also covers clear() running before hydration
+    } catch {}
+    setItems([]);
+  }, []);
 
   const value = useMemo(
     () => ({

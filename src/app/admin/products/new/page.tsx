@@ -2,6 +2,10 @@ import { redirect } from "next/navigation";
 import { isAdmin } from "@/lib/auth";
 import { ProductForm } from "../ProductForm";
 
+// AI renders run in the background after saving; give them time to finish on Vercel.
+export const maxDuration = 300;
+
+
 export default async function NewProduct() {
   if (!(await isAdmin())) redirect("/admin/login");
   return (

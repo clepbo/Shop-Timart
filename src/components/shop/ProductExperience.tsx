@@ -217,7 +217,7 @@ export function ProductExperience({ product, initialColour }: { product: Product
 
         <div className="mt-8 rounded-2xl bg-sand/60 p-5">
           <p className="font-display text-xl">Not sure how to style it?</p>
-          <p className="mt-1 text-sm text-muted">Our stylists will put together the full look — gele, bag, shoes and all — for your occasion.</p>
+          <p className="mt-1 text-sm text-muted">Our stylists will put together the full look — accessories, shoes and all — for your occasion.</p>
           <a href="/styling" className="mt-3 inline-block text-[12px] uppercase tracking-[0.16em] text-wine link-underline">
             Book a styling session
           </a>

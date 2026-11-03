@@ -15,10 +15,10 @@ export const dynamic = "force-dynamic";
 
 const categoryArt: Record<string, { pid: string; ci: number }> = {
   dresses: { pid: "amara-pleated-maxi", ci: 1 },
-  corporate: { pid: "adaeze-power-suit", ci: 1 },
+  corporate: { pid: "moyo-skirt-suit", ci: 0 },
   sets: { pid: "kemi-two-piece", ci: 0 },
   "abayas-kaftans": { pid: "noor-flow-abaya", ci: 0 },
-  men: { pid: "tunde-senator-set", ci: 1 },
+  men: { pid: "femi-classic-suit", ci: 1 },
 };
 
 const styleTiles = [
@@ -41,12 +41,12 @@ export default async function Home() {
       <section className="relative overflow-hidden">
         <div className="container-x grid grid-cols-1 items-center gap-10 pb-16 pt-10 lg:grid-cols-[1fr_1.05fr] lg:pb-24 lg:pt-14">
           <div className="animate-rise">
-            <p className="eyebrow">Modest · Elegant · Intentional</p>
+            <p className="eyebrow">Corporate · Modest · Intentional</p>
             <h1 className="display mt-5 text-[56px] sm:text-[80px] xl:text-[96px]">
-              Dressed in <em className="font-normal text-wine">grace</em>, styled for <em className="font-normal text-wine">every</em> occasion.
+              Power dressing, <em className="font-normal text-wine">covered</em> in <em className="font-normal text-wine">grace</em>.
             </h1>
             <p className="mt-7 max-w-md text-[17px] leading-relaxed text-muted">
-              Decent wear for women and men who refuse to choose between covered and captivating. See every piece on a body like yours — in every colour — before you buy.
+              Modest corporate wear for women and men who lead with confidence. See every suit, skirt and dress on a body like yours — in every colour — before you buy.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link href="/shop" className="btn-primary">

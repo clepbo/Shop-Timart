@@ -4,6 +4,10 @@ import { getProductById } from "@/lib/store";
 import { ProductForm } from "../ProductForm";
 import { deleteProductAction } from "../../actions";
 
+// AI renders run in the background after saving; give them time to finish on Vercel.
+export const maxDuration = 300;
+
+
 export const dynamic = "force-dynamic";
 
 export default async function EditProduct({ params }: PageProps<"/admin/products/[id]">) {

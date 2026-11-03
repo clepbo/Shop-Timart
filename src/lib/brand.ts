@@ -4,9 +4,9 @@
  */
 export const brand = {
   name: "Timart",
-  tagline: "Decency, beautifully styled.",
+  tagline: "Corporate & modest wear, beautifully styled.",
   description:
-    "Modest, elegant clothing for women and men — plus personal styling for corporate events, weddings, church and every occasion in between.",
+    "Modest corporate wear for women and men — plus personal styling for the boardroom, conferences, weddings, church and every occasion in between.",
   whatsapp: "2348000000000", // international format, no "+"
   email: "hello@timart.ng",
   instagram: "https://instagram.com/",
@@ -18,7 +18,7 @@ export const brand = {
   announcements: [
     "Free delivery within Lagos on orders above ₦150,000",
     "Nationwide delivery in 2–5 working days",
-    "Book a styling session for your next event",
+    "Book a styling session for your next corporate event",
   ],
 };
 

@@ -5,11 +5,12 @@ import { Figure } from "../figure/Figure";
 import { bodyProfiles, skinTones } from "@/lib/bodies";
 
 const palettes = [
-  { name: "Wine", hex: "#6B2333" },
-  { name: "Sage", hex: "#8C9A7E" },
-  { name: "Midnight", hex: "#1F2A44" },
-  { name: "Sand", hex: "#C9B08F" },
+  { name: "Navy", hex: "#1E2B47" },
+  { name: "Wine", hex: "#5B1F2E" },
+  { name: "Camel", hex: "#B48A5A" },
+  { name: "Slate", hex: "#5C6470" },
 ];
+const looks = ["suit", "skirt-suit", "suit"] as const;
 const trio = ["w-petite", "w-curvy", "w-plus"].map((id) => bodyProfiles.find((b) => b.id === id)!);
 
 /** Hero visual: one dress, three bodies, colours cycling — the Fit Studio promise at a glance. */
@@ -28,19 +29,19 @@ export function HeroShowcase() {
         {trio.map((b, k) => (
           <div key={b.id} className={`flex flex-col items-center ${k === 1 ? "z-10 -mx-3" : ""}`}>
             <Figure
-              garment="maxi-dress"
+              garment={looks[k]}
               gender="women"
               body={b}
               color={c.hex}
               skin={skinTones[k % skinTones.length].hex}
               className={`${k === 1 ? "h-[280px] sm:h-[460px]" : "h-[240px] sm:h-[400px]"} w-auto transition-all duration-700`}
-              title={`Amara maxi dress in ${c.name} on ${b.label} body`}
+              title={`Corporate suit in ${c.name} on ${b.label} body`}
             />
           </div>
         ))}
       </div>
       <div className="relative mx-auto mt-5 flex w-fit items-center justify-center gap-3 rounded-full bg-paper px-5 py-2.5 shadow-[0_10px_30px_-12px_rgba(35,26,22,0.25)]">
-        <span className="text-[11px] uppercase tracking-[0.16em] text-muted">One dress · every body</span>
+        <span className="text-[11px] uppercase tracking-[0.16em] text-muted">One look · every body</span>
         <span className="h-4 w-px bg-ink/15" />
         {palettes.map((p, k) => (
           <button key={p.name} onClick={() => setI(k)} aria-label={p.name} className={`size-4 rounded-full transition ${k === i ? "scale-125 ring-1 ring-ink ring-offset-2 ring-offset-ivory" : ""}`} style={{ background: p.hex }} />

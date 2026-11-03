@@ -6,18 +6,18 @@ import { useCart } from "@/components/cart/CartProvider";
 import { ProductArt } from "@/components/shop/ProductArt";
 import { formatPrice } from "@/lib/brand";
 import { deliveryOptions } from "@/lib/delivery";
-import { placeOrder, type FormState } from "../actions/public";
+import { placeOrder, type OrderResult } from "../actions/public";
 import { WhatsAppIcon } from "@/components/Icons";
 
-export function CheckoutForm() {
+export function CheckoutForm({ paystack }: { paystack: boolean }) {
   const { items, subtotal, clear } = useCart();
   const [delivery, setDelivery] = useState(deliveryOptions[0].id);
-  const [result, setResult] = useState<FormState>(null);
+  const [result, setResult] = useState<OrderResult>(null);
   const [pending, start] = useTransition();
   const opt = deliveryOptions.find((d) => d.id === delivery)!;
   const fee = opt.fee(subtotal);
 
-  if (result?.ok)
+  if (result?.ok && !result.redirect)
     return (
       <div className="mx-auto mt-12 max-w-lg rounded-[28px] bg-paper p-10 text-center">
         <p className="text-3xl text-gold">✦</p>
@@ -47,8 +47,12 @@ export function CheckoutForm() {
         customer: { name: get("name"), phone: get("phone"), email: get("email"), address: get("address"), city: get("city"), state: get("state"), notes: get("notes") },
         delivery,
         items: items.map((i) => ({ productId: i.productId, name: i.name, colour: i.colour, size: i.size, quantity: i.quantity })),
-      }).catch((e: Error) => ({ ok: false, message: e.message }));
+      }).catch((e: Error): OrderResult => ({ ok: false, message: e.message }));
       setResult(res);
+      if (res?.ok && res.redirect) {
+        window.location.assign(res.redirect); // Paystack hosted checkout; cart clears on confirmation
+        return;
+      }
       if (res?.ok) clear();
     });
   };
@@ -60,7 +64,7 @@ export function CheckoutForm() {
           <legend className="mb-4 font-display text-3xl">Contact</legend>
           <label><span className="label">Full name *</span><input name="name" required className="field" autoComplete="name" /></label>
           <label><span className="label">Phone *</span><input name="phone" required type="tel" className="field" autoComplete="tel" placeholder="+234" /></label>
-          <label className="sm:col-span-2"><span className="label">Email</span><input name="email" type="email" className="field" autoComplete="email" /></label>
+          <label className="sm:col-span-2"><span className="label">Email{paystack ? " * (for your receipt)" : ""}</span><input name="email" type="email" required={paystack} className="field" autoComplete="email" /></label>
         </fieldset>
         <fieldset className="grid gap-4 sm:grid-cols-2">
           <legend className="mb-4 font-display text-3xl">Delivery</legend>
@@ -102,8 +106,12 @@ export function CheckoutForm() {
           <div className="flex justify-between border-t border-ink/10 pt-3 text-lg"><dt>Total</dt><dd>{formatPrice(subtotal + fee)}</dd></div>
         </dl>
         {result && !result.ok && <p className="mt-4 text-sm text-red-700">{result.message}</p>}
-        <button disabled={pending} className="btn-primary mt-6 w-full">{pending ? "Placing order…" : "Place order"}</button>
-        <p className="mt-3 text-center text-[12px] text-muted">Card & bank transfer payments via Paystack coming soon. For now, we confirm payment on WhatsApp.</p>
+        <button disabled={pending || !!result?.redirect} className="btn-primary mt-6 w-full">
+          {result?.redirect ? "Redirecting to Paystack…" : pending ? "Placing order…" : paystack ? `Pay ${formatPrice(subtotal + fee)} securely` : "Place order"}
+        </button>
+        <p className="mt-3 text-center text-[12px] text-muted">
+          {paystack ? "Card, bank transfer & USSD via Paystack. Payments are in Naira (₦)." : "We'll confirm payment and delivery with you on WhatsApp."}
+        </p>
       </aside>
     </form>
   );

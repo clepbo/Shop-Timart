@@ -1,5 +1,158 @@
 [
   {
+    "id": "p013",
+    "slug": "moyo-skirt-suit",
+    "name": "Moyo Skirt Suit",
+    "gender": "women",
+    "category": "corporate",
+    "occasions": [
+      "Corporate",
+      "Church & Faith"
+    ],
+    "price": 115000,
+    "description": "A sharply tailored blazer over a graceful floor-length A-line skirt \u2014 boardroom authority with full coverage.",
+    "details": [
+      "Structured suiting with stretch",
+      "Blazer fully lined",
+      "Skirt with concealed side zip",
+      "Sold as a set"
+    ],
+    "garmentType": "skirt-suit",
+    "colors": [
+      {
+        "name": "Navy",
+        "hex": "#1E2B47"
+      },
+      {
+        "name": "Wine",
+        "hex": "#5B1F2E"
+      },
+      {
+        "name": "Slate",
+        "hex": "#5C6470"
+      },
+      {
+        "name": "Camel",
+        "hex": "#B48A5A"
+      }
+    ],
+    "sizes": [
+      "UK 6",
+      "UK 8",
+      "UK 10",
+      "UK 12",
+      "UK 14",
+      "UK 16",
+      "UK 18",
+      "UK 20",
+      "UK 22"
+    ],
+    "createdAt": "2026-11-02T10:00:00.000Z",
+    "renderStatus": "illustration",
+    "featured": true,
+    "isNew": true
+  },
+  {
+    "id": "p014",
+    "slug": "halima-longline-skirt-suit",
+    "name": "Halima Longline Skirt Suit",
+    "gender": "women",
+    "category": "corporate",
+    "occasions": [
+      "Corporate",
+      "Evening"
+    ],
+    "price": 128000,
+    "description": "A longline single-button blazer paired with a fluid maxi skirt. Polished for conferences, elegant enough for dinner.",
+    "details": [
+      "Premium crepe suiting",
+      "Longline blazer covers the hips",
+      "Gold-tone button",
+      "Dry clean recommended"
+    ],
+    "garmentType": "skirt-suit",
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#1E1E1E",
+        "accent": "#C9A86A"
+      },
+      {
+        "name": "Emerald",
+        "hex": "#1F5A4A",
+        "accent": "#C9A86A"
+      },
+      {
+        "name": "Taupe",
+        "hex": "#8F7F6E",
+        "accent": "#3A2E26"
+      }
+    ],
+    "sizes": [
+      "UK 6",
+      "UK 8",
+      "UK 10",
+      "UK 12",
+      "UK 14",
+      "UK 16",
+      "UK 18",
+      "UK 20",
+      "UK 22"
+    ],
+    "createdAt": "2026-11-01T10:00:00.000Z",
+    "renderStatus": "illustration",
+    "featured": false,
+    "isNew": true
+  },
+  {
+    "id": "p015",
+    "slug": "femi-classic-suit",
+    "name": "Femi Classic Suit",
+    "gender": "men",
+    "category": "men",
+    "occasions": [
+      "Corporate",
+      "Weddings & Owambe"
+    ],
+    "price": 145000,
+    "description": "A two-piece single-breasted suit with a clean shoulder and tapered trousers. Tie included in a complementary tone.",
+    "details": [
+      "Wool-blend suiting",
+      "Half-canvas jacket",
+      "Flat-front trousers",
+      "Complimentary tie"
+    ],
+    "garmentType": "mens-suit",
+    "colors": [
+      {
+        "name": "Navy",
+        "hex": "#1E2B47",
+        "accent": "#6B2333"
+      },
+      {
+        "name": "Charcoal",
+        "hex": "#3A3B40",
+        "accent": "#B08D57"
+      },
+      {
+        "name": "Black",
+        "hex": "#1C1C1C",
+        "accent": "#5C6470"
+      }
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "createdAt": "2026-10-31T10:00:00.000Z",
+    "renderStatus": "illustration",
+    "featured": true,
+    "isNew": true
+  },
+  {
     "id": "p001",
     "slug": "amara-pleated-maxi",
     "name": "Amara Pleated Maxi Dress",
@@ -48,8 +201,8 @@
       "UK 22"
     ],
     "renderStatus": "illustration",
-    "isNew": true,
-    "featured": true,
+    "isNew": false,
+    "featured": false,
     "createdAt": "2026-10-01T10:00:00.000Z"
   },
   {
@@ -265,7 +418,7 @@
       "UK 22"
     ],
     "renderStatus": "illustration",
-    "isNew": true,
+    "isNew": false,
     "featured": false,
     "createdAt": "2026-10-05T10:00:00.000Z"
   },
@@ -323,58 +476,6 @@
     "createdAt": "2026-10-06T10:00:00.000Z"
   },
   {
-    "id": "p007",
-    "slug": "tiwa-festive-kaftan",
-    "name": "Tiwa Festive Kaftan",
-    "gender": "women",
-    "category": "abayas-kaftans",
-    "occasions": [
-      "Weddings & Owambe",
-      "Evening"
-    ],
-    "price": 92000,
-    "description": "A statement kaftan with metallic trim made for owambe season. Regal and roomy, with room to dance.",
-    "details": [
-      "Jacquard with subtle sheen",
-      "Metallic thread trim",
-      "Matching gele available",
-      "Dry clean only"
-    ],
-    "garmentType": "kaftan",
-    "colors": [
-      {
-        "name": "Gold",
-        "hex": "#C29A45",
-        "accent": "#5B2A1E"
-      },
-      {
-        "name": "Royal Blue",
-        "hex": "#24438A",
-        "accent": "#E2C27A"
-      },
-      {
-        "name": "Burgundy",
-        "hex": "#5C1A26",
-        "accent": "#E2C27A"
-      }
-    ],
-    "sizes": [
-      "UK 6",
-      "UK 8",
-      "UK 10",
-      "UK 12",
-      "UK 14",
-      "UK 16",
-      "UK 18",
-      "UK 20",
-      "UK 22"
-    ],
-    "renderStatus": "illustration",
-    "isNew": true,
-    "featured": false,
-    "createdAt": "2026-10-07T10:00:00.000Z"
-  },
-  {
     "id": "p008",
     "slug": "bisi-corporate-midi",
     "name": "Bisi Corporate Midi",
@@ -421,7 +522,7 @@
       "UK 22"
     ],
     "renderStatus": "illustration",
-    "isNew": false,
+    "isNew": true,
     "featured": false,
     "createdAt": "2026-10-08T10:00:00.000Z"
   },
@@ -524,8 +625,8 @@
       "XXL"
     ],
     "renderStatus": "illustration",
-    "isNew": true,
-    "featured": true,
+    "isNew": false,
+    "featured": false,
     "createdAt": "2026-10-10T10:00:00.000Z"
   },
   {
@@ -575,53 +676,5 @@
     "isNew": false,
     "featured": false,
     "createdAt": "2026-10-11T10:00:00.000Z"
-  },
-  {
-    "id": "p012",
-    "slug": "kunle-kaftan",
-    "name": "Kunle Kaftan",
-    "gender": "men",
-    "category": "men",
-    "occasions": [
-      "Weddings & Owambe",
-      "Evening"
-    ],
-    "price": 88000,
-    "description": "A knee-length kaftan with contrast embroidery \u2014 made to be seen at every celebration.",
-    "details": [
-      "Premium Swiss voile",
-      "Hand-finished embroidery",
-      "Matching trousers",
-      "Dry clean only"
-    ],
-    "garmentType": "senator",
-    "colors": [
-      {
-        "name": "Olive",
-        "hex": "#4E5A36",
-        "accent": "#D9C29A"
-      },
-      {
-        "name": "Black",
-        "hex": "#1E1E1E",
-        "accent": "#C9A86A"
-      },
-      {
-        "name": "Royal",
-        "hex": "#24438A",
-        "accent": "#E2C27A"
-      }
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL",
-      "XXL"
-    ],
-    "renderStatus": "illustration",
-    "isNew": true,
-    "featured": false,
-    "createdAt": "2026-10-12T10:00:00.000Z"
   }
 ]
