@@ -5,13 +5,13 @@ import { WhatsAppIcon } from "@/components/Icons";
 
 export const metadata: Metadata = { title: "Personal Styling" };
 
-const look = (n: string) => `/images/looks/${n}.webp`;
+const studio = (n: string) => `/images/studio/${n}.webp`;
 
 const services = [
-  { name: "In-store styling", text: "Walk into our Benin City store and we'll pull, fit and style complete looks for you — blazer, trousers, bag and accessories.", img: look("blazer-mustard-2") },
-  { name: "Remote styling", text: "Not in Benin City? Send your size, occasion and budget on WhatsApp. We style you over video and deliver anywhere in Nigeria.", img: look("denim-blazer") },
-  { name: "Event & seminar looks", text: "Conferences, interviews, seminars and church programmes — one coordinated outfit, ready to wear on the day.", img: look("mustard-suit") },
-  { name: "Corporate wardrobe", text: "A capsule of modest workwear that mixes and matches for weeks. Ideal for new jobs and promotions.", img: look("black-suit") },
+  { name: "In-store styling", text: "Walk into our Benin City store and we'll pull, fit and style complete looks for you — blazer, trousers, bag and accessories." },
+  { name: "Remote styling", text: "Not in Benin City? Send your size, occasion and budget on WhatsApp. We style you over video and deliver anywhere in Nigeria." },
+  { name: "Event & seminar looks", text: "Conferences, interviews, seminars and church programmes — one coordinated outfit, ready to wear on the day." },
+  { name: "Corporate wardrobe", text: "A capsule of modest workwear that mixes and matches for weeks. Ideal for new jobs and promotions." },
 ];
 
 const steps = [
@@ -41,11 +41,10 @@ export default function StylingPage() {
               </a>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="relative min-h-[420px] overflow-hidden bg-[#7e0913]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={look("cream-suit")} alt="A client styled in the Ivory Power Suit" className="aspect-[3/5] size-full object-cover object-[50%_32%]" />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={look("blazer-mustard")} alt="The Timart Set styled with a burgundy bag" className="aspect-[3/5] size-full object-cover object-[50%_32%]" />
+            <img src={studio("founder")} alt={`${brand.name}'s founder and lead stylist`} className="absolute inset-0 size-full object-cover object-[50%_15%]" />
+            <span className="absolute bottom-0 left-0 bg-butter px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-wine">Your stylist · Founder, {brand.name}</span>
           </div>
         </div>
       </section>
@@ -55,10 +54,8 @@ export default function StylingPage() {
         <h2 className="display mt-3 text-[28px] sm:text-[38px]">Styling services</h2>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((s) => (
-            <article key={s.name} className="bg-paper">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={s.img} alt="" className="aspect-[4/5] w-full object-cover object-[50%_32%]" />
-              <div className="p-5">
+            <article key={s.name} className="border-t-2 border-wine bg-paper">
+              <div className="p-6">
                 <h3 className="font-display text-lg font-semibold">{s.name}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
               </div>

@@ -22,20 +22,12 @@
       {
         "name": "Beige & Mustard",
         "hex": "#CDBBA0",
-        "accent": "#C0913A",
-        "images": [
-          "/images/looks/blazer-mustard.webp",
-          "/images/looks/blazer-mustard-2.webp",
-          "/images/looks/blazer-mustard-3.webp"
-        ]
+        "accent": "#C0913A"
       },
       {
         "name": "Beige & Black",
         "hex": "#CDBBA0",
-        "accent": "#1E1E1E",
-        "images": [
-          "/images/looks/blazer-black.webp"
-        ]
+        "accent": "#1E1E1E"
       }
     ],
     "sizes": [
@@ -47,10 +39,6 @@
       "UK 16",
       "UK 18",
       "UK 20"
-    ],
-    "images": [
-      "/images/looks/blazer-mustard.webp",
-      "/images/looks/blazer-black.webp"
     ],
     "isNew": true,
     "featured": true,
@@ -79,12 +67,7 @@
     "colors": [
       {
         "name": "Ivory",
-        "hex": "#EDE6D6",
-        "images": [
-          "/images/looks/cream-suit.webp",
-          "/images/looks/cream-suit-2.webp",
-          "/images/looks/cream-suit-3.webp"
-        ]
+        "hex": "#EDE6D6"
       }
     ],
     "sizes": [
@@ -93,11 +76,6 @@
       "UK 12",
       "UK 14",
       "UK 16"
-    ],
-    "images": [
-      "/images/looks/cream-suit.webp",
-      "/images/looks/cream-suit-2.webp",
-      "/images/looks/cream-suit-3.webp"
     ],
     "isNew": true,
     "featured": true,
@@ -125,10 +103,7 @@
     "colors": [
       {
         "name": "Black",
-        "hex": "#1E1E1E",
-        "images": [
-          "/images/looks/black-suit.webp"
-        ]
+        "hex": "#1E1E1E"
       }
     ],
     "sizes": [
@@ -137,9 +112,6 @@
       "UK 10",
       "UK 12",
       "UK 14"
-    ],
-    "images": [
-      "/images/looks/black-suit.webp"
     ],
     "isNew": true,
     "featured": true,
@@ -169,10 +141,7 @@
       {
         "name": "Beige & Denim",
         "hex": "#CDBBA0",
-        "accent": "#24365C",
-        "images": [
-          "/images/looks/denim-blazer.webp"
-        ]
+        "accent": "#24365C"
       }
     ],
     "sizes": [
@@ -182,9 +151,6 @@
       "UK 12",
       "UK 14",
       "UK 16"
-    ],
-    "images": [
-      "/images/looks/denim-blazer.webp"
     ],
     "isNew": true,
     "createdAt": "2026-10-31T10:00:00.000Z",
@@ -213,10 +179,7 @@
     "colors": [
       {
         "name": "Mustard",
-        "hex": "#B8962E",
-        "images": [
-          "/images/looks/mustard-suit.webp"
-        ]
+        "hex": "#B8962E"
       }
     ],
     "sizes": [
@@ -225,9 +188,6 @@
       "UK 10",
       "UK 12",
       "UK 14"
-    ],
-    "images": [
-      "/images/looks/mustard-suit.webp"
     ],
     "featured": true,
     "createdAt": "2026-10-30T10:00:00.000Z",
@@ -257,10 +217,7 @@
       {
         "name": "Burgundy",
         "hex": "#5E2A3E",
-        "accent": "#E7DCCB",
-        "images": [
-          "/images/looks/vest-burgundy.webp"
-        ]
+        "accent": "#E7DCCB"
       },
       {
         "name": "Brown",
@@ -283,9 +240,6 @@
       "UK 16",
       "UK 18",
       "UK 20"
-    ],
-    "images": [
-      "/images/looks/vest-burgundy.webp"
     ],
     "isNew": true,
     "createdAt": "2026-10-29T10:00:00.000Z",
@@ -315,10 +269,7 @@
       {
         "name": "Wine",
         "hex": "#7A1426",
-        "accent": "#7A1426",
-        "images": [
-          "/images/looks/satin-shirt.webp"
-        ]
+        "accent": "#7A1426"
       }
     ],
     "sizes": [
@@ -328,9 +279,6 @@
       "UK 12",
       "UK 14",
       "UK 16"
-    ],
-    "images": [
-      "/images/looks/satin-shirt.webp"
     ],
     "createdAt": "2026-10-28T10:00:00.000Z",
     "renderStatus": "illustration",
@@ -360,26 +308,17 @@
       {
         "name": "Orange",
         "hex": "#D2662A",
-        "accent": "#7A1426",
-        "images": [
-          "/images/looks/orange-top.webp"
-        ]
+        "accent": "#7A1426"
       },
       {
         "name": "White",
         "hex": "#F2EFE8",
-        "accent": "#7A1426",
-        "images": [
-          "/images/looks/white-top.webp"
-        ]
+        "accent": "#7A1426"
       },
       {
         "name": "Sky Blue",
         "hex": "#6FB3DD",
-        "accent": "#1E2033",
-        "images": [
-          "/images/looks/blue-top.webp"
-        ]
+        "accent": "#1E2033"
       }
     ],
     "sizes": [
@@ -389,11 +328,6 @@
       "UK 12",
       "UK 14",
       "UK 16"
-    ],
-    "images": [
-      "/images/looks/orange-top.webp",
-      "/images/looks/white-top.webp",
-      "/images/looks/blue-top.webp"
     ],
     "isNew": true,
     "createdAt": "2026-10-27T10:00:00.000Z",
@@ -423,10 +357,7 @@
       {
         "name": "Butter",
         "hex": "#F0DD6E",
-        "accent": "#1E1E1E",
-        "images": [
-          "/images/looks/yellow-blouse.webp"
-        ]
+        "accent": "#1E1E1E"
       }
     ],
     "sizes": [
@@ -438,96 +369,38 @@
       "UK 16",
       "UK 18"
     ],
-    "images": [
-      "/images/looks/yellow-blouse.webp"
-    ],
     "createdAt": "2026-10-26T10:00:00.000Z",
     "renderStatus": "illustration",
     "isNew": false,
     "featured": false
   },
   {
-    "id": "p015",
-    "slug": "femi-classic-suit",
-    "name": "Femi Classic Suit",
-    "gender": "men",
-    "category": "men",
-    "occasions": [
-      "Corporate",
-      "Weddings & Owambe"
-    ],
-    "price": 145000,
-    "description": "A two-piece single-breasted suit with a clean shoulder and tapered trousers. Tie included in a complementary tone.",
-    "details": [
-      "Wool-blend suiting",
-      "Half-canvas jacket",
-      "Flat-front trousers",
-      "Complimentary tie"
-    ],
-    "garmentType": "mens-suit",
-    "colors": [
-      {
-        "name": "Navy",
-        "hex": "#1E2B47",
-        "accent": "#6B2333"
-      },
-      {
-        "name": "Charcoal",
-        "hex": "#3A3B40",
-        "accent": "#B08D57"
-      },
-      {
-        "name": "Black",
-        "hex": "#1C1C1C",
-        "accent": "#5C6470"
-      }
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL",
-      "XXL"
-    ],
-    "createdAt": "2026-10-31T10:00:00.000Z",
-    "renderStatus": "illustration",
-    "featured": false,
-    "isNew": false
-  },
-  {
-    "id": "p011",
-    "slug": "emeka-classic-set",
-    "name": "Emeka Shirt & Trousers",
+    "id": "m201",
+    "slug": "corduroy-snap-jacket",
+    "name": "Corduroy Snap Jacket",
     "gender": "men",
     "category": "men",
     "occasions": [
       "Corporate",
       "Everyday"
     ],
-    "price": 58000,
-    "description": "A crisp long-sleeve shirt paired with slim tailored trousers. Your weekday uniform, perfected.",
+    "price": 45000,
+    "description": "A boxy corduroy work jacket with snap buttons and patch pockets. Wear it over a shirt and tie for a relaxed take on office dressing.",
     "details": [
-      "Cotton poplin shirt",
-      "Stretch-wool trousers",
-      "Includes leather belt",
-      "Machine wash shirt, dry clean trousers"
+      "Soft cotton corduroy",
+      "Snap-button front",
+      "Two patch pockets",
+      "Price to be confirmed"
     ],
-    "garmentType": "shirt-trousers",
+    "garmentType": "mens-suit",
     "colors": [
       {
-        "name": "White",
-        "hex": "#EEECE7",
-        "accent": "#2C2F3A"
-      },
-      {
-        "name": "Sky",
-        "hex": "#A9C3DD",
-        "accent": "#2C2F3A"
-      },
-      {
-        "name": "Black",
-        "hex": "#1E1E1E",
-        "accent": "#3A3B40"
+        "name": "Chocolate",
+        "hex": "#5A2E1F",
+        "accent": "#1C1C22",
+        "images": [
+          "/images/studio/men-corduroy-jacket.webp"
+        ]
       }
     ],
     "sizes": [
@@ -537,9 +410,109 @@
       "XL",
       "XXL"
     ],
+    "images": [
+      "/images/studio/men-corduroy-jacket.webp"
+    ],
+    "renderStatus": "illustration",
+    "isNew": true,
+    "featured": true,
+    "createdAt": "2026-11-03T12:00:00.000Z"
+  },
+  {
+    "id": "m202",
+    "slug": "suede-harrington-jacket",
+    "name": "Suede Harrington Jacket",
+    "gender": "men",
+    "category": "men",
+    "occasions": [
+      "Corporate",
+      "Everyday"
+    ],
+    "price": 55000,
+    "description": "A clean zip-front jacket in brushed suede-feel fabric with flap pockets. Layer over a knit with tailored trousers.",
+    "details": [
+      "Brushed suede-feel fabric",
+      "Zip front, point collar",
+      "Button flap pockets",
+      "Price to be confirmed"
+    ],
+    "garmentType": "mens-suit",
+    "colors": [
+      {
+        "name": "Forest",
+        "hex": "#1F3B26",
+        "accent": "#B9A57E",
+        "images": [
+          "/images/studio/men-suede-forest.webp"
+        ]
+      },
+      {
+        "name": "Taupe",
+        "hex": "#8A7262",
+        "accent": "#E3D9C6",
+        "images": [
+          "/images/studio/men-suede-taupe.webp"
+        ]
+      }
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "images": [
+      "/images/studio/men-suede-forest.webp",
+      "/images/studio/men-suede-taupe.webp"
+    ],
+    "renderStatus": "illustration",
+    "isNew": true,
+    "featured": true,
+    "createdAt": "2026-11-03T11:00:00.000Z"
+  },
+  {
+    "id": "m203",
+    "slug": "corduroy-safari-suit",
+    "name": "Corduroy Safari Suit",
+    "gender": "men",
+    "category": "men",
+    "occasions": [
+      "Corporate",
+      "Church & Faith"
+    ],
+    "price": 75000,
+    "description": "A belted four-pocket safari jacket with matching trousers in fine-wale corduroy. Sharp, modern and made for big days.",
+    "details": [
+      "Jacket and trousers",
+      "Fine-wale corduroy",
+      "Self-tie belt",
+      "Price to be confirmed"
+    ],
+    "garmentType": "mens-suit",
+    "colors": [
+      {
+        "name": "Coffee",
+        "hex": "#4A2C1A",
+        "accent": "#4A2C1A",
+        "images": [
+          "/images/studio/men-safari-suit.webp"
+        ]
+      }
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "images": [
+      "/images/studio/men-safari-suit.webp"
+    ],
     "renderStatus": "illustration",
     "isNew": false,
     "featured": false,
-    "createdAt": "2026-10-11T10:00:00.000Z"
+    "createdAt": "2026-11-02T12:00:00.000Z"
   }
 ]

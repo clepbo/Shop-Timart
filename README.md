@@ -9,7 +9,7 @@ Its main feature is the **Fit Studio**. A shopper picks the body closest to thei
 - Next.js 16 (App Router, Server Actions), React 19, TypeScript
 - Tailwind CSS v4. Design tokens (burgundy `#74070e`, butter `#ffeda8`, warm white) are in `src/app/globals.css`
 - Fonts: Sora (headings) and Poppins (body), the same pairing as the brand's design reference
-- Photos and hero clips in `public/images/looks` and `public/video` are frames from the brand's own TikTok (@shop_teemart). Replace them with studio photos when available.
+- Photography lives in `public/images/studio` (founder portrait, men's studio shots). The men's shots are placeholder references; replace them with the brand's own studio photos. Women's pieces without photos show a ghost-mannequin studio illustration with colour swatches until photos are uploaded in `/admin`.
 - Neon Postgres and Vercel Blob in production. Without credentials it falls back to local JSON files and `public/uploads`, so local dev needs no setup.
 - Paystack for payments (NGN)
 

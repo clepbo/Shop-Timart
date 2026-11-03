@@ -42,6 +42,8 @@ export function ProductCard({ product }: { product: Product; priority?: boolean 
               body={body}
               render={product.renders?.[body.id]}
               name={product.name}
+              ghost
+              swatches={product.colors.length > 1 ? product.colors : undefined}
               className="absolute inset-0 transition-transform duration-700 group-hover:scale-[1.03]"
             />
           )}

@@ -4,7 +4,7 @@ import { brand } from "@/lib/brand";
 
 export const metadata: Metadata = { title: "About" };
 
-const look = (n: string) => `/images/looks/${n}.webp`;
+const studio = (n: string) => `/images/studio/${n}.webp`;
 
 const values = [
   ["Modesty", "Coverage is a choice we celebrate. Every piece is chosen to be decent without being dull."],
@@ -24,11 +24,17 @@ export default function AboutPage() {
           {brand.fullName} is a modest corporate wear store and styling service in Benin City. We dress women — and men — for offices, seminars, interviews and every moment in between, in our walk-in store at Divine Plaza and online across Nigeria.
         </p>
       </section>
-      <section className="container-x mt-12 grid grid-cols-2 gap-3 lg:grid-cols-4">
-        {["cream-suit-2", "blazer-mustard-3", "black-suit", "store"].map((n) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img key={n} src={look(n)} alt="" className="aspect-[3/4] w-full object-cover object-[50%_32%]" />
-        ))}
+      <section className="container-x mt-12 grid items-center gap-10 lg:grid-cols-2">
+        <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden bg-[#7e0913]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={studio("founder")} alt={`The founder of ${brand.name}`} className="absolute inset-0 size-full object-cover object-top" />
+        </div>
+        <div>
+          <p className="eyebrow">Meet the founder</p>
+          <p className="mt-4 font-display text-2xl font-semibold leading-snug">Founder and lead stylist of {brand.name}.</p>
+          <p className="mt-5 leading-relaxed text-muted">She leads our styling — in our walk-in store at Divine Plaza, Uselu, and remotely for clients across Nigeria — helping women and men dress modestly and confidently for work and every occasion.</p>
+          {/* TODO: replace with the founder's own words and name */}
+        </div>
       </section>
       <section className="container-x mt-16 grid gap-10 md:grid-cols-3">
         {values.map(([t, d]) => (

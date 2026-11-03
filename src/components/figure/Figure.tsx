@@ -15,6 +15,8 @@ export interface FigureProps {
   title?: string;
   /** Draw a soft floor shadow. */
   shadow?: boolean;
+  /** Ghost-mannequin mode: draws only the outfit (no head, skin or hands), like a studio product shot. */
+  ghost?: boolean;
 }
 
 
@@ -63,6 +65,7 @@ export function Figure({
   className,
   title,
   shadow = true,
+  ghost = false,
 }: FigureProps) {
   const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
   const shadeId = `sh${uid}`;
@@ -488,32 +491,33 @@ export function Figure({
         {/* legs + shoes */}
         {both((sg) => (
           <g key={`leg${sg}`}>
-            <path d={limb(side(s.leg, sg), [b.hip * 0.48, 8, 4.6])} fill={skinDeep} />
-            <ellipse
+            {!ghost && <path d={limb(side(s.leg, sg), [b.hip * 0.48, 8, 4.6])} fill={skinDeep} />}
+            {(!ghost || garment !== "midi-dress") && <ellipse
               cx={side([s.ankle], sg)[0][0] - 3 * sg}
               cy={Y.ankle + 11}
               rx={8.5}
               ry={4.6}
               fill={shoe}
-            />
+            />}
           </g>
         ))}
         {/* neck */}
-        <path d={limb([[CX, Y.neckTop], [CX, Y.shoulder - 4]], [5.8, 7.2])} fill={skinDeep} />
+        {!ghost && <path d={limb([[CX, Y.neckTop], [CX, Y.shoulder - 4]], [5.8, 7.2])} fill={skinDeep} />}
         {/* arms */}
-        {both((sg) => (
+        {!ghost && both((sg) => (
           <path key={`arm${sg}`} d={limb(side(s.arm, sg), [6.4, 5.3, 4])} fill={skin} />
         ))}
         {body1}
         {body2}
+        {ghost && <ellipse cx={CX} cy={Y.shoulder - 7} rx={7.5} ry={2.6} fill={shade(color, -0.45)} />}
         {/* hands */}
-        {both((sg) => {
+        {!ghost && both((sg) => {
           const h = side([s.hand], sg)[0];
           return <ellipse key={`hand${sg}`} cx={h[0]} cy={h[1]} rx={4.4} ry={7} fill={skin} />;
         })}
         {/* head */}
-        <ellipse cx={CX} cy={Y.head} rx={15.5} ry={19.5} fill={skin} />
-        {gender === "women" ? (
+        {!ghost && <ellipse cx={CX} cy={Y.head} rx={15.5} ry={19.5} fill={skin} />}
+        {ghost ? null : gender === "women" ? (
           <g>
             <path
               d={`M${CX - 16.5},${Y.head + 1} C${CX - 25},${Y.head - 26} ${CX - 10},${Y.head - 41} ${CX + 2},${Y.head - 39} C${CX + 19},${Y.head - 38} ${CX + 26},${Y.head - 21} ${CX + 16.5},${Y.head + 1} C${CX + 8},${Y.head - 9} ${CX - 8},${Y.head - 9} ${CX - 16.5},${Y.head + 1} Z`}

@@ -29,7 +29,7 @@ export function ProductExperience({ product, initialColour }: { product: Product
   const hasPhotos = product.renderStatus === "ready" && !!product.renders && Object.keys(product.renders).length > 0;
   const recommended = recommendedSize(body, product.sizes);
   const photos = colour.images?.length ? colour.images : product.images?.length ? product.images : product.image ? [product.image] : [];
-  const [view, setView] = useState<"photos" | "fit">(photos.length ? "photos" : "fit");
+  const [view, setView] = useState<"photos" | "fit">("photos");
   const [pi, setPi] = useState(0);
   const photo = photos[Math.min(pi, photos.length - 1)];
 
@@ -64,20 +64,22 @@ export function ProductExperience({ product, initialColour }: { product: Product
       {/* ---------- Fit Studio stage ---------- */}
       <section aria-label="Fit Studio" className="lg:sticky lg:top-[96px] lg:self-start">
         <div className="mb-3 flex gap-6 border-b border-ink/10 text-[12px] font-semibold uppercase tracking-[0.16em]" role="tablist">
-          {photos.length > 0 && (
-            <button role="tab" aria-selected={view === "photos"} onClick={() => setView("photos")} className={`-mb-px border-b-2 pb-3 transition ${view === "photos" ? "border-wine text-wine" : "border-transparent text-muted hover:text-ink"}`}>
-              Photos
-            </button>
-          )}
+          <button role="tab" aria-selected={view === "photos"} onClick={() => setView("photos")} className={`-mb-px border-b-2 pb-3 transition ${view === "photos" ? "border-wine text-wine" : "border-transparent text-muted hover:text-ink"}`}>
+            {photos.length ? "Photos" : "Product"}
+          </button>
           <button role="tab" aria-selected={view === "fit"} onClick={() => setView("fit")} className={`-mb-px flex items-center gap-2 border-b-2 pb-3 transition ${view === "fit" ? "border-wine text-wine" : "border-transparent text-muted hover:text-ink"}`}>
             <SparkIcon className="size-3.5" /> See it on your size
           </button>
         </div>
-        {view === "photos" && photo ? (
+        {view === "photos" ? (
           <div>
             <div className="relative aspect-[3/4] overflow-hidden bg-sand">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img key={photo} src={photo} alt={`${product.name} in ${colour.name}`} className="absolute inset-0 size-full animate-[fadein_.5s_ease] object-cover object-[50%_32%]" />
+              {photo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img key={photo} src={photo} alt={`${product.name} in ${colour.name}`} className="absolute inset-0 size-full animate-[fadein_.5s_ease] object-cover object-[50%_32%]" />
+              ) : (
+                <ProductArt garmentType={product.garmentType} gender={product.gender} colour={colour} ghost swatches={product.colors} name={product.name} className="absolute inset-0" />
+              )}
               <button onClick={() => setView("fit")} className="absolute bottom-4 right-4 flex items-center gap-2 bg-paper/95 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-wine shadow-sm transition hover:bg-butter">
                 <SparkIcon className="size-3.5" /> Try other sizes & colours
               </button>
@@ -92,7 +94,7 @@ export function ProductExperience({ product, initialColour }: { product: Product
                 ))}
               </div>
             )}
-            <p className="mt-3 text-[12px] text-muted">Styled in our Benin City store. Photographed on our team — real fit, real fabric.</p>
+            <p className="mt-3 text-[12px] text-muted">{photo ? "Studio photography. Colours may vary slightly on screen." : "Studio photos coming soon — chat with us on WhatsApp for live pictures of this piece."}</p>
           </div>
         ) : (
           <>
