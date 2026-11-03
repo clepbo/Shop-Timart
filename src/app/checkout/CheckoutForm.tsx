@@ -19,7 +19,7 @@ export function CheckoutForm({ paystack }: { paystack: boolean }) {
 
   if (result?.ok && !result.redirect)
     return (
-      <div className="mx-auto mt-12 max-w-lg rounded-[28px] bg-paper p-10 text-center">
+      <div className="mx-auto mt-12 max-w-lg rounded-md bg-paper p-10 text-center">
         <p className="text-3xl text-gold">✦</p>
         <p className="display mt-3 text-4xl">Thank you!</p>
         <p className="mt-3 text-muted">{result.message} Send it to us on WhatsApp to confirm payment and delivery.</p>
@@ -70,10 +70,10 @@ export function CheckoutForm({ paystack }: { paystack: boolean }) {
           <legend className="mb-4 font-display text-3xl">Delivery</legend>
           <label className="sm:col-span-2"><span className="label">Address *</span><input name="address" required className="field" autoComplete="street-address" /></label>
           <label><span className="label">City *</span><input name="city" required className="field" autoComplete="address-level2" /></label>
-          <label><span className="label">State *</span><input name="state" required className="field" autoComplete="address-level1" defaultValue="Lagos" /></label>
+          <label><span className="label">State *</span><input name="state" required className="field" autoComplete="address-level1" defaultValue="Edo" /></label>
           <div className="space-y-2 sm:col-span-2">
             {deliveryOptions.map((d) => (
-              <label key={d.id} className={`flex cursor-pointer items-center justify-between rounded-xl border px-4 py-3.5 transition ${delivery === d.id ? "border-ink bg-paper" : "border-ink/15"}`}>
+              <label key={d.id} className={`flex cursor-pointer items-center justify-between rounded-md border px-4 py-3.5 transition ${delivery === d.id ? "border-ink bg-paper" : "border-ink/15"}`}>
                 <span className="flex items-center gap-3 text-sm">
                   <input type="radio" name="delivery" checked={delivery === d.id} onChange={() => setDelivery(d.id)} className="accent-wine" />
                   {d.label}
@@ -86,12 +86,13 @@ export function CheckoutForm({ paystack }: { paystack: boolean }) {
         </fieldset>
       </div>
 
-      <aside className="h-fit rounded-[28px] bg-paper p-6 sm:p-8 lg:sticky lg:top-28">
+      <aside className="h-fit rounded-md bg-paper p-6 sm:p-8 lg:sticky lg:top-28">
         <p className="font-display text-3xl">Order summary</p>
         <ul className="mt-6 space-y-4">
           {items.map((i) => (
             <li key={`${i.productId}${i.colour}${i.size}`} className="flex gap-4">
-              <ProductArt garmentType={i.garmentType} gender={i.gender} colour={{ name: i.colour, hex: i.hex, accent: i.accent }} className="h-20 w-16 shrink-0 rounded-lg" />
+              <ProductArt garmentType={i.garmentType} gender={i.gender} colour={{ name: i.colour, hex: i.hex, accent: i.accent }}
+                      photo={i.image} className="h-20 w-16 shrink-0 rounded-lg" />
               <div className="flex-1 text-sm">
                 <p className="font-display text-lg leading-tight">{i.name}</p>
                 <p className="text-muted">{i.colour} · {i.size} · ×{i.quantity}</p>

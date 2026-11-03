@@ -40,14 +40,14 @@ export default async function OrdersPage({ searchParams }: PageProps<"/admin/ord
       <Link href="/admin" className="text-[12px] uppercase tracking-[0.14em] text-muted hover:text-ink">← Dashboard</Link>
       <h1 className="display mt-2 text-5xl">{tab === "orders" ? "Orders" : "Styling requests"}</h1>
       <div className="mt-6 flex gap-2">
-        <Link href="/admin/orders" className={`rounded-full border px-4 py-2 text-[12px] uppercase tracking-[0.12em] ${tab === "orders" ? "border-ink bg-ink text-ivory" : "border-ink/15"}`}>Orders ({orders.length})</Link>
-        <Link href="/admin/orders?tab=bookings" className={`rounded-full border px-4 py-2 text-[12px] uppercase tracking-[0.12em] ${tab === "bookings" ? "border-ink bg-ink text-ivory" : "border-ink/15"}`}>Styling ({bookings.length})</Link>
+        <Link href="/admin/orders" className={`border px-4 py-2 text-[12px] uppercase tracking-[0.12em] ${tab === "orders" ? "border-ink bg-ink text-ivory" : "border-ink/15"}`}>Orders ({orders.length})</Link>
+        <Link href="/admin/orders?tab=bookings" className={`border px-4 py-2 text-[12px] uppercase tracking-[0.12em] ${tab === "bookings" ? "border-ink bg-ink text-ivory" : "border-ink/15"}`}>Styling ({bookings.length})</Link>
       </div>
 
       <div className="mt-6 space-y-3">
         {tab === "orders" &&
           (orders.length === 0 ? <p className="text-muted">No orders yet.</p> : orders.map((o) => (
-            <details key={o.id} className="group rounded-2xl bg-paper p-5">
+            <details key={o.id} className="group rounded-md bg-paper p-5">
               <summary className="flex cursor-pointer list-none flex-wrap items-center justify-between gap-3">
                 <div>
                   <p className="font-medium">{o.id} · {o.customer.name}</p>
@@ -84,7 +84,7 @@ export default async function OrdersPage({ searchParams }: PageProps<"/admin/ord
 
         {tab === "bookings" &&
           (bookings.length === 0 ? <p className="text-muted">No styling requests yet.</p> : bookings.map((b) => (
-            <div key={b.id} className="flex flex-wrap items-start justify-between gap-4 rounded-2xl bg-paper p-5 text-sm">
+            <div key={b.id} className="flex flex-wrap items-start justify-between gap-4 rounded-md bg-paper p-5 text-sm">
               <div>
                 <p className="font-medium">{b.name} · {b.service}</p>
                 <p className="text-muted">{b.occasion || "—"} · {b.date || "date flexible"} · {b.mode} · {b.budget}</p>

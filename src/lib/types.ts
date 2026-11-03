@@ -11,13 +11,16 @@ export type GarmentType =
   | "mens-suit"
   | "jumpsuit"
   | "senator"
-  | "shirt-trousers";
+  | "shirt-trousers"
+  | "vest-set";
 
 export interface Colorway {
   name: string;
   hex: string;
   /** Optional secondary colour (skirt of a set, trim, embroidery). */
   accent?: string;
+  /** Real photos of this colourway (shown before the Fit Studio illustration). */
+  images?: string[];
 }
 
 /** An AI-generated photo of the garment on one body profile. */
@@ -48,6 +51,8 @@ export interface Product {
   sizes: string[];
   /** The flat-lay / product photo the owner uploaded. */
   image?: string;
+  /** Lookbook photos of the product being worn. */
+  images?: string[];
   /** AI renders keyed by body profile id (and optionally `${bodyId}:${colour}`). */
   renders?: Record<string, FitRender>;
   renderStatus: RenderStatus;
@@ -69,4 +74,5 @@ export interface CartItem {
   hex: string;
   accent?: string;
   gender: Gender;
+  image?: string;
 }

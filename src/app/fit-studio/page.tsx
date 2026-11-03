@@ -17,8 +17,8 @@ export default async function FitStudioPage({ searchParams }: PageProps<"/fit-st
     <div className="pb-24">
       <section className="container-x pb-10 pt-10 text-center">
         <p className="eyebrow">The Fit Studio</p>
-        <h1 className="display mx-auto mt-4 max-w-4xl text-6xl sm:text-8xl">
-          See it on <em className="text-wine">you</em>.
+        <h1 className="display mx-auto mt-4 max-w-4xl text-[44px] sm:text-5xl">
+          See it on <span className="text-wine">you</span>.
         </h1>
         <p className="mx-auto mt-5 max-w-xl text-muted">Choose a piece, pick the body closest to yours and switch colours instantly. Compare all sizes side by side, then shop the size we suggest.</p>
       </section>
@@ -28,8 +28,8 @@ export default async function FitStudioPage({ searchParams }: PageProps<"/fit-st
           {products.map((p) => {
             const active = p.id === current?.id;
             return (
-              <Link key={p.id} href={`/fit-studio?p=${p.slug}`} scroll={false} className={`group w-[108px] shrink-0 rounded-2xl border p-1.5 transition ${active ? "border-ink bg-paper" : "border-transparent hover:border-ink/20"}`} aria-current={active ? "true" : undefined}>
-                <ProductArt garmentType={p.garmentType} gender={p.gender} colour={p.colors[0]} body={defaultBody(p.gender)} className="aspect-[4/5] rounded-xl" />
+              <Link key={p.id} href={`/fit-studio?p=${p.slug}`} scroll={false} className={`group w-[108px] shrink-0 rounded-md border p-1.5 transition ${active ? "border-ink bg-paper" : "border-transparent hover:border-ink/20"}`} aria-current={active ? "true" : undefined}>
+                <ProductArt garmentType={p.garmentType} gender={p.gender} colour={p.colors[0]} body={defaultBody(p.gender)} className="aspect-[4/5] rounded-md" />
                 <p className="mt-1.5 truncate px-1 text-[11px]">{p.name}</p>
               </Link>
             );

@@ -291,7 +291,7 @@ export function Figure({
             strokeWidth={1.4}
           />
           <Fold stroke={fold} d={`M${CX},${Y.bust + 24} L${CX},${Y.hip + 15}`} />
-          <circle cx={CX + 2.5} cy={Y.waist - 4} r={2} fill={men ? deep : (accent ?? "#C9A86A")} />
+          <circle cx={CX + 2.5} cy={Y.waist - 4} r={2} fill={men ? deep : "#C9A86A"} />
           <Fold stroke={fold} d={`M${CX - b.waist - 2},${Y.waist + 18} l12,0 M${CX + b.waist + 2},${Y.waist + 18} l-12,0`} w={1.2} />
         </>
       );
@@ -317,7 +317,7 @@ export function Figure({
           trousers([b.hip * 0.55, 12.5, 11])
         ) : (
           <>
-            {trousers([b.hip * 0.58, 16.5, 20])}
+            {trousers([b.hip * 0.58, 16.5, 20], accent ?? color)}
             <Fold stroke={fold} d={`M${s.leg[1][0]},${Y.hip + 30} L${s.leg[2][0] - 2},${Y.ankle + 4}`} />
             <Fold stroke={fold} d={`M${2 * CX - s.leg[1][0]},${Y.hip + 30} L${2 * CX - s.leg[2][0] + 2},${Y.ankle + 4}`} />
           </>
@@ -329,6 +329,55 @@ export function Figure({
         </>
       );
       body2 = sleeve(men ? [10, 8.8, 7.4] : [9, 8, 6.6], 0.95);
+      break;
+    }
+    case "vest-set": {
+      const pant = accent ?? "#E7DCCB";
+      body1 = (
+        <>
+          {trousers([b.hip * 0.58, 17, 21], pant)}
+          <Piece
+            sid={shadeId}
+            base="#F4F1EA"
+            d={outline(
+              [
+                [-7, Y.shoulder - 9],
+                [-(b.shoulder + 1), Y.shoulder + 1],
+                [-(b.bust + 2.5), Y.bust],
+                [-(b.waist + 2), Y.waist + 6],
+              ],
+              { neck: 4 },
+            )}
+          />
+          <Piece
+            sid={shadeId}
+            base={color}
+            d={outline(
+              [
+                [-12, Y.shoulder - 6],
+                [-(b.shoulder - 6), Y.shoulder + 2],
+                [-(b.bust + 3.5), Y.bust + 6],
+                [-(b.waist + 3), Y.waist],
+                [-(b.hip + 1), Y.hip - 4],
+              ],
+              { hem: 2, neck: 44 },
+            )}
+          />
+          {[0, 1, 2].map((r) =>
+            [-1, 0, 1].map((c) => (
+              <path
+                key={`${r}${c}`}
+                d={`M${CX + c * 12},${Y.bust + 2 + r * 22} l6,10 l-6,10 l-6,-10 Z`}
+                fill="none"
+                stroke={shade(color, 0.35)}
+                strokeWidth={1}
+                opacity={0.7}
+              />
+            )),
+          )}
+        </>
+      );
+      body2 = sleeve([8.5, 7.4, 6.2], 0.95, "#F4F1EA");
       break;
     }
     case "jumpsuit": {

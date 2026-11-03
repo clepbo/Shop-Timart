@@ -6,10 +6,10 @@ export function SectionHeading({ eyebrow, title, href, cta, center = false }: { 
     <div className={`flex flex-col gap-4 ${center ? "items-center text-center" : "sm:flex-row sm:items-end sm:justify-between"}`}>
       <div>
         <p className="eyebrow">{eyebrow}</p>
-        <h2 className="display mt-3 text-[44px] sm:text-6xl">{title}</h2>
+        <h2 className="display mt-3 text-[28px] sm:text-[38px]">{title}</h2>
       </div>
       {href && (
-        <Link href={href} className="group inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em]">
+        <Link href={href} className="group inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.16em] text-wine">
           <span className="link-underline">{cta ?? "View all"}</span>
           <ArrowIcon className="size-4 transition group-hover:translate-x-1" />
         </Link>

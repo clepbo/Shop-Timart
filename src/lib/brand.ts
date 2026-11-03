@@ -4,21 +4,26 @@
  */
 export const brand = {
   name: "Timart",
-  tagline: "Corporate & modest wear, beautifully styled.",
+  fullName: "Shop Timart",
+  tagline: "Modest corporate wear, styled for global people.",
   description:
-    "Modest corporate wear for women and men — plus personal styling for the boardroom, conferences, weddings, church and every occasion in between.",
-  whatsapp: "2348000000000", // international format, no "+"
-  email: "hello@timart.ng",
+    "Modest corporate wear and personal styling from Benin City — blazers, suits, sets and everyday elegance for women and men, delivered nationwide.",
+  whatsapp: "2349168814108", // 0916 881 4108, international format without "+"
+  phoneDisplay: "0916 881 4108",
+  email: "hello@shoptimart.com",
   instagram: "https://instagram.com/",
-  tiktok: "https://tiktok.com/",
-  address: "Lekki Phase 1, Lagos, Nigeria",
-  hours: "Mon – Sat · 9am – 6pm",
+  tiktok: "https://www.tiktok.com/@shop_teemart",
+  tiktokHandle: "@shop_teemart",
+  address: "Shop 10b Divine Plaza (the blue plaza close to Mat Ice), Uselu–Lagos Road, Benin City, Edo State",
+  addressShort: "Divine Plaza, Uselu, Benin City",
+  hours: "Mon – Sat · 9am – 7pm",
   currency: "NGN",
-  freeDeliveryThreshold: 150000,
+  freeDeliveryThreshold: 100000,
   announcements: [
-    "Free delivery within Lagos on orders above ₦150,000",
+    "Same-day delivery within Benin City",
     "Nationwide delivery in 2–5 working days",
-    "Book a styling session for your next corporate event",
+    "Walk-in store: Divine Plaza, Uselu, Benin City",
+    "Book a styling session on WhatsApp — 0916 881 4108",
   ],
 };
 

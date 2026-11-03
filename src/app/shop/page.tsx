@@ -17,7 +17,7 @@ function href(current: SP, patch: Partial<SP>) {
 
 function Chip({ active, to, children }: { active: boolean; to: string; children: React.ReactNode }) {
   return (
-    <Link href={to} scroll={false} className={`whitespace-nowrap rounded-full border px-4 py-2 text-[12px] uppercase tracking-[0.12em] transition ${active ? "border-ink bg-ink text-ivory" : "border-ink/15 hover:border-ink"}`}>
+    <Link href={to} scroll={false} className={`whitespace-nowrap border px-4 py-2 text-[12px] uppercase tracking-[0.12em] transition ${active ? "border-ink bg-ink text-ivory" : "border-ink/15 hover:border-ink"}`}>
       {children}
     </Link>
   );
@@ -38,8 +38,8 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
     <div className="container-x pb-24 pt-10">
       <div className="max-w-2xl">
         <p className="eyebrow">Shop</p>
-        <h1 className="display mt-3 text-6xl sm:text-7xl">{title}</h1>
-        <p className="mt-4 text-muted">Every piece can be previewed on six body profiles and in every colour. Tap a product to open its Fit Studio.</p>
+        <h1 className="display mt-3 text-[44px] sm:text-5xl">{title}</h1>
+        <p className="mt-4 text-muted">Real pieces from our Benin City store, photographed on our team. Tap any item for more photos — or to see it on your size.</p>
       </div>
 
       <div className="sticky top-[76px] z-20 -mx-4 mt-10 space-y-3 border-y border-ink/10 bg-ivory/95 px-4 py-4 backdrop-blur sm:mx-0 sm:px-0">
@@ -48,7 +48,7 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
           <Chip active={sp.gender === "women"} to={href(sp, { gender: "women", category: undefined })}>Women</Chip>
           <Chip active={sp.gender === "men"} to={href(sp, { gender: "men", category: undefined })}>Men</Chip>
           <span className="mx-1 w-px shrink-0 bg-ink/10" />
-          {categories.map((c) => (
+          {categories.filter((c) => c.slug !== "men").map((c) => (
             <Chip key={c.slug} active={sp.category === c.slug} to={href(sp, { category: sp.category === c.slug ? undefined : c.slug, gender: undefined })}>
               {c.name}
             </Chip>

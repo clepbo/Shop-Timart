@@ -32,9 +32,9 @@ export function CartDrawer() {
         </div>
         {items.length > 0 && (
           <div className="border-b border-ink/10 px-6 py-3 text-[13px] text-muted">
-            {toFree > 0 ? <>You&apos;re {formatPrice(toFree)} away from free Lagos delivery.</> : <>You&apos;ve unlocked free Lagos delivery ✦</>}
+            {toFree > 0 ? <>You&apos;re {formatPrice(toFree)} away from free Benin City delivery.</> : <>You&apos;ve unlocked free Benin City delivery</>}
             <div className="mt-2 h-1 overflow-hidden rounded-full bg-sand">
-              <div className="h-full rounded-full bg-wine transition-all duration-700" style={{ width: `${Math.min(100, (subtotal / brand.freeDeliveryThreshold) * 100)}%` }} />
+              <div className="h-full bg-wine transition-all duration-700" style={{ width: `${Math.min(100, (subtotal / brand.freeDeliveryThreshold) * 100)}%` }} />
             </div>
           </div>
         )}
@@ -57,7 +57,8 @@ export function CartDrawer() {
                       garmentType={i.garmentType}
                       gender={i.gender}
                       colour={{ name: i.colour, hex: i.hex, accent: i.accent }}
-                      className="h-28 w-[88px] shrink-0 rounded-xl"
+                      photo={i.image}
+                      className="h-28 w-[88px] shrink-0 rounded-md"
                     />
                     <div className="flex min-w-0 flex-1 flex-col">
                       <div className="flex justify-between gap-2">
@@ -72,7 +73,7 @@ export function CartDrawer() {
                         {i.colour} · {i.size}
                       </p>
                       <div className="mt-auto flex items-center justify-between">
-                        <div className="flex items-center rounded-full border border-ink/15">
+                        <div className="flex items-center border border-ink/15">
                           <button className="p-2" onClick={() => update(k, i.quantity - 1)} aria-label="Decrease quantity">
                             <MinusIcon className="size-3.5" />
                           </button>

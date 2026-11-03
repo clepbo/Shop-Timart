@@ -40,10 +40,10 @@ export function ProductForm({ product }: { product?: Product }) {
 
       <div className="space-y-6">
         {/* Photo */}
-        <section className="rounded-2xl bg-paper p-6">
+        <section className="rounded-md bg-paper p-6">
           <h2 className="font-display text-2xl">1 · Product photo</h2>
           <p className="mt-1 text-sm text-muted">Upload one clear photo of the garment — flat-lay, on a hanger or on a mannequin, against a plain background. Our AI dresses it on every body profile for you.</p>
-          <label className="mt-4 flex cursor-pointer items-center gap-5 rounded-xl border border-dashed border-ink/25 p-4 transition hover:border-wine">
+          <label className="mt-4 flex cursor-pointer items-center gap-5 rounded-md border border-dashed border-ink/25 p-4 transition hover:border-wine">
             {preview ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={preview} alt="" className="h-28 w-24 rounded-lg object-cover" />
@@ -68,8 +68,8 @@ export function ProductForm({ product }: { product?: Product }) {
         </section>
 
         {/* Details */}
-        <section className="grid gap-4 rounded-2xl bg-paper p-6 sm:grid-cols-2">
-          <h2 className="font-display text-2xl sm:col-span-2">2 · Details</h2>
+        <section className="grid gap-4 rounded-md bg-paper p-6 sm:grid-cols-2">
+          <h2 className="font-display text-xl sm:col-span-2">2 · Details</h2>
           <label className="sm:col-span-2"><span className="label">Name *</span><input name="name" required defaultValue={product?.name} className="field" placeholder="e.g. Amara Pleated Maxi Dress" /></label>
           <label>
             <span className="label">Garment type *</span>
@@ -91,7 +91,7 @@ export function ProductForm({ product }: { product?: Product }) {
             <span className="label">Occasions</span>
             <div className="flex flex-wrap gap-2">
               {occasions.map((o) => (
-                <label key={o} className="flex items-center gap-2 rounded-full border border-ink/15 px-3 py-1.5 text-sm has-[:checked]:border-ink has-[:checked]:bg-ink has-[:checked]:text-ivory">
+                <label key={o} className="flex items-center gap-2 border border-ink/15 px-3 py-1.5 text-sm has-[:checked]:border-ink has-[:checked]:bg-ink has-[:checked]:text-ivory">
                   <input type="checkbox" name="occasions" value={o} defaultChecked={product?.occasions.includes(o)} className="sr-only" />
                   {o}
                 </label>
@@ -102,7 +102,7 @@ export function ProductForm({ product }: { product?: Product }) {
             <span className="label">Sizes in stock</span>
             <div className="flex flex-wrap gap-2" key={gender}>
               {sizes.map((s) => (
-                <label key={s} className="flex items-center gap-2 rounded-full border border-ink/15 px-3 py-1.5 text-sm has-[:checked]:border-ink has-[:checked]:bg-ink has-[:checked]:text-ivory">
+                <label key={s} className="flex items-center gap-2 border border-ink/15 px-3 py-1.5 text-sm has-[:checked]:border-ink has-[:checked]:bg-ink has-[:checked]:text-ivory">
                   <input type="checkbox" name="sizes" value={s} defaultChecked={product ? product.sizes.includes(s) : true} className="sr-only" />
                   {s}
                 </label>
@@ -116,12 +116,12 @@ export function ProductForm({ product }: { product?: Product }) {
         </section>
 
         {/* Colours */}
-        <section className="rounded-2xl bg-paper p-6">
+        <section className="rounded-md bg-paper p-6">
           <h2 className="font-display text-2xl">3 · Colours available</h2>
           <p className="mt-1 text-sm text-muted">Customers can switch between these in the Fit Studio. The optional second colour is used for skirts of sets, trims and embroidery.</p>
           <div className="mt-4 space-y-2">
             {colors.map((col, i) => (
-              <div key={i} className={`flex items-center gap-2 rounded-xl border p-2 ${i === active ? "border-ink" : "border-ink/10"}`} onClick={() => setActive(i)}>
+              <div key={i} className={`flex items-center gap-2 rounded-md border p-2 ${i === active ? "border-ink" : "border-ink/10"}`} onClick={() => setActive(i)}>
                 <input type="color" value={col.hex} onChange={(e) => updateColour(i, { hex: e.target.value })} className="size-9 cursor-pointer rounded-lg border-0 bg-transparent" aria-label="Main colour" />
                 <input value={col.name} onChange={(e) => updateColour(i, { name: e.target.value })} className="field !py-2" placeholder="Colour name" />
                 <input type="color" value={col.accent ?? "#C9A86A"} onChange={(e) => updateColour(i, { accent: e.target.value })} className={`size-9 cursor-pointer rounded-lg border-0 bg-transparent ${col.accent ? "" : "opacity-40"}`} aria-label="Accent colour" title="Accent colour (optional)" />
@@ -131,23 +131,23 @@ export function ProductForm({ product }: { product?: Product }) {
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
             {presetColours.filter((p) => !colors.some((c) => c.name === p.name)).map((p) => (
-              <button type="button" key={p.name} onClick={() => { setColors((cs) => [...cs, p]); setActive(colors.length); }} className="flex items-center gap-2 rounded-full border border-ink/15 px-3 py-1.5 text-[12px] hover:border-ink">
+              <button type="button" key={p.name} onClick={() => { setColors((cs) => [...cs, p]); setActive(colors.length); }} className="flex items-center gap-2 border border-ink/15 px-3 py-1.5 text-[12px] hover:border-ink">
                 <span className="size-3 rounded-full" style={{ background: p.hex }} /> {p.name}
               </button>
             ))}
-            <button type="button" onClick={() => { setColors((cs) => [...cs, { name: "New colour", hex: "#7A6A5A" }]); setActive(colors.length); }} className="rounded-full border border-dashed border-ink/30 px-3 py-1.5 text-[12px]">+ Custom</button>
+            <button type="button" onClick={() => { setColors((cs) => [...cs, { name: "New colour", hex: "#7A6A5A" }]); setActive(colors.length); }} className="border border-dashed border-ink/30 px-3 py-1.5 text-[12px]">+ Custom</button>
           </div>
         </section>
 
-        {state && !state.ok && <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-800">{state.message}</p>}
+        {state && !state.ok && <p className="rounded-md bg-red-50 px-4 py-3 text-sm text-red-800">{state.message}</p>}
         <button disabled={pending} className="btn-primary w-full">{pending ? "Saving…" : product ? "Save changes" : "Publish product"}</button>
       </div>
 
       {/* Live preview */}
-      <aside className="h-fit rounded-2xl bg-ink p-6 text-ivory lg:sticky lg:top-6">
+      <aside className="h-fit rounded-md bg-ink p-6 text-ivory lg:sticky lg:top-6">
         <p className="eyebrow">Live Fit Studio preview</p>
         <p className="mt-1 text-sm text-ivory/60">This is how customers will see {c?.name ?? "it"} across body profiles until AI photos are ready.</p>
-        <div className="mt-5 grid items-end gap-0 rounded-xl bg-gradient-to-b from-ivory/5 to-ivory/15 px-1 pt-4" style={{ gridTemplateColumns: `repeat(${bodies.length}, minmax(0,1fr))` }}>
+        <div className="mt-5 grid items-end gap-0 rounded-md bg-gradient-to-b from-ivory/5 to-ivory/15 px-1 pt-4" style={{ gridTemplateColumns: `repeat(${bodies.length}, minmax(0,1fr))` }}>
           {c && bodies.map((b) => (
             <div key={b.id} className="flex flex-col items-center pb-3">
               <Figure garment={garment} gender={gender} body={b} color={c.hex} accent={c.accent} shadow={false} className="h-44 w-auto" />

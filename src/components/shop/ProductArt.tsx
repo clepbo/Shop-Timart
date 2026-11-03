@@ -13,15 +13,26 @@ interface Props {
   className?: string;
   name?: string;
   tinted?: boolean;
+  /** A real photo; shown instead of the illustration when there is no AI render. */
+  photo?: string;
 }
 
 /**
  * Shows the AI photo render when one exists (live-recoloured through its garment mask),
  * otherwise the illustrated figure. Used by product cards, the Fit Studio and the cart.
  */
-export function ProductArt({ garmentType, gender, colour, body, skin, render, className = "", name, tinted = true }: Props) {
+export function ProductArt({ garmentType, gender, colour, body, skin, render, className = "", name, tinted = true, photo }: Props) {
   const b = body ?? defaultBody(gender);
   const bg = tinted ? `radial-gradient(120% 80% at 50% 18%, ${shade(colour.hex, 0.9)} 0%, ${shade(colour.hex, 0.8)} 55%, ${shade(colour.hex, 0.72)} 100%)` : undefined;
+
+  if (!render?.image && photo) {
+    return (
+      <div className={`relative overflow-hidden bg-sand ${className}`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={photo} alt={name ?? ""} className="absolute inset-0 size-full object-cover object-[50%_32%]" />
+      </div>
+    );
+  }
 
   if (render?.image) {
     return (

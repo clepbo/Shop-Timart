@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Poppins, Sora } from "next/font/google";
 import "./globals.css";
 import { brand } from "@/lib/brand";
 import { CartProvider } from "@/components/cart/CartProvider";
@@ -8,16 +8,16 @@ import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
-const jost = Jost({
-  variable: "--font-jost",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${jost.variable} h-full`}>
+    <html lang="en" className={`${sora.variable} ${poppins.variable} h-full`}>
       <body className="flex min-h-full flex-col">
         <CartProvider>
           <AnnouncementBar />

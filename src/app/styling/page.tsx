@@ -1,78 +1,90 @@
 import type { Metadata } from "next";
 import { BookingForm } from "./BookingForm";
-import { Figure } from "@/components/figure/Figure";
-import { bodyProfiles } from "@/lib/bodies";
+import { brand, whatsappLink } from "@/lib/brand";
+import { WhatsAppIcon } from "@/components/Icons";
 
 export const metadata: Metadata = { title: "Personal Styling" };
 
+const look = (n: string) => `/images/looks/${n}.webp`;
+
 const services = [
-  { name: "Personal Styling Session", price: "From ₦35,000", text: "A 90-minute one-on-one to understand your body, lifestyle and faith — and build looks that feel like you.", g: "midi-dress" as const, c: "#8C9A7E" },
-  { name: "Occasion Styling", price: "From ₦50,000", text: "Weddings, owambe, galas, dedications. We source, fit and accessorise your complete look — gele included.", g: "kaftan" as const, c: "#C29A45" },
-  { name: "Corporate Wardrobe Edit", price: "From ₦80,000", text: "A capsule of polished, modest workwear for interviews, boardrooms and conferences.", g: "suit" as const, c: "#1E2B47" },
-  { name: "Bridal & Family Coordination", price: "Custom quote", text: "Aso-ebi direction and coordinated styling for the couple, family and bridal party.", g: "two-piece" as const, c: "#A99BC4" },
+  { name: "In-store styling", text: "Walk into our Benin City store and we'll pull, fit and style complete looks for you — blazer, trousers, bag and accessories.", img: look("blazer-mustard-2") },
+  { name: "Remote styling", text: "Not in Benin City? Send your size, occasion and budget on WhatsApp. We style you over video and deliver anywhere in Nigeria.", img: look("denim-blazer") },
+  { name: "Event & seminar looks", text: "Conferences, interviews, seminars and church programmes — one coordinated outfit, ready to wear on the day.", img: look("mustard-suit") },
+  { name: "Corporate wardrobe", text: "A capsule of modest workwear that mixes and matches for weeks. Ideal for new jobs and promotions.", img: look("black-suit") },
 ];
 
 const steps = [
-  ["Consult", "We learn your shape, style, coverage preferences and the occasion."],
-  ["Curate", "Your stylist builds a lookbook from our collection and trusted partners."],
-  ["Fit", "Try everything on in-studio or at home, with tailoring as needed."],
-  ["Shine", "Show up dressed with intention — we handle the details."],
+  ["Tell us", "Your occasion, size, colours you love and your budget."],
+  ["We curate", "We pull options from the store and send you looks."],
+  ["Try on", "In store, or delivered to you with free exchange on size."],
+  ["Show up", "Walk in dressed with intention — we handle the details."],
 ];
 
 export default function StylingPage() {
-  const body = bodyProfiles.find((b) => b.id === "w-curvy")!;
   return (
     <div className="pb-24">
-      <section className="container-x grid items-end gap-10 pt-10 lg:grid-cols-[1.2fr_1fr]">
-        <div className="pb-6">
-          <p className="eyebrow">Personal styling</p>
-          <h1 className="display mt-4 text-6xl sm:text-8xl">
-            Styled for the <em className="text-wine">moment</em>, true to <em className="text-wine">you</em>.
-          </h1>
-          <p className="mt-6 max-w-lg text-[17px] leading-relaxed text-muted">From corporate events to weddings and Sunday service — our stylists create complete, modest looks that let you walk in with grace.</p>
-          <a href="#book" className="btn-primary mt-8">Book a session</a>
-        </div>
-        <div className="flex items-end justify-center gap-0 rounded-t-[200px] bg-gradient-to-b from-blush/60 to-sand pt-10">
-          {(["suit", "kaftan", "maxi-dress"] as const).map((g, i) => (
-            <Figure key={g} garment={g} gender="women" body={body} color={["#4E2A45", "#C29A45", "#1F5A4A"][i]} className={`${i === 1 ? "h-[380px]" : "h-[330px]"} w-auto`} />
-          ))}
+      <section className="bg-paper">
+        <div className="container-x grid items-stretch gap-6 pb-12 pt-8 lg:grid-cols-[1.1fr_1fr]">
+          <div className="flex flex-col justify-center bg-sand px-6 py-10 sm:px-10">
+            <p className="eyebrow">Personal styling</p>
+            <h1 className="display mt-4 text-[38px] sm:text-[52px]">
+              Styling for <span className="text-wine">global people.</span>
+            </h1>
+            <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-muted">
+              Whether you&apos;re in Benin City or miles away, we&apos;ll put together the full look for your next corporate event, seminar or special day — modest, polished and true to you.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="#book" className="btn-primary">Book a session</a>
+              <a href={whatsappLink(`Hello ${brand.name}! I'd like to book a styling session.`)} target="_blank" rel="noreferrer" className="btn-outline">
+                <WhatsAppIcon className="size-4" /> WhatsApp {brand.phoneDisplay}
+              </a>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={look("cream-suit")} alt="A client styled in the Ivory Power Suit" className="aspect-[3/5] size-full object-cover object-[50%_32%]" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={look("blazer-mustard")} alt="The Timart Set styled with a burgundy bag" className="aspect-[3/5] size-full object-cover object-[50%_32%]" />
+          </div>
         </div>
       </section>
 
-      <section id="services" className="container-x scroll-mt-28 pt-24">
-        <p className="eyebrow">Services</p>
-        <h2 className="display mt-3 text-5xl sm:text-6xl">How we can help</h2>
-        <div className="mt-10 grid gap-5 md:grid-cols-2">
+      <section id="services" className="container-x scroll-mt-28 pt-16">
+        <p className="eyebrow">How we can help</p>
+        <h2 className="display mt-3 text-[28px] sm:text-[38px]">Styling services</h2>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((s) => (
-            <article key={s.name} className="flex gap-6 overflow-hidden rounded-[24px] bg-paper p-6 sm:p-8">
-              <div className="flex-1">
-                <p className="text-[12px] uppercase tracking-[0.16em] text-gold">{s.price}</p>
-                <h3 className="mt-2 font-display text-3xl">{s.name}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{s.text}</p>
+            <article key={s.name} className="bg-paper">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={s.img} alt="" className="aspect-[4/5] w-full object-cover object-[50%_32%]" />
+              <div className="p-5">
+                <h3 className="font-display text-lg font-semibold">{s.name}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
               </div>
-              <Figure garment={s.g} gender="women" body={body} color={s.c} shadow={false} className="hidden h-40 w-auto shrink-0 sm:block" />
             </article>
           ))}
         </div>
+        <p className="mt-6 text-sm text-muted">Sessions are confirmed on WhatsApp. Card payment for styling sessions is coming soon.</p>
       </section>
 
-      <section className="container-x pt-24">
-        <div className="grid gap-8 rounded-[32px] bg-ink p-8 text-ivory sm:p-12 lg:grid-cols-4">
+      <section className="container-x pt-16">
+        <div className="grid gap-8 bg-wine p-8 text-ivory sm:p-12 lg:grid-cols-4">
           {steps.map(([t, d], i) => (
             <div key={t}>
-              <p className="font-display text-5xl text-gold">0{i + 1}</p>
-              <p className="mt-3 font-display text-3xl">{t}</p>
-              <p className="mt-2 text-sm text-ivory/65">{d}</p>
+              <p className="font-display text-3xl font-semibold text-butter">0{i + 1}</p>
+              <p className="mt-3 font-display text-xl font-semibold">{t}</p>
+              <p className="mt-2 text-sm text-ivory/70">{d}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section id="book" className="container-x grid scroll-mt-28 gap-10 pt-24 lg:grid-cols-[1fr_1.4fr]">
+      <section id="book" className="container-x grid scroll-mt-28 gap-10 pt-16 lg:grid-cols-[1fr_1.4fr]">
         <div>
           <p className="eyebrow">Book</p>
-          <h2 className="display mt-3 text-5xl sm:text-6xl">Let&apos;s dress your next moment.</h2>
-          <p className="mt-5 max-w-md leading-relaxed text-muted">Send a request and a stylist will confirm your session within 24 hours. Prefer to chat? Continue on WhatsApp after booking.</p>
+          <h2 className="display mt-3 text-[28px] sm:text-[38px]">Let&apos;s dress your next moment.</h2>
+          <p className="mt-5 max-w-md leading-relaxed text-muted">Send a request and we&apos;ll confirm your session on WhatsApp within 24 hours.</p>
         </div>
         <BookingForm services={services.map((s) => s.name)} />
       </section>

@@ -10,7 +10,7 @@ export function BookingForm({ services }: { services: string[] }) {
 
   if (state?.ok)
     return (
-      <div className="rounded-[28px] bg-paper p-8 text-center sm:p-12">
+      <div className="rounded-md bg-paper p-8 text-center sm:p-12">
         <p className="text-3xl text-gold">✦</p>
         <p className="display mt-4 text-4xl">Thank you</p>
         <p className="mx-auto mt-3 max-w-sm text-muted">{state.message}</p>
@@ -23,7 +23,7 @@ export function BookingForm({ services }: { services: string[] }) {
     );
 
   return (
-    <form action={action} className="grid gap-5 rounded-[28px] bg-paper p-6 sm:grid-cols-2 sm:p-10">
+    <form action={action} className="grid gap-5 rounded-md bg-paper p-6 sm:grid-cols-2 sm:p-10">
       <div className="sm:col-span-2">
         <p className="display text-4xl">Book a session</p>
         <p className="mt-2 text-sm text-muted">Tell us about the moment you&apos;re dressing for.</p>
@@ -66,7 +66,7 @@ export function BookingForm({ services }: { services: string[] }) {
       <label>
         <span className="label">Session</span>
         <select name="mode" className="field">
-          <option>In-studio (Lagos)</option>
+          <option>In-store (Benin City)</option>
           <option>Virtual</option>
           <option>Home visit</option>
         </select>

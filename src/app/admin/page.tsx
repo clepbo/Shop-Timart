@@ -43,7 +43,7 @@ export default async function AdminHome({ searchParams }: PageProps<"/admin">) {
         </div>
       </div>
 
-      {sp.saved && <p className="mt-6 rounded-xl bg-emerald-50 px-4 py-3 text-sm text-emerald-900">Product saved. {ai ? "AI fit previews are generating in the background." : "Customers can preview it in the Fit Studio now."}</p>}
+      {sp.saved && <p className="mt-6 rounded-md bg-emerald-50 px-4 py-3 text-sm text-emerald-900">Product saved. {ai ? "AI fit previews are generating in the background." : "Customers can preview it in the Fit Studio now."}</p>}
 
       <div className="mt-8 grid gap-4 sm:grid-cols-4">
         {[
@@ -52,21 +52,21 @@ export default async function AdminHome({ searchParams }: PageProps<"/admin">) {
           ["Paid revenue", formatPrice(revenue)],
           ["Styling requests", bookings.length],
         ].map(([k, v]) => (
-          <div key={k as string} className="rounded-2xl bg-paper p-5">
+          <div key={k as string} className="rounded-md bg-paper p-5">
             <p className="text-[11px] uppercase tracking-[0.16em] text-muted">{k}</p>
             <p className="mt-2 font-display text-3xl">{v}</p>
           </div>
         ))}
       </div>
 
-      <div className={`mt-4 rounded-2xl p-5 text-sm ${ai ? "bg-emerald-50 text-emerald-900" : "bg-amber-50 text-amber-900"}`}>
+      <div className={`mt-4 rounded-md p-5 text-sm ${ai ? "bg-emerald-50 text-emerald-900" : "bg-amber-50 text-amber-900"}`}>
         <strong>AI try-on:</strong>{" "}
         {ai
           ? "connected. New product photos are automatically rendered on every body profile."
           : "not connected yet. Products show illustrated Fit Studio previews. Add REPLICATE_API_TOKEN and REPLICATE_TRYON_VERSION, plus model photos in /public/models, to enable photo previews."}
       </div>
 
-      <div className="mt-8 overflow-hidden rounded-2xl bg-paper">
+      <div className="mt-8 overflow-hidden rounded-md bg-paper">
         <table className="w-full text-left text-sm">
           <thead className="border-b border-ink/10 text-[11px] uppercase tracking-[0.14em] text-muted">
             <tr>

@@ -5,20 +5,23 @@
  * and a muted champagne gold for detail. Editorial serif display + clean geometric sans.
  */
 @theme {
-  --color-ivory: #f6f1ea;
-  --color-paper: #fbf8f3;
-  --color-sand: #ebe2d6;
-  --color-linen: #ddd0bf;
-  --color-ink: #231a16;
-  --color-muted: #6f625a;
-  --color-wine: #5b1f2e;
-  --color-wine-deep: #401520;
-  --color-blush: #e9d6d0;
-  --color-gold: #b08d57;
+  /* Palette drawn from the brand's references: deep burgundy, butter yellow, warm white. */
+  --color-ivory: #fffaf3;
+  --color-paper: #ffffff;
+  --color-sand: #f6efe4;
+  --color-linen: #eadfce;
+  --color-ink: #141111;
+  --color-muted: #5f5853;
+  --color-wine: #74070e;
+  --color-wine-deep: #4f0509;
+  --color-blush: #f7e3df;
+  --color-gold: #74070e;
+  --color-butter: #ffeda8;
+  --color-sky: #d2e8ff;
   --color-sage: #8a9a82;
 
-  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-  --font-sans: var(--font-jost), "Jost", system-ui, sans-serif;
+  --font-display: var(--font-sora), "Sora", system-ui, sans-serif;
+  --font-sans: var(--font-poppins), "Poppins", system-ui, sans-serif;
 
   --tracking-eyebrow: 0.22em;
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -29,6 +32,10 @@
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
+  }
+  @keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
   @keyframes rise {
     from { opacity: 0; transform: translateY(18px); }
@@ -62,31 +69,31 @@ body {
 }
 
 @utility eyebrow {
-  @apply text-[11px] font-medium uppercase tracking-[0.22em] text-gold;
+  @apply text-[11px] font-semibold uppercase tracking-[0.24em] text-wine;
 }
 @utility display {
-  @apply font-display font-medium leading-[0.95] tracking-[-0.01em];
+  @apply font-display font-semibold leading-[1.08] tracking-[-0.035em];
 }
 @utility btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[13px] font-medium uppercase tracking-[0.14em] transition duration-300;
+  @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 text-[12px] font-semibold uppercase tracking-[0.16em] transition duration-300;
 }
 @utility btn-primary {
-  @apply btn bg-wine text-ivory hover:bg-wine-deep;
+  @apply btn bg-wine text-butter hover:bg-wine-deep;
 }
 @utility btn-dark {
   @apply btn bg-ink text-ivory hover:bg-wine;
 }
 @utility btn-outline {
-  @apply btn border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-ivory;
+  @apply btn border border-wine text-wine hover:bg-wine hover:text-butter;
 }
 @utility btn-light {
-  @apply btn bg-ivory text-ink hover:bg-white;
+  @apply btn bg-butter text-wine hover:bg-white;
 }
 @utility field {
-  @apply w-full rounded-xl border border-ink/15 bg-paper px-4 py-3 text-[15px] outline-none transition placeholder:text-muted/60 focus:border-wine focus:ring-2 focus:ring-wine/15;
+  @apply w-full rounded-[3px] border border-ink/15 bg-paper px-4 py-3 text-[14px] outline-none transition placeholder:text-muted/60 focus:border-wine focus:ring-2 focus:ring-wine/15;
 }
 @utility label {
-  @apply mb-1.5 block text-[12px] font-medium uppercase tracking-[0.14em] text-muted;
+  @apply mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.16em] text-muted;
 }
 @utility container-x {
   @apply mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-10;

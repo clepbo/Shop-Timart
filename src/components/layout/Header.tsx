@@ -8,12 +8,12 @@ import { BagIcon, CloseIcon, MenuIcon } from "../Icons";
 import { useCart } from "../cart/CartProvider";
 
 const nav = [
-  { href: "/shop", label: "Shop all" },
-  { href: "/shop?gender=women", label: "Women" },
+  { href: "/shop", label: "Shop" },
+  { href: "/shop?category=corporate", label: "Corporate" },
   { href: "/shop?gender=men", label: "Men" },
-  { href: "/fit-studio", label: "Fit Studio" },
   { href: "/styling", label: "Styling" },
-  { href: "/about", label: "Our story" },
+  { href: "/fit-studio", label: "Fit Studio" },
+  { href: "/about", label: "About" },
 ];
 
 export function Header() {
@@ -35,38 +35,30 @@ export function Header() {
   if (pathname.startsWith("/admin")) return null;
 
   return (
-    <header className={`sticky top-0 z-40 transition-all duration-500 ${scrolled ? "bg-ivory/90 shadow-[0_1px_0_rgba(35,26,22,0.08)] backdrop-blur-md" : "bg-ivory"}`}>
-      <div className="container-x grid h-[76px] grid-cols-[1fr_auto_1fr] items-center">
-        <div className="flex items-center gap-7">
+    <header className={`sticky top-0 z-40 transition-all duration-500 ${scrolled ? "bg-paper/95 shadow-[0_1px_0_rgba(20,17,17,0.08)] backdrop-blur-md" : "bg-paper"}`}>
+      <div className="container-x flex h-[76px] items-center justify-between gap-6">
+        <div className="flex items-center gap-3">
           <button className="-ml-2 p-2 lg:hidden" onClick={() => setMenu(true)} aria-label="Open menu">
             <MenuIcon />
           </button>
-          <nav className="hidden items-center gap-7 lg:flex">
-            {nav.slice(0, 3).map((n) => (
-              <Link key={n.href} href={n.href} className="link-underline text-[12px] uppercase tracking-[0.16em]">
+          <Logo />
+        </div>
+        <nav className="hidden items-center gap-8 lg:flex">
+          {nav.map((n) => {
+            const active = n.href === pathname || (n.href !== "/shop" && pathname.startsWith(n.href.split("?")[0]) && !n.href.includes("?"));
+            return (
+              <Link key={n.href} href={n.href} className={`border-b pb-1 text-[12px] font-medium uppercase tracking-[0.14em] transition ${active ? "border-wine text-wine" : "border-transparent hover:text-wine"}`}>
                 {n.label}
               </Link>
-            ))}
-          </nav>
-        </div>
-        <Logo />
-        <div className="flex items-center justify-end gap-7">
-          <nav className="hidden items-center gap-7 lg:flex">
-            {nav.slice(3).map((n) => (
-              <Link key={n.href} href={n.href} className="link-underline text-[12px] uppercase tracking-[0.16em]">
-                {n.label}
-              </Link>
-            ))}
-          </nav>
-          <button onClick={() => setOpen(true)} className="relative -mr-2 p-2" aria-label={`Open bag, ${count} items`}>
-            <BagIcon className="size-[22px]" />
-            {count > 0 && (
-              <span className="absolute right-0 top-0 grid size-[18px] place-items-center rounded-full bg-wine text-[10px] font-medium text-ivory">
-                {count}
-              </span>
-            )}
-          </button>
-        </div>
+            );
+          })}
+        </nav>
+        <button onClick={() => setOpen(true)} className="relative -mr-2 p-2 text-ink hover:text-wine" aria-label={`Open bag, ${count} items`}>
+          <BagIcon className="size-[22px]" />
+          {count > 0 && (
+            <span className="absolute right-0 top-0 grid size-[18px] place-items-center rounded-full bg-wine text-[10px] font-semibold text-butter">{count}</span>
+          )}
+        </button>
       </div>
 
       {/* mobile menu */}

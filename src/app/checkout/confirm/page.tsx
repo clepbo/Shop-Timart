@@ -26,7 +26,7 @@ export default async function ConfirmPage({ searchParams }: PageProps<"/checkout
 
   return (
     <div className="container-x grid min-h-[60vh] place-items-center py-16">
-      <div className="w-full max-w-lg rounded-[28px] bg-paper p-8 text-center sm:p-12">
+      <div className="w-full max-w-lg rounded-md bg-paper p-8 text-center sm:p-12">
         {paid ? (
           <>
             <ClearCart />
