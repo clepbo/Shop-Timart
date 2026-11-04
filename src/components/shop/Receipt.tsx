@@ -50,7 +50,7 @@ export function Receipt({ data }: { data: ReceiptData }) {
               <span key={i} className="bg-ink" style={{ width: (i * 7) % 3 === 0 ? 3 : 1, height: `${70 + ((i * 13) % 30)}%` }} />
             ))}
           </div>
-          <p className="mt-3 text-center text-[10px] uppercase tracking-[0.18em] text-muted">The beauty of every outfit is you</p>
+          <p className="mt-3 text-center text-[10px] uppercase tracking-[0.18em] text-muted">The beauty of every outfit is you in it</p>
         </div>
       </div>
     </div>

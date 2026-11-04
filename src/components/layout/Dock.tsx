@@ -17,7 +17,7 @@ export function Dock() {
   const [bubble, setBubble] = useState<{ left: number; width: number } | null>(null);
 
   useEffect(() => {
-    const on = () => setVisible(window.scrollY > 560);
+    const on = () => setVisible(window.scrollY > 560 && window.innerHeight + window.scrollY < document.documentElement.scrollHeight - 320);
     on();
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);

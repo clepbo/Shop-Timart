@@ -8,6 +8,7 @@ import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Dock } from "@/components/layout/Dock";
+import { NavProgress } from "@/components/layout/NavProgress";
 
 const sora = Sora({
   variable: "--font-sora",
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <style>{`.reveal{opacity:1!important;transform:none!important}.word-in,.opacity-0{opacity:1!important}`}</style>
         </noscript>
         <CartProvider>
+          <NavProgress />
           <AnnouncementBar />
           <Header />
           <main className="flex-1">{children}</main>

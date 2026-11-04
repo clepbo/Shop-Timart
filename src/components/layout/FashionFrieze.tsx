@@ -60,31 +60,6 @@ function Heel({ color }: { color: string }): Item {
   };
 }
 
-function Rack(): Item {
-  const coats = [C.camel, C.brown, C.beige];
-  return {
-    w: 220,
-    el: (
-      <g>
-        <path d="M-100,0 L-100,-158 L100,-158 L100,0 M-114,0 L-86,0 M86,0 L114,0" fill="none" stroke={C.espresso} strokeWidth={4} strokeLinecap="round" />
-        {coats.map((c, i) => {
-          const x = -58 + i * 58;
-          return (
-            <g key={i} transform={`translate(${x} 0)`}>
-              <g className="frieze-sway" style={{ animationDelay: `${i * -1.3}s` }}>
-              <path d="M0,-158 Q5,-152 0,-148 L-18,-138 L18,-138 Z" fill="none" stroke={C.espresso} strokeWidth={1.8} />
-              <path d={`M-20,-138 L20,-138 L${i === 1 ? 24 : 27},-${i === 1 ? 70 : 42} L-${i === 1 ? 24 : 27},-${i === 1 ? 70 : 42} Z`} fill={c} />
-              <path d="M-7,-138 L0,-112 L7,-138" fill={C.cream} />
-              <path d="M0,-112 L0,-50" stroke={C.espresso} strokeOpacity={0.25} strokeWidth={1.2} />
-              </g>
-            </g>
-          );
-        })}
-      </g>
-    ),
-  };
-}
-
 function Tote({ color }: { color: string }): Item {
   return {
     w: 100,
@@ -178,7 +153,6 @@ const items: Item[] = [
   DressForm({ jacket: C.brown, inner: C.cream }),
   Handbag({ body: C.camel, flap: C.cognac }),
   Heel({ color: C.espresso }),
-  Rack(),
   Tote({ color: C.tan }),
   HatBox(),
   DressForm({ jacket: C.beige, inner: C.brown, skirt: C.cognac }),
@@ -200,15 +174,125 @@ const placed = items.reduce<{ cx: number; el: React.ReactNode; end: number }[]>(
 }, []);
 const width = placed[placed.length - 1].end;
 
-export function FashionFrieze({ className = "" }: { className?: string }) {
+function Ground() {
   return (
-    <svg viewBox={`0 -180 ${width} 184`} preserveAspectRatio="xMidYMax slice" className={className} aria-hidden>
+    <svg viewBox={`0 -176 ${width} 176`} className="h-full w-auto shrink-0" aria-hidden>
       {placed.map((p, i) => (
         <g key={i} transform={`translate(${p.cx} 0)`}>
           <g className="frieze-item">{p.el}</g>
         </g>
       ))}
-      <rect x={0} y={0} width={width} height={4} fill={C.brown} />
     </svg>
+  );
+}
+
+/* ---------------------------------------------------------------- moving garment rail */
+
+type Garment = (fill: string) => React.ReactNode;
+
+const hanger = (
+  <>
+    <path d="M0,0 Q6,4 3,9 Q0,12 0,15" fill="none" stroke={C.espresso} strokeWidth={1.8} strokeLinecap="round" />
+    <path d="M0,15 L-20,26 L20,26 Z" fill="none" stroke={C.espresso} strokeWidth={1.8} strokeLinejoin="round" />
+  </>
+);
+
+const garments: Garment[] = [
+  // blazer
+  (f) => (
+    <>
+      <path d="M-22,26 L22,26 L27,92 L-27,92 Z" fill={f} />
+      <path d="M-8,26 L0,58 L8,26 Z" fill={C.cream} />
+      <path d="M-10,26 L-15,48 L0,62 M10,26 L15,48 L0,62" fill="none" stroke={C.espresso} strokeOpacity={0.35} strokeWidth={1.3} />
+      <circle cx={2} cy={70} r={1.8} fill={C.gold} />
+    </>
+  ),
+  // long A-line dress
+  (f) => (
+    <>
+      <path d="M-14,26 L14,26 L16,54 L32,124 L-32,124 L-16,54 Z" fill={f} />
+      <rect x={-16} y={52} width={32} height={5} fill={C.espresso} opacity={0.35} />
+    </>
+  ),
+  // trench coat
+  (f) => (
+    <>
+      <path d="M-23,26 L23,26 L28,116 L-28,116 Z" fill={f} />
+      <path d="M-9,26 L0,50 L9,26 Z" fill={C.cream} />
+      <rect x={-25} y={66} width={50} height={6} fill={C.espresso} opacity={0.3} />
+      <path d="M0,50 L0,116" stroke={C.espresso} strokeOpacity={0.25} strokeWidth={1.2} />
+    </>
+  ),
+  // shirt
+  (f) => (
+    <>
+      <path d="M-20,26 L20,26 L22,84 L-22,84 Z" fill={f} />
+      <path d="M-7,26 L0,36 L-10,32 Z M7,26 L0,36 L10,32 Z" fill={C.espresso} opacity={0.25} />
+      {[44, 56, 68].map((y) => (
+        <circle key={y} cx={0} cy={y} r={1.3} fill={C.espresso} opacity={0.4} />
+      ))}
+    </>
+  ),
+  // skirt on a clip hanger
+  (f) => (
+    <>
+      <path d="M-18,30 L18,30 L28,104 L-28,104 Z" fill={f} />
+      <rect x={-18} y={26} width={36} height={5} fill={C.espresso} opacity={0.3} />
+    </>
+  ),
+  // jumpsuit
+  (f) => (
+    <>
+      <path d="M-18,26 L18,26 L20,70 L22,120 L4,120 L0,82 L-4,120 L-22,120 L-20,70 Z" fill={f} />
+      <rect x={-20} y={60} width={40} height={5} fill={C.espresso} opacity={0.3} />
+      <path d="M-6,26 L0,40 L6,26" fill="none" stroke={C.espresso} strokeOpacity={0.3} strokeWidth={1.2} />
+    </>
+  ),
+];
+
+const railColours = [C.brown, C.beige, C.camel, C.espresso, C.cognac, C.cream, C.tan, C.sand];
+const RAIL_STEP = 66;
+const railCount = 18;
+const railWidth = railCount * RAIL_STEP;
+
+function Rail() {
+  return (
+    <svg viewBox={`0 0 ${railWidth} 128`} className="h-full w-auto shrink-0" aria-hidden>
+      {Array.from({ length: railCount }).map((_, i) => {
+        const g = garments[(i * 5) % garments.length];
+        const fill = railColours[(i * 3) % railColours.length];
+        return (
+          <g key={i} transform={`translate(${i * RAIL_STEP + RAIL_STEP / 2} 0)`}>
+            <g className="frieze-sway" style={{ animationDelay: `${(i % 5) * -1.1}s`, animationDuration: `${4 + (i % 3)}s` }}>
+              {hanger}
+              {g(fill)}
+            </g>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+/**
+ * Footer "moving wardrobe": a clothes rail of hanging garments glides past, with bags, dress forms and
+ * accessories travelling more slowly in front for depth. Hover to pause.
+ */
+export function FashionFrieze({ className = "" }: { className?: string }) {
+  return (
+    <div className={`group/wardrobe relative overflow-hidden ${className}`} aria-hidden>
+      {/* rail */}
+      <div className="absolute inset-x-0 top-3 z-0 h-[5px] rounded-full bg-[#3e2a1e]" />
+      <div className="absolute left-0 top-3 z-0 flex h-[46%] w-max animate-[marquee_70s_linear_infinite] group-hover/wardrobe:[animation-play-state:paused]">
+        <Rail />
+        <Rail />
+      </div>
+      {/* floor items */}
+      <div className="absolute bottom-[4px] left-0 z-10 flex h-[62%] w-max animate-[marquee_120s_linear_infinite] group-hover/wardrobe:[animation-play-state:paused]">
+        <Ground />
+        <Ground />
+      </div>
+      <div className="absolute inset-x-0 bottom-0 z-10 h-[4px] bg-[#6b4429]" />
+    </div>
   );
 }

@@ -48,7 +48,7 @@ export default async function Home() {
           <div className="relative z-10 py-14 lg:self-center lg:py-24">
             <p className="eyebrow">Modest corporate wear · Benin City</p>
             <h1 className="display mt-5 text-[44px] text-wine-deep sm:text-[64px] xl:text-[80px]">
-              <WordReveal text="The beauty of every outfit is you." accent={["you."]} accentClass="text-camel" onLoad step={110} />
+              <WordReveal text="The beauty of every outfit is you in it." accent={["you", "in", "it."]} accentClass="text-camel" onLoad step={110} />
             </h1>
             <p className="mt-6 max-w-md animate-rise text-[15px] leading-relaxed text-ink/75 [animation-delay:700ms]">
               Blazers, suits and sets for women and men who mean business — modest, polished and styled for the global you. Shop online or visit our store in Benin City.
@@ -200,7 +200,7 @@ export default async function Home() {
       <section className="bg-wine text-butter">
         <div className="container-x py-16 text-center lg:py-24">
           <p className="display mx-auto max-w-5xl text-[40px] sm:text-[64px] lg:text-[84px]">
-            <WordReveal text="The beauty of every outfit is you." accent={["you."]} accentClass="text-camel" step={140} />
+            <WordReveal text="The beauty of every outfit is you in it." accent={["you", "in", "it."]} accentClass="text-camel" step={140} />
           </p>
           <p className="mt-6 text-[12px] font-semibold uppercase tracking-[0.24em] text-butter/70">{brand.name} · Modesty Arena</p>
         </div>

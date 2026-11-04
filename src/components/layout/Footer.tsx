@@ -25,7 +25,7 @@ export function Footer() {
             <div>
               <Logo />
               <p className="mt-5 max-w-xl text-[14px] leading-relaxed text-muted">
-                {brand.name} is a modest corporate wear store and styling service in Benin City. <span className="font-medium text-wine">The beauty of every outfit is you</span> — we simply help it show.
+                {brand.name} is a modest corporate wear store and styling service in Benin City. <span className="font-medium text-wine">The beauty of every outfit is you in it</span> — we simply help it show.
               </p>
             </div>
             <div>
@@ -89,7 +89,7 @@ export function Footer() {
             © {new Date().getFullYear()} {brand.name}. All rights reserved.
           </p>
         </div>
-        <FashionFrieze className="block h-[110px] w-full sm:h-[150px] lg:h-[176px]" />
+        <FashionFrieze className="h-[190px] w-full sm:h-[240px] lg:h-[280px]" />
       </div>
     </footer>
   );

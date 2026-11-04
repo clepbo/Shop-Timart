@@ -177,3 +177,17 @@ body {
   -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 14px 100%;
   mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 14px 100%;
 }
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+@keyframes thread {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--color-sand) 25%, #fbf6ee 50%, var(--color-sand) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}

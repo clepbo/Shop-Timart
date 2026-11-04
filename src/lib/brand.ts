@@ -5,7 +5,7 @@
 export const brand = {
   name: "Timart",
   fullName: "Shop Timart",
-  tagline: "The beauty of every outfit is you.",
+  tagline: "The beauty of every outfit is you in it.",
   description:
     "Modest corporate wear and personal styling from Benin City — blazers, suits, sets and everyday elegance for women and men, delivered nationwide.",
   whatsapp: "2349168814108", // 0916 881 4108, international format without "+"
