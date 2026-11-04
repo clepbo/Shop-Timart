@@ -47,8 +47,8 @@ export default async function Home() {
         <div className="container-x grid grid-cols-1 items-end lg:grid-cols-[1.1fr_0.9fr]">
           <div className="relative z-10 py-14 lg:self-center lg:py-24">
             <p className="eyebrow">Modest corporate wear · Benin City</p>
-            <h1 className="display mt-5 text-[44px] text-wine-deep sm:text-[64px] xl:text-[80px]">
-              <WordReveal text="The beauty of every outfit is you in it." accent={["you", "in", "it."]} accentClass="text-camel" onLoad step={110} />
+            <h1 className="display mt-5 text-[48px] text-wine-deep sm:text-[72px] xl:text-[88px]">
+              <WordReveal text="The beauty of every outfit is you in it." accent={["you", "in", "it."]} accentClass="accent text-camel" onLoad step={110} />
             </h1>
             <p className="mt-6 max-w-md animate-rise text-[15px] leading-relaxed text-ink/75 [animation-delay:700ms]">
               Blazers, suits and sets for women and men who mean business — modest, polished and styled for the global you. Shop online or visit our store in Benin City.
@@ -92,7 +92,7 @@ export default async function Home() {
 
       {/* ---------- Categories ---------- */}
       <section className="container-x py-16 lg:py-24">
-        <Reveal><SectionHeading eyebrow="Shop by category" title="Dress for the room you're walking into" href="/shop" cta="Shop all" /></Reveal>
+        <Reveal><SectionHeading eyebrow="Shop by category" title={<>Dress for the room you&apos;re <span className="accent text-camel">walking into</span></>} href="/shop" cta="Shop all" /></Reveal>
         <div className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-5">
           {[
             { href: "/shop?category=corporate", name: "Corporate", sub: "Suits & blazers", p: by("the-timart-set") },
@@ -111,7 +111,7 @@ export default async function Home() {
 
       {/* ---------- New in ---------- */}
       <section className="container-x pb-16 lg:pb-24">
-        <Reveal><SectionHeading eyebrow="Just in" title="New arrivals" href="/shop" cta="View all" /></Reveal>
+        <Reveal><SectionHeading eyebrow="Just in" title={<>New <span className="accent text-camel">arrivals</span></>} href="/shop" cta="View all" /></Reveal>
         <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 lg:grid-cols-4 lg:gap-x-5">
           {newIn.map((p, i) => (
             <Reveal key={p.id} delay={i * 90}>
@@ -135,7 +135,7 @@ export default async function Home() {
             </div>
             <div>
               <p className="eyebrow">Our signature</p>
-              <h2 className="display mt-4 text-4xl sm:text-5xl">The Timart Set.</h2>
+              <h2 className="display mt-4 text-[44px] sm:text-[64px] lg:text-[72px]">The <span className="accent text-camel">Timart</span> Set.</h2>
               <p className="mt-5 max-w-md leading-relaxed text-muted">
                 A blend of comfort and elegance, specially curated for the working woman. One textured blazer, a camisole and wide-leg trousers — styled two ways, for the office and everywhere after.
               </p>
@@ -178,7 +178,7 @@ export default async function Home() {
         <div className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <div>
             <p className="eyebrow">For him</p>
-            <h2 className="display mt-4 text-4xl sm:text-5xl">Smart, relaxed, never sloppy.</h2>
+            <h2 className="display mt-4 text-[44px] sm:text-[64px] lg:text-[72px]">Smart, relaxed, <span className="accent text-camel">never sloppy.</span></h2>
             <p className="mt-5 max-w-md leading-relaxed text-muted">Corduroy and suede-feel jackets that work over a shirt and tie or a simple knit — in rich, easy colours: forest, taupe, chocolate and cream.</p>
             <Link href="/shop?gender=men" className="btn-outline mt-8">
               Shop men <ArrowIcon />
@@ -200,7 +200,7 @@ export default async function Home() {
       <section className="bg-wine text-butter">
         <div className="container-x py-16 text-center lg:py-24">
           <p className="display mx-auto max-w-5xl text-[40px] sm:text-[64px] lg:text-[84px]">
-            <WordReveal text="The beauty of every outfit is you in it." accent={["you", "in", "it."]} accentClass="text-camel" step={140} />
+            <WordReveal text="The beauty of every outfit is you in it." accent={["you", "in", "it."]} accentClass="accent text-camel" step={140} />
           </p>
           <p className="mt-6 text-[12px] font-semibold uppercase tracking-[0.24em] text-butter/70">{brand.name} · Modesty Arena</p>
         </div>
@@ -208,7 +208,7 @@ export default async function Home() {
 
       {/* ---------- Featured ---------- */}
       <section className="container-x py-16 lg:py-24">
-        <Reveal><SectionHeading eyebrow="Most loved" title="Boss lady favourites" href="/shop" /></Reveal>
+        <Reveal><SectionHeading eyebrow="Most loved" title={<>Boss lady <span className="accent text-camel">favourites</span></>} href="/shop" /></Reveal>
         <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 lg:grid-cols-4 lg:gap-x-5">
           {featured.map((p, i) => (
             <Reveal key={p.id} delay={i * 90}>
@@ -227,7 +227,7 @@ export default async function Home() {
           </div>
           <div>
             <p className="eyebrow !text-butter">Personal styling</p>
-            <h2 className="display mt-4 text-4xl sm:text-5xl">Styling for the global you.</h2>
+            <h2 className="display mt-4 text-[48px] sm:text-[72px] lg:text-[84px]">Styling for <span className="accent text-butter">the global you.</span></h2>
             <p className="mt-5 max-w-lg leading-relaxed text-ivory/75">
               Seminar tomorrow? Interview on Monday? Tell us the occasion and we&apos;ll put the full look together — outfit, bag and accessories. Visit us in Benin City, or get styled remotely wherever you are.
             </p>
@@ -257,7 +257,7 @@ export default async function Home() {
             <p className="eyebrow flex items-center gap-2">
               <SparkIcon className="size-3.5" /> Fit Studio
             </p>
-            <h2 className="display mt-4 text-3xl sm:text-4xl">Not sure how it&apos;ll sit on you?</h2>
+            <h2 className="display mt-4 text-[38px] sm:text-[52px]">Not sure how it&apos;ll sit <span className="accent text-camel">on you?</span></h2>
             <p className="mt-4 max-w-md leading-relaxed text-muted">Preview any piece on six body types — petite to plus — and in every colour it comes in. We&apos;ll even suggest your size.</p>
             <Link href="/fit-studio" className="btn-outline mt-7">
               Try the Fit Studio
@@ -279,7 +279,7 @@ export default async function Home() {
       {/* ---------- Testimonials ---------- */}
       <section className="bg-paper py-16 lg:py-24">
         <div className="container-x">
-          <Reveal><SectionHeading eyebrow="From our WhatsApp" title="What our customers say" center /></Reveal>
+          <Reveal><SectionHeading eyebrow="From our WhatsApp" title={<>What our customers <span className="accent text-camel">say</span></>} center /></Reveal>
           <div className="mt-10">
             <Testimonials />
           </div>
@@ -291,7 +291,7 @@ export default async function Home() {
         <div className="container-x grid gap-10 py-14 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:py-16">
           <div>
             <p className="eyebrow !text-wine-deep">Visit the store</p>
-            <h2 className="display mt-4 text-3xl sm:text-4xl">Come try it on.</h2>
+            <h2 className="display mt-4 text-[52px] sm:text-[80px] lg:text-[96px]">Come <span className="accent">try it on.</span></h2>
             <p className="mt-4 max-w-md leading-relaxed text-wine-deep/80">{brand.address}.</p>
             <p className="mt-2 text-wine-deep/80">{brand.hours}</p>
           </div>
@@ -303,7 +303,10 @@ export default async function Home() {
               Call {brand.phoneDisplay}
             </a>
             <a href={brand.tiktok} target="_blank" rel="noreferrer" className="btn border border-wine-deep/40 text-wine-deep hover:bg-wine-deep hover:text-butter">
-              Follow {brand.tiktokHandle}
+              TikTok {brand.tiktokHandle}
+            </a>
+            <a href={brand.instagram} target="_blank" rel="noreferrer" className="btn border border-wine-deep/40 text-wine-deep hover:bg-wine-deep hover:text-butter">
+              Instagram {brand.instagramHandle}
             </a>
           </div>
         </div>

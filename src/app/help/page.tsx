@@ -26,7 +26,7 @@ export default function HelpPage() {
   return (
     <div className="container-x max-w-4xl pb-24 pt-12">
       <p className="eyebrow">Customer care</p>
-      <h1 className="display mt-3 text-[38px] sm:text-[48px]">How can we help?</h1>
+      <h1 className="display mt-3 text-[46px] sm:text-[64px]">How can we <span className="accent text-camel">help?</span></h1>
       <p className="mt-4 max-w-xl text-muted">
         Can&apos;t find what you need? Chat with us on{" "}
         <a className="text-wine underline underline-offset-4" href={whatsappLink(`Hello ${brand.name}! I have a question.`)} target="_blank" rel="noreferrer">

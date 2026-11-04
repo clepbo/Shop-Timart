@@ -28,8 +28,8 @@ export default function StylingPage() {
         <div className="container-x grid items-stretch gap-6 pb-12 pt-8 lg:grid-cols-[1.1fr_1fr]">
           <div className="flex flex-col justify-center bg-sand px-6 py-10 sm:px-10">
             <p className="eyebrow">Personal styling</p>
-            <h1 className="display mt-4 text-[38px] sm:text-[52px]">
-              Styling for <span className="text-camel">the global you.</span>
+            <h1 className="display mt-4 text-[48px] sm:text-[68px]">
+              Styling for <span className="accent text-camel">the global you.</span>
             </h1>
             <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-muted">
               Whether you&apos;re in Benin City or miles away, we&apos;ll put together the full look for your next corporate event, seminar or special day — modest, polished and true to you.
@@ -51,7 +51,7 @@ export default function StylingPage() {
 
       <section id="services" className="container-x scroll-mt-28 pt-16">
         <p className="eyebrow">How we can help</p>
-        <h2 className="display mt-3 text-[28px] sm:text-[38px]">Styling services</h2>
+        <h2 className="display mt-3 text-[36px] sm:text-[52px]">Styling <span className="accent text-camel">services</span></h2>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((s) => (
             <article key={s.name} className="border-t-2 border-wine bg-paper">
@@ -80,7 +80,7 @@ export default function StylingPage() {
       <section id="book" className="container-x grid scroll-mt-28 gap-10 pt-16 lg:grid-cols-[1fr_1.4fr]">
         <div>
           <p className="eyebrow">Book</p>
-          <h2 className="display mt-3 text-[28px] sm:text-[38px]">Let&apos;s dress your next moment.</h2>
+          <h2 className="display mt-3 text-[36px] sm:text-[52px]">Let&apos;s dress your <span className="accent text-camel">next moment.</span></h2>
           <p className="mt-5 max-w-md leading-relaxed text-muted">Send a request and we&apos;ll confirm your session on WhatsApp within 24 hours.</p>
         </div>
         <BookingForm services={services.map((s) => s.name)} />

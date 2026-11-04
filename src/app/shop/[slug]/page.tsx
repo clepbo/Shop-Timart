@@ -39,7 +39,7 @@ export default async function ProductPage({ params, searchParams }: PageProps<"/
       {related.length > 0 && (
         <section className="mt-24">
           <p className="eyebrow">Complete the wardrobe</p>
-          <h2 className="display mt-3 text-5xl">You may also love</h2>
+          <h2 className="display mt-3 text-[36px] sm:text-[52px]">You may also <span className="accent text-camel">love</span></h2>
           <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-4 lg:gap-x-6">
             {related.map((p) => (
               <ProductCard key={p.id} product={p} />

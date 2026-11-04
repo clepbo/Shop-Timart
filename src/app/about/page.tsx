@@ -17,8 +17,8 @@ export default function AboutPage() {
     <div className="pb-24">
       <section className="container-x pt-12 text-center">
         <p className="eyebrow">About {brand.fullName}</p>
-        <h1 className="display mx-auto mt-4 max-w-3xl text-[38px] sm:text-[52px]">
-          A modesty arena for women who <span className="text-wine">lead</span>.
+        <h1 className="display mx-auto mt-4 max-w-4xl text-[46px] sm:text-[68px]">
+          A modesty arena for women who <span className="accent text-camel">lead.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-[15px] leading-relaxed text-muted">
           {brand.fullName} is a modest corporate wear store and styling service in Benin City. We dress women — and men — for offices, seminars, interviews and every moment in between, in our walk-in store at Divine Plaza and online across Nigeria.

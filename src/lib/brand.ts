@@ -11,7 +11,8 @@ export const brand = {
   whatsapp: "2349168814108", // 0916 881 4108, international format without "+"
   phoneDisplay: "0916 881 4108",
   email: "hello@shoptimart.com",
-  instagram: "https://instagram.com/",
+  instagram: "https://www.instagram.com/shop_teemart/",
+  instagramHandle: "@shop_teemart",
   tiktok: "https://www.tiktok.com/@shop_teemart",
   tiktokHandle: "@shop_teemart",
   address: "Shop 10b Divine Plaza (the blue plaza close to Mat Ice), Uselu–Lagos Road, Benin City, Edo State",

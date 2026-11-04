@@ -39,7 +39,7 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
     <div className="container-x pb-24 pt-10">
       <div className="max-w-2xl">
         <p className="eyebrow">Shop</p>
-        <h1 className="display mt-3 text-[44px] sm:text-5xl">{title}</h1>
+        <h1 className="display mt-3 text-[48px] sm:text-[68px]">{title}</h1>
         <p className="mt-4 text-muted">Real pieces from our Benin City store, photographed on our team. Tap any item for more photos — or to see it on your size.</p>
       </div>
 

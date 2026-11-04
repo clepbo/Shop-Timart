@@ -7,10 +7,15 @@ import { Logo } from "./Logo";
 import { BagIcon, CloseIcon, MenuIcon } from "../Icons";
 import { useCart } from "../cart/CartProvider";
 
+const shopMenu = [
+  { href: "/shop", label: "Shop all", note: "Every piece in store" },
+  { href: "/shop?category=corporate", label: "Corporate", note: "Suits & blazers" },
+  { href: "/shop?category=sets", label: "Sets", note: "Ready-to-wear looks" },
+  { href: "/shop?category=tops", label: "Tops & Blouses", note: "Work-ready tops" },
+  { href: "/shop?gender=men", label: "Men", note: "Jackets & suits" },
+];
+
 const nav = [
-  { href: "/shop", label: "Shop" },
-  { href: "/shop?category=corporate", label: "Corporate" },
-  { href: "/shop?gender=men", label: "Men" },
   { href: "/styling", label: "Styling" },
   { href: "/fit-studio", label: "Fit Studio" },
   { href: "/about", label: "About" },
@@ -56,8 +61,29 @@ export function Header() {
           <Logo />
         </div>
         <nav className="hidden items-center gap-8 lg:flex">
+          <div className="group relative">
+            <Link href="/shop" className={`flex items-center gap-1.5 border-b pb-1 text-[12px] font-medium uppercase tracking-[0.14em] transition ${pathname.startsWith("/shop") ? "border-wine text-wine" : "border-transparent hover:text-wine"}`} aria-haspopup="true">
+              Shop
+              <svg viewBox="0 0 12 12" className="size-2.5 transition duration-300 group-hover:rotate-180 group-focus-within:rotate-180" aria-hidden>
+                <path d="M2 4.5 6 8l4-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+            <div className="invisible absolute left-1/2 top-full z-50 w-[300px] -translate-x-1/2 translate-y-2 pt-4 opacity-0 transition duration-300 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+              <div className="border border-wine/10 bg-paper p-2 shadow-[0_24px_50px_-20px_rgba(67,42,26,0.4)]">
+                {shopMenu.map((m) => (
+                  <Link key={m.href} href={m.href} className="group/item flex items-center justify-between px-4 py-3 transition hover:bg-sand">
+                    <span>
+                      <span className="block text-[13px] font-semibold text-ink">{m.label}</span>
+                      <span className="block text-[12px] text-muted">{m.note}</span>
+                    </span>
+                    <span className="text-wine opacity-0 transition duration-300 group-hover/item:translate-x-1 group-hover/item:opacity-100">→</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
           {nav.map((n) => {
-            const active = n.href === pathname || (n.href !== "/shop" && pathname.startsWith(n.href.split("?")[0]) && !n.href.includes("?"));
+            const active = pathname.startsWith(n.href);
             return (
               <Link key={n.href} href={n.href} className={`border-b pb-1 text-[12px] font-medium uppercase tracking-[0.14em] transition ${active ? "border-wine text-wine" : "border-transparent hover:text-wine"}`}>
                 {n.label}
@@ -84,6 +110,18 @@ export function Header() {
             </button>
           </div>
           <nav className="mt-10 flex flex-col gap-5">
+            <div>
+              <Link href="/shop" className="display text-4xl">
+                Shop
+              </Link>
+              <div className="mt-3 flex flex-col gap-2.5 border-l border-wine/20 pl-4">
+                {shopMenu.slice(1).map((m) => (
+                  <Link key={m.href} href={m.href} className="text-[15px] text-muted hover:text-wine">
+                    {m.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
             {nav.map((n) => (
               <Link key={n.href} href={n.href} className="display text-4xl">
                 {n.label}

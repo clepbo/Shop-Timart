@@ -17,8 +17,8 @@ export default async function FitStudioPage({ searchParams }: PageProps<"/fit-st
     <div className="pb-24">
       <section className="container-x pb-10 pt-10 text-center">
         <p className="eyebrow">The Fit Studio</p>
-        <h1 className="display mx-auto mt-4 max-w-4xl text-[44px] sm:text-5xl">
-          See it on <span className="text-wine">you</span>.
+        <h1 className="display mx-auto mt-4 max-w-4xl text-[52px] sm:text-[80px]">
+          See it on <span className="accent text-camel">you.</span>
         </h1>
         <p className="mx-auto mt-5 max-w-xl text-muted">Choose a piece, pick the body closest to yours and switch colours instantly. Compare all sizes side by side, then shop the size we suggest.</p>
       </section>

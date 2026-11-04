@@ -24,6 +24,7 @@
 
   --font-display: var(--font-sora), "Sora", system-ui, sans-serif;
   --font-sans: var(--font-poppins), "Poppins", system-ui, sans-serif;
+  --font-accent: var(--font-instrument), "Instrument Serif", Georgia, serif;
 
   --tracking-eyebrow: 0.22em;
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -74,7 +75,7 @@ body {
   @apply text-[11px] font-semibold uppercase tracking-[0.24em] text-wine;
 }
 @utility display {
-  @apply font-display font-semibold leading-[1.08] tracking-[-0.035em];
+  @apply font-display font-bold leading-[1.02] tracking-[-0.045em];
 }
 @utility btn {
   @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 text-[12px] font-semibold uppercase tracking-[0.16em] transition duration-300;
@@ -190,4 +191,14 @@ body {
   background: linear-gradient(90deg, var(--color-sand) 25%, #fbf6ee 50%, var(--color-sand) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.4s ease-in-out infinite;
+}
+
+/* Expressive heading accent: italic serif words set inside the bold Sora headings. */
+.accent {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  font-size: 1.12em;
+  line-height: 0.9;
 }

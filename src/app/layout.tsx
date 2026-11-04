@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, Sora } from "next/font/google";
+import { Instrument_Serif, Poppins, Sora } from "next/font/google";
 import "./globals.css";
 import { brand } from "@/lib/brand";
 import { CartProvider } from "@/components/cart/CartProvider";
@@ -16,6 +16,13 @@ const sora = Sora({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+const instrument = Instrument_Serif({
+  variable: "--font-instrument",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+});
+
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
@@ -29,7 +36,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${sora.variable} ${poppins.variable} h-full`}>
+    <html lang="en" className={`${sora.variable} ${poppins.variable} ${instrument.variable} h-full`}>
       <body className="flex min-h-full flex-col">
         <noscript>
           <style>{`.reveal{opacity:1!important;transform:none!important}.word-in,.opacity-0{opacity:1!important}`}</style>
