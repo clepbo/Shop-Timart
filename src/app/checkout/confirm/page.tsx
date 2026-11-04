@@ -4,12 +4,13 @@ import { confirmOrderPayment } from "@/lib/paystack";
 import { getRecord } from "@/lib/store";
 import { formatPrice, whatsappLink, brand } from "@/lib/brand";
 import { ClearCart } from "./ClearCart";
+import { Receipt } from "@/components/shop/Receipt";
 import { WhatsAppIcon } from "@/components/Icons";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Order confirmation", robots: { index: false } };
 
-type Order = { id: string; total: number; status: string; customer: { name: string } };
+type Order = { id: string; createdAt: string; total: number; subtotal: number; deliveryFee: number; status: string; customer: { name: string }; lines: { name: string; colour: string; size: string; quantity: number; total: number }[] };
 
 export default async function ConfirmPage({ searchParams }: PageProps<"/checkout/confirm">) {
   const sp = await searchParams;
@@ -25,7 +26,10 @@ export default async function ConfirmPage({ searchParams }: PageProps<"/checkout
   const paid = result?.ok;
 
   return (
-    <div className="container-x grid min-h-[60vh] place-items-center py-16">
+    <div className="container-x grid min-h-[60vh] items-start justify-center gap-10 py-16 md:grid-cols-[auto_minmax(0,32rem)]">
+      {paid && order && (
+        <Receipt data={{ id: order.id, date: order.createdAt, lines: order.lines, subtotal: order.subtotal, deliveryFee: order.deliveryFee, total: order.total, paid: true }} />
+      )}
       <div className="w-full max-w-lg rounded-md bg-paper p-8 text-center sm:p-12">
         {paid ? (
           <>

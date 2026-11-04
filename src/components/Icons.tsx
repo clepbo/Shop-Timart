@@ -34,3 +34,12 @@ export const MinusIcon = ({ className = "size-4" }: P) => (
 export const CheckIcon = ({ className = "size-4" }: P) => (
   <svg viewBox="0 0 24 24" className={className} {...base}><path d="m5 12 4.5 4.5L19 7" /></svg>
 );
+export const HomeIcon = ({ className = "size-5" }: P) => (
+  <svg viewBox="0 0 24 24" className={className} {...base}><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4v-9Z" /></svg>
+);
+export const HangerIcon = ({ className = "size-5" }: P) => (
+  <svg viewBox="0 0 24 24" className={className} {...base}><path d="M12 7a2 2 0 1 1 2-2c0 1.2-2 1.6-2 3v1" /><path d="m12 9-9 7.5c-.7.6-.3 1.5.6 1.5h16.8c.9 0 1.3-.9.6-1.5L12 9Z" /></svg>
+);
+export const ScissorsIcon = ({ className = "size-5" }: P) => (
+  <svg viewBox="0 0 24 24" className={className} {...base}><circle cx="6" cy="7" r="2.5" /><circle cx="6" cy="17" r="2.5" /><path d="M8 8.5 20 18M8 15.5 20 6" /></svg>
+);

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Logo } from "./Logo";
 import { BagIcon, CloseIcon, MenuIcon } from "../Icons";
 import { useCart } from "../cart/CartProvider";
@@ -20,6 +20,18 @@ export function Header() {
   const { count, setOpen } = useCart();
   const [menu, setMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [bump, setBump] = useState(false);
+  const prevCount = useRef(count);
+  useEffect(() => {
+    if (count > prevCount.current) {
+       
+      setBump(true);
+      const t = setTimeout(() => setBump(false), 500);
+      prevCount.current = count;
+      return () => clearTimeout(t);
+    }
+    prevCount.current = count;
+  }, [count]);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -54,7 +66,7 @@ export function Header() {
           })}
         </nav>
         <button onClick={() => setOpen(true)} className="relative -mr-2 p-2 text-ink hover:text-wine" aria-label={`Open bag, ${count} items`}>
-          <BagIcon className="size-[22px]" />
+          <BagIcon className={`size-[22px] ${bump ? "animate-[bump_.5s_ease]" : ""}`} />
           {count > 0 && (
             <span className="absolute right-0 top-0 grid size-[18px] place-items-center rounded-full bg-wine text-[10px] font-semibold text-butter">{count}</span>
           )}

@@ -8,6 +8,7 @@ import { ProductArt } from "./ProductArt";
 import { Figure } from "../figure/Figure";
 import { useCart } from "../cart/CartProvider";
 import { CheckIcon, SparkIcon, WhatsAppIcon } from "../Icons";
+import { MorphButton } from "../motion/MorphButton";
 
 function recommendedSize(body: BodyProfile, sizes: string[]) {
   const first = body.sizes.split(/[–-]/)[0].trim(); // "UK 14–16" → "UK 14", "M–L" → "M"
@@ -243,15 +244,15 @@ export function ProductExperience({ product, initialColour }: { product: Product
         </div>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <button onClick={addToBag} className="btn-primary flex-1">
+          <MorphButton onClick={addToBag} className={`btn-primary shrink-0 ${added ? "!bg-camel" : ""}`}>
             {added ? (
               <>
-                <CheckIcon /> Added to bag
+                <CheckIcon /> Added
               </>
             ) : (
               <>Add to bag · {formatPrice(product.price)}</>
             )}
-          </button>
+          </MorphButton>
           <a href={whatsappLink(waMessage)} target="_blank" rel="noreferrer" className="btn-outline flex-1">
             <WhatsAppIcon className="size-4" /> Order on WhatsApp
           </a>

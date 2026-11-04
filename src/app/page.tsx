@@ -9,6 +9,11 @@ import { ProductCard } from "@/components/shop/ProductCard";
 import { ProductArt } from "@/components/shop/ProductArt";
 import { Figure } from "@/components/figure/Figure";
 import { ArrowIcon, SparkIcon, WhatsAppIcon } from "@/components/Icons";
+import { Reveal } from "@/components/motion/Reveal";
+import { WordReveal } from "@/components/motion/WordReveal";
+import { LookFan } from "@/components/motion/LookFan";
+import { HeroPortrait } from "@/components/home/HeroPortrait";
+import { CategoryTile } from "@/components/home/CategoryTile";
 
 export const dynamic = "force-dynamic";
 
@@ -21,9 +26,9 @@ const perks = [
   ["Styling on WhatsApp", brand.phoneDisplay],
 ];
 
-function GhostTile({ p, ci = 0, swatches = true, className = "" }: { p?: Product; ci?: number; swatches?: boolean; className?: string }) {
+function GhostTile({ p, ci = 0, swatches = true, className = "", zoom = false }: { p?: Product; ci?: number; swatches?: boolean; className?: string; zoom?: boolean }) {
   if (!p) return null;
-  return <ProductArt garmentType={p.garmentType} gender={p.gender} colour={p.colors[ci] ?? p.colors[0]} ghost swatches={swatches ? p.colors : undefined} name={p.name} className={className} />;
+  return <ProductArt garmentType={p.garmentType} gender={p.gender} colour={p.colors[ci] ?? p.colors[0]} ghost swing zoom={zoom} swatches={swatches ? p.colors : undefined} name={p.name} className={className} />;
 }
 
 export default async function Home() {
@@ -33,21 +38,22 @@ export default async function Home() {
   const newIn = women.filter((p) => p.isNew).slice(0, 4);
   const featured = products.filter((p) => p.featured).slice(0, 4);
   const timartSet = by("the-timart-set");
+  const men = products.filter((p) => p.gender === "men" && p.images?.length);
 
   return (
     <>
       {/* ---------- Hero ---------- */}
       <section className="relative overflow-hidden bg-linen">
         <div className="container-x grid grid-cols-1 items-end lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="relative z-10 animate-rise py-14 lg:self-center lg:py-24">
+          <div className="relative z-10 py-14 lg:self-center lg:py-24">
             <p className="eyebrow">Modest corporate wear · Benin City</p>
             <h1 className="display mt-5 text-[44px] text-wine-deep sm:text-[64px] xl:text-[80px]">
-              The beauty of every outfit is <span className="text-camel">you.</span>
+              <WordReveal text="The beauty of every outfit is you." accent={["you."]} accentClass="text-camel" onLoad step={110} />
             </h1>
-            <p className="mt-6 max-w-md text-[15px] leading-relaxed text-ink/75">
+            <p className="mt-6 max-w-md animate-rise text-[15px] leading-relaxed text-ink/75 [animation-delay:700ms]">
               Blazers, suits and sets for women and men who mean business — modest, polished and styled for the global you. Shop online or visit our store in Benin City.
             </p>
-            <div className="mt-9 flex flex-wrap gap-3">
+            <div className="mt-9 flex animate-rise flex-wrap gap-3 [animation-delay:850ms]">
               <Link href="/shop" className="btn-primary">
                 Shop the collection <ArrowIcon />
               </Link>
@@ -55,7 +61,7 @@ export default async function Home() {
                 <WhatsAppIcon className="size-4" /> Book styling
               </a>
             </div>
-            <dl className="mt-12 grid max-w-md grid-cols-3 gap-6 border-t border-wine/15 pt-6">
+            <dl className="mt-12 grid max-w-md animate-rise grid-cols-3 gap-6 border-t border-wine/15 pt-6 [animation-delay:1000ms]">
               {[
                 ["4–20", "UK sizes"],
                 ["₦16k+", "Sets from"],
@@ -68,13 +74,7 @@ export default async function Home() {
               ))}
             </dl>
           </div>
-          <div className="relative mx-auto h-[440px] w-full max-w-[520px] sm:h-[560px] lg:h-[640px]">
-            <div className="absolute bottom-0 left-1/2 aspect-square w-[88%] -translate-x-1/2 translate-y-[18%] rounded-full bg-sand" aria-hidden />
-            <div className="absolute bottom-0 left-1/2 aspect-square w-[64%] -translate-x-1/2 translate-y-[8%] rounded-full border border-wine/15" aria-hidden />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={studio("founder-cutout")} alt={`The founder of ${brand.name} in a black trouser suit, white shirt and red tie`} className="absolute bottom-0 left-1/2 h-[96%] w-auto max-w-none -translate-x-1/2 object-contain object-bottom drop-shadow-[0_20px_30px_rgba(67,42,26,0.18)]" />
-            <span className="absolute bottom-8 right-0 bg-wine px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-butter">Founder · {brand.name}</span>
-          </div>
+          <HeroPortrait src={studio("founder-cutout")} alt={`The founder of ${brand.name} in a black trouser suit, white shirt and red tie`} badge={`Founder · ${brand.name}`} />
         </div>
       </section>
 
@@ -92,42 +92,31 @@ export default async function Home() {
 
       {/* ---------- Categories ---------- */}
       <section className="container-x py-16 lg:py-24">
-        <SectionHeading eyebrow="Shop by category" title="Dress for the room you're walking into" href="/shop" cta="Shop all" />
+        <Reveal><SectionHeading eyebrow="Shop by category" title="Dress for the room you're walking into" href="/shop" cta="Shop all" /></Reveal>
         <div className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-5">
           {[
-            { href: "/shop?category=corporate", name: "Corporate", sub: "Suits & blazers", p: by("ivory-power-suit") },
+            { href: "/shop?category=corporate", name: "Corporate", sub: "Suits & blazers", p: by("the-timart-set") },
             { href: "/shop?category=sets", name: "Sets", sub: "From ₦16,000", p: by("argyle-vest-set") },
             { href: "/shop?category=tops", name: "Tops & Blouses", sub: "Work-ready tops", p: by("gold-button-wrap-top") },
-          ].map((c) => (
-            <Link key={c.href} href={c.href} className="group relative block aspect-[3/4] overflow-hidden">
-              <GhostTile p={c.p} className="absolute inset-0 transition duration-700 group-hover:scale-[1.04]" />
-              <div className="absolute inset-x-0 bottom-0 bg-paper/95 px-5 py-4">
-                <p className="font-display text-lg font-semibold">{c.name}</p>
-                <p className="mt-0.5 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.14em] text-wine">
-                  {c.sub} <ArrowIcon className="size-3.5 transition group-hover:translate-x-1" />
-                </p>
-              </div>
-            </Link>
+          ].map((c, i) => (
+            <Reveal key={c.href} delay={i * 90}>
+              <CategoryTile href={c.href} name={c.name} sub={c.sub} product={c.p} />
+            </Reveal>
           ))}
-          <Link href="/shop?gender=men" className="group relative block aspect-[3/4] overflow-hidden bg-sand">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={studio("men-suede-taupe")} alt="Men's taupe suede jacket with cream trousers" className="absolute inset-0 size-full object-cover object-top transition duration-700 group-hover:scale-[1.04]" />
-            <div className="absolute inset-x-0 bottom-0 bg-paper/95 px-5 py-4">
-              <p className="font-display text-lg font-semibold">Men</p>
-              <p className="mt-0.5 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.14em] text-wine">
-                Jackets & suits <ArrowIcon className="size-3.5 transition group-hover:translate-x-1" />
-              </p>
-            </div>
-          </Link>
+          <Reveal delay={270}>
+            <CategoryTile href="/shop?gender=men" name="Men" sub="Jackets & suits" photo={studio("men-suede-taupe")} />
+          </Reveal>
         </div>
       </section>
 
       {/* ---------- New in ---------- */}
       <section className="container-x pb-16 lg:pb-24">
-        <SectionHeading eyebrow="Just in" title="New arrivals" href="/shop" cta="View all" />
+        <Reveal><SectionHeading eyebrow="Just in" title="New arrivals" href="/shop" cta="View all" /></Reveal>
         <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 lg:grid-cols-4 lg:gap-x-5">
-          {newIn.map((p) => (
-            <ProductCard key={p.id} product={p} />
+          {newIn.map((p, i) => (
+            <Reveal key={p.id} delay={i * 90}>
+              <ProductCard product={p} />
+            </Reveal>
           ))}
         </div>
       </section>
@@ -139,7 +128,7 @@ export default async function Home() {
             <div className="grid grid-cols-2 gap-3">
               {timartSet.colors.map((c, i) => (
                 <Link key={c.name} href={`/shop/${timartSet.slug}?colour=${encodeURIComponent(c.name)}`} className="group block">
-                  <GhostTile p={timartSet} ci={i} swatches={false} className="aspect-[3/4] transition duration-700 group-hover:scale-[1.02]" />
+                  <GhostTile p={timartSet} ci={i} swatches={false} zoom className="aspect-[3/4]" />
                   <p className="mt-3 text-[12px] font-medium uppercase tracking-[0.14em] text-muted">{c.name}</p>
                 </Link>
               ))}
@@ -195,38 +184,36 @@ export default async function Home() {
               Shop men <ArrowIcon />
             </Link>
           </div>
-          <div className="grid grid-cols-3 gap-3">
-            {[
-              ["corduroy-snap-jacket", "men-corduroy-jacket", "Corduroy Snap Jacket"],
-              ["suede-harrington-jacket", "men-suede-forest", "Suede Harrington"],
-              ["corduroy-safari-suit", "men-safari-suit", "Corduroy Safari Suit"],
-            ].map(([slug, img, name]) => (
-              <Link key={slug} href={`/shop/${slug}`} className="group block">
-                <div className="relative aspect-[9/14] overflow-hidden bg-sand">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={studio(img)} alt={name} className="absolute inset-0 size-full object-cover object-top transition duration-700 group-hover:scale-105" />
-                </div>
-                <p className="mt-3 text-[13px] font-medium">{name}</p>
-              </Link>
-            ))}
-          </div>
+          <LookFan
+            cards={men.map((p) => ({
+              href: `/shop/${p.slug}`,
+              label: p.name,
+              sub: formatPrice(p.price),
+              // eslint-disable-next-line @next/next/no-img-element
+              content: <img src={p.images?.[0] ?? ""} alt={p.name} className="absolute inset-0 size-full object-cover object-top" draggable={false} />,
+            }))}
+          />
         </div>
       </section>
 
       {/* ---------- Statement ---------- */}
       <section className="bg-wine text-butter">
         <div className="container-x py-16 text-center lg:py-24">
-          <p className="display mx-auto max-w-5xl text-[40px] sm:text-[64px] lg:text-[84px]">The beauty of every outfit is you.</p>
+          <p className="display mx-auto max-w-5xl text-[40px] sm:text-[64px] lg:text-[84px]">
+            <WordReveal text="The beauty of every outfit is you." accent={["you."]} accentClass="text-camel" step={140} />
+          </p>
           <p className="mt-6 text-[12px] font-semibold uppercase tracking-[0.24em] text-butter/70">{brand.name} · Modesty Arena</p>
         </div>
       </section>
 
       {/* ---------- Featured ---------- */}
       <section className="container-x py-16 lg:py-24">
-        <SectionHeading eyebrow="Most loved" title="Boss lady favourites" href="/shop" />
+        <Reveal><SectionHeading eyebrow="Most loved" title="Boss lady favourites" href="/shop" /></Reveal>
         <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 lg:grid-cols-4 lg:gap-x-5">
-          {featured.map((p) => (
-            <ProductCard key={p.id} product={p} />
+          {featured.map((p, i) => (
+            <Reveal key={p.id} delay={i * 90}>
+              <ProductCard product={p} />
+            </Reveal>
           ))}
         </div>
       </section>
@@ -236,7 +223,7 @@ export default async function Home() {
         <div className="container-x grid items-center gap-10 py-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:py-20">
           <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden bg-butter">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={studio("founder-cutout")} alt={`${brand.name}'s founder and lead stylist`} className="absolute bottom-0 left-1/2 h-[112%] w-auto max-w-none -translate-x-1/2 object-contain object-top" />
+            <img src={studio("founder-cutout")} alt={`${brand.name}'s founder and lead stylist`} className="absolute bottom-0 left-1/2 h-[94%] w-auto max-w-none -translate-x-1/2 object-contain object-bottom transition duration-700 hover:scale-[1.03]" />
           </div>
           <div>
             <p className="eyebrow !text-butter">Personal styling</p>
@@ -292,7 +279,7 @@ export default async function Home() {
       {/* ---------- Testimonials ---------- */}
       <section className="bg-paper py-16 lg:py-24">
         <div className="container-x">
-          <SectionHeading eyebrow="From our WhatsApp" title="What our customers say" center />
+          <Reveal><SectionHeading eyebrow="From our WhatsApp" title="What our customers say" center /></Reveal>
           <div className="mt-10">
             <Testimonials />
           </div>

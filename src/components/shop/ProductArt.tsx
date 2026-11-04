@@ -19,6 +19,10 @@ interface Props {
   ghost?: boolean;
   /** Colour-story swatches shown beside a ghost outfit (studio style). */
   swatches?: Colorway[];
+  /** Ghost mode: scale the outfit up to fill the frame (cropped at the hem like a product shot). */
+  zoom?: boolean;
+  /** Ghost mode: the outfit sways on hover of a parent `.group`. */
+  swing?: boolean;
 }
 
 /**
@@ -27,7 +31,7 @@ interface Props {
  */
 const pos = (cls: string) => (/\b(absolute|fixed)\b/.test(cls) ? "" : "relative");
 
-export function ProductArt({ garmentType, gender, colour, body, skin, render, className = "", name, tinted = true, photo, ghost = false, swatches }: Props) {
+export function ProductArt({ garmentType, gender, colour, body, skin, render, className = "", name, tinted = true, photo, ghost = false, swatches, zoom = false, swing = false }: Props) {
   const b = body ?? defaultBody(gender);
   const bg = tinted ? `radial-gradient(120% 80% at 50% 18%, ${shade(colour.hex, 0.9)} 0%, ${shade(colour.hex, 0.8)} 55%, ${shade(colour.hex, 0.72)} 100%)` : undefined;
 
@@ -77,12 +81,12 @@ export function ProductArt({ garmentType, gender, colour, body, skin, render, cl
           accent={colour.accent}
           ghost
           title={name ? `${name} in ${colour.name}` : undefined}
-          className={`absolute bottom-[3%] h-[90%] w-auto drop-shadow-[0_14px_18px_rgba(20,17,17,0.14)] ${(swatches?.length ?? 0) > 1 ? "left-[58%] -translate-x-1/2" : "left-1/2 -translate-x-1/2"}`}
+          className={`absolute w-auto -translate-x-1/2 drop-shadow-[0_14px_18px_rgba(20,17,17,0.14)] ${zoom ? "top-[5%] h-[150%]" : "bottom-[3%] h-[90%]"} ${(swatches?.length ?? 0) > 1 ? "left-[58%]" : "left-1/2"} ${swing ? "swing" : ""}`}
         />
         {swatches && swatches.length > 1 && (
-          <div className="absolute left-[8%] top-1/2 flex w-[17%] max-w-16 -translate-y-1/2 flex-col gap-2" aria-hidden>
+          <div className={`absolute left-[8%] flex w-[17%] max-w-16 -translate-y-1/2 flex-col gap-2 ${zoom ? "top-[42%]" : "top-1/2"}`} aria-hidden>
             {swatches.slice(0, 3).map((c) => (
-              <span key={c.name} className="block aspect-square w-full rounded-[5px] shadow-[0_1px_2px_rgba(0,0,0,0.1)]" style={{ background: c.accent && c.accent !== c.hex ? `linear-gradient(135deg, ${c.hex} 0 58%, ${c.accent} 58% 100%)` : c.hex }} />
+              <span key={c.name} className={`block aspect-square w-full rounded-[5px] shadow-[0_1px_2px_rgba(0,0,0,0.1)] transition duration-500 ${c.name === colour.name ? "scale-110 ring-2 ring-paper" : ""}`} style={{ background: c.accent && c.accent !== c.hex ? `linear-gradient(135deg, ${c.hex} 0 58%, ${c.accent} 58% 100%)` : c.hex }} />
             ))}
           </div>
         )}

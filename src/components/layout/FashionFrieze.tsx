@@ -71,10 +71,12 @@ function Rack(): Item {
           const x = -58 + i * 58;
           return (
             <g key={i} transform={`translate(${x} 0)`}>
+              <g className="frieze-sway" style={{ animationDelay: `${i * -1.3}s` }}>
               <path d="M0,-158 Q5,-152 0,-148 L-18,-138 L18,-138 Z" fill="none" stroke={C.espresso} strokeWidth={1.8} />
               <path d={`M-20,-138 L20,-138 L${i === 1 ? 24 : 27},-${i === 1 ? 70 : 42} L-${i === 1 ? 24 : 27},-${i === 1 ? 70 : 42} Z`} fill={c} />
               <path d="M-7,-138 L0,-112 L7,-138" fill={C.cream} />
               <path d="M0,-112 L0,-50" stroke={C.espresso} strokeOpacity={0.25} strokeWidth={1.2} />
+              </g>
             </g>
           );
         })}
@@ -200,10 +202,10 @@ const width = placed[placed.length - 1].end;
 
 export function FashionFrieze({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox={`0 -172 ${width} 176`} preserveAspectRatio="xMidYMax slice" className={className} aria-hidden>
+    <svg viewBox={`0 -180 ${width} 184`} preserveAspectRatio="xMidYMax slice" className={className} aria-hidden>
       {placed.map((p, i) => (
         <g key={i} transform={`translate(${p.cx} 0)`}>
-          {p.el}
+          <g className="frieze-item">{p.el}</g>
         </g>
       ))}
       <rect x={0} y={0} width={width} height={4} fill={C.brown} />

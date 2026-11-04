@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getProducts } from "@/lib/store";
 import { categories, occasions } from "@/lib/catalog";
 import { ProductCard } from "@/components/shop/ProductCard";
+import { Reveal } from "@/components/motion/Reveal";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Shop" };
@@ -79,8 +80,10 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
         </div>
       ) : (
         <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-12 lg:grid-cols-3 lg:gap-x-6 xl:grid-cols-4">
-          {items.map((p) => (
-            <ProductCard key={p.id} product={p} />
+          {items.map((p, i) => (
+            <Reveal key={p.id} delay={(i % 4) * 80}>
+              <ProductCard product={p} />
+            </Reveal>
           ))}
         </div>
       )}

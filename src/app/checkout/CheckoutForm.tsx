@@ -8,6 +8,7 @@ import { formatPrice } from "@/lib/brand";
 import { deliveryOptions } from "@/lib/delivery";
 import { placeOrder, type OrderResult } from "../actions/public";
 import { WhatsAppIcon } from "@/components/Icons";
+import { Receipt } from "@/components/shop/Receipt";
 
 export function CheckoutForm({ paystack }: { paystack: boolean }) {
   const { items, subtotal, clear } = useCart();
@@ -19,7 +20,9 @@ export function CheckoutForm({ paystack }: { paystack: boolean }) {
 
   if (result?.ok && !result.redirect)
     return (
-      <div className="mx-auto mt-12 max-w-lg rounded-md bg-paper p-10 text-center">
+      <div className="mx-auto mt-12 grid max-w-3xl items-start gap-10 md:grid-cols-2">
+        {result.receipt && <Receipt data={result.receipt} />}
+        <div className={`rounded-md bg-paper p-8 text-center ${result.receipt ? "md:text-left" : "md:col-span-2"}`}>
         <p className="text-3xl text-gold">✦</p>
         <p className="display mt-3 text-4xl">Thank you!</p>
         <p className="mt-3 text-muted">{result.message} Send it to us on WhatsApp to confirm payment and delivery.</p>
@@ -29,6 +32,7 @@ export function CheckoutForm({ paystack }: { paystack: boolean }) {
           </a>
         )}
         <Link href="/shop" className="mt-4 block text-[12px] uppercase tracking-[0.16em] text-muted">Continue shopping</Link>
+      </div>
       </div>
     );
 

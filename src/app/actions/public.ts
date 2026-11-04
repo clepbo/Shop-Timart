@@ -26,7 +26,16 @@ export interface OrderPayload {
   items: { productId: string; name: string; colour: string; size: string; quantity: number }[];
 }
 
-export type OrderResult = { ok: boolean; message: string; link?: string; redirect?: string } | null;
+export type OrderReceipt = {
+  id: string;
+  date: string;
+  lines: { name: string; colour: string; size: string; quantity: number; total: number }[];
+  subtotal: number;
+  deliveryFee: number;
+  total: number;
+};
+
+export type OrderResult = { ok: boolean; message: string; link?: string; redirect?: string; receipt?: OrderReceipt } | null;
 
 export async function placeOrder(payload: OrderPayload): Promise<OrderResult> {
   const { getProducts } = await import("@/lib/store");
@@ -73,6 +82,11 @@ export async function placeOrder(payload: OrderPayload): Promise<OrderResult> {
     `Hello ${brand.name}! New order ${order.id}\n` +
     lines.map((l) => `• ${l.name} — ${l.colour}, ${l.size} × ${l.quantity} (${formatPrice(l.total)})`).join("\n") +
     `\nDelivery: ${opt.label} (${formatPrice(deliveryFee)})\nTotal: ${formatPrice(total)}\n\n${c.name} · ${c.phone}\n${c.address}, ${c.city}, ${c.state}`;
-  return { ok: true, message: `Order ${order.id} received — total ${formatPrice(total)}.`, link: whatsappLink(msg) };
+  return {
+    ok: true,
+    message: `Order ${order.id} received — total ${formatPrice(total)}.`,
+    link: whatsappLink(msg),
+    receipt: { id: order.id, date: order.createdAt, lines: lines.map(({ name, colour, size, quantity, total }) => ({ name, colour, size, quantity, total })), subtotal, deliveryFee, total },
+  };
 }
 

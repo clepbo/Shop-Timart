@@ -7,6 +7,7 @@ import { CartDrawer } from "@/components/cart/CartDrawer";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { Dock } from "@/components/layout/Dock";
 
 const sora = Sora({
   variable: "--font-sora",
@@ -29,12 +30,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${sora.variable} ${poppins.variable} h-full`}>
       <body className="flex min-h-full flex-col">
+        <noscript>
+          <style>{`.reveal{opacity:1!important;transform:none!important}.word-in,.opacity-0{opacity:1!important}`}</style>
+        </noscript>
         <CartProvider>
           <AnnouncementBar />
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
           <CartDrawer />
+          <Dock />
         </CartProvider>
       </body>
     </html>

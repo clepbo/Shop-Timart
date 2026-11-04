@@ -110,3 +110,70 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---------------------------------------------------------------- motion */
+@keyframes sway {
+  0%, 100% { transform: rotate(-1.6deg); }
+  50% { transform: rotate(1.6deg); }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes bump {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.28); }
+  100% { transform: scale(1); }
+}
+@keyframes print {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+@keyframes word-in {
+  from { opacity: 0; transform: translateY(0.4em); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);
+}
+.reveal[data-shown] {
+  opacity: 1;
+  transform: none;
+}
+
+.word-in {
+  display: inline-block;
+  opacity: 0;
+  animation: word-in 0.8s var(--ease-soft) forwards;
+}
+
+.swing {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+}
+.group:hover .swing {
+  animation: sway 1.6s ease-in-out infinite;
+}
+
+.frieze-sway {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: sway 5s ease-in-out infinite;
+}
+.frieze-item {
+  transition: transform 0.4s var(--ease-soft);
+}
+.frieze-item:hover {
+  transform: translateY(-8px);
+}
+
+.receipt-edge {
+  -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 14px 100%;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 14px 100%;
+}
