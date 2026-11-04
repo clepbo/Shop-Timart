@@ -1,6 +1,7 @@
 import "server-only";
 import { promises as fs } from "fs";
 import path from "path";
+import { createHash } from "crypto";
 import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
 import { put } from "@vercel/blob";
 import type { Product } from "./types";
@@ -47,18 +48,40 @@ async function db() {
       created_at timestamptz not null default now()
     )`);
     await q.query(`create index if not exists records_collection_idx on records (collection, created_at desc)`);
-    const [{ count }] = (await q.query(`select count(*)::int as count from products`)) as { count: number }[];
-    if (count === 0) {
-      for (const p of seed as Product[]) {
-        await q.query(`insert into products (id, slug, data, created_at) values ($1, $2, $3, $4) on conflict do nothing`, [p.id, p.slug, JSON.stringify(p), p.createdAt]);
-      }
-    }
+    await q.query(`create table if not exists meta (key text primary key, value text not null)`);
+    await syncSeed(q);
   })().catch((e) => {
     _ready = null;
     throw e;
   });
   await _ready;
   return q;
+}
+
+/**
+ * Keeps the built-in catalogue (data/products.json) in sync with the database. Whenever that file
+ * changes, its products are upserted and built-in products that were removed from it are deleted.
+ * Products the owner adds in /admin are never touched.
+ */
+const SEED_VERSION = createHash("sha1").update(JSON.stringify(seed)).digest("hex").slice(0, 12);
+
+async function syncSeed(q: NeonQueryFunction<false, false>) {
+  const rows = (await q.query(`select value from meta where key = 'seed_version'`)) as { value: string }[];
+  if (rows[0]?.value === SEED_VERSION) return;
+  const items = (seed as Product[]).map((p) => ({ ...p, seeded: true }));
+  const ids = items.map((p) => p.id);
+  // Remove built-in products no longer in the file (older seeds used ids like p001–p015).
+  await q.query(`delete from products where not (id = any($1::text[])) and (data->>'seeded' = 'true' or id ~ '^p0[0-9]{2}$')`, [ids]);
+  // Free up slugs that a built-in product now needs.
+  await q.query(`delete from products where slug = any($1::text[]) and not (id = any($2::text[]))`, [items.map((p) => p.slug), ids]);
+  for (const p of items) {
+    await q.query(
+      `insert into products (id, slug, data, created_at) values ($1, $2, $3, $4)
+       on conflict (id) do update set slug = excluded.slug, data = excluded.data`,
+      [p.id, p.slug, JSON.stringify(p), p.createdAt],
+    );
+  }
+  await q.query(`insert into meta (key, value) values ('seed_version', $1) on conflict (key) do update set value = excluded.value`, [SEED_VERSION]);
 }
 
 // ---------------------------------------------------------------- JSON files (local dev)
