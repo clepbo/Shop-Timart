@@ -11,11 +11,11 @@ export function NewsletterForm({ tone = "dark" }: { tone?: "dark" | "light" }) {
     <form action={action} className="mt-4">
       <div className={`flex items-center border p-1 pl-5 ${dark ? "border-ivory/20" : "border-ink/20 bg-paper"}`}>
         <input name="email" type="email" required placeholder="Your email address" aria-label="Email address" className={`min-w-0 flex-1 bg-transparent text-sm outline-none ${dark ? "placeholder:text-ivory/40" : "placeholder:text-muted/70"}`} />
-        <button disabled={pending} className={`grid size-10 shrink-0 place-items-center transition ${dark ? "bg-butter text-wine hover:bg-white" : "bg-ink text-ivory hover:bg-wine"}`} aria-label="Subscribe">
-          <ArrowIcon />
+        <button disabled={pending} className={`grid shrink-0 place-items-center transition ${dark ? "size-10 bg-butter text-wine hover:bg-white" : "h-10 bg-wine px-5 text-[12px] font-semibold uppercase tracking-[0.12em] text-butter hover:bg-wine-deep"}`} aria-label="Subscribe">
+          {dark ? <ArrowIcon /> : "Subscribe"}
         </button>
       </div>
-      {state && <p className={`mt-2 text-[13px] ${state.ok ? "text-butter" : "text-red-400"}`}>{state.message}</p>}
+      {state && <p className={`mt-2 text-[13px] ${state.ok ? (dark ? "text-butter" : "text-wine") : "text-red-700"}`}>{state.message}</p>}
     </form>
   );
 }

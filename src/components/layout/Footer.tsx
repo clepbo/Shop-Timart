@@ -2,80 +2,95 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { brand } from "@/lib/brand";
+import { brand, whatsappLink } from "@/lib/brand";
 import { InstagramIcon, TikTokIcon, WhatsAppIcon } from "../Icons";
 import { NewsletterForm } from "./NewsletterForm";
 import { Logo } from "./Logo";
+import { FashionFrieze } from "./FashionFrieze";
+
+const columns: { title: string; links: [string, string][] }[] = [
+  { title: "Quick links", links: [["Home", "/"], ["Shop all", "/shop"], ["Corporate", "/shop?category=corporate"], ["Men", "/shop?gender=men"], ["About us", "/about"]] },
+  { title: "Customer care", links: [["FAQs", "/help#faqs"], ["Shipping & delivery", "/help#delivery"], ["Size & care guide", "/help#sizes"], ["Track your order", whatsappLink(`Hello ${brand.name}! I'd like to track my order.`)]] },
+  { title: "Services", links: [["Personal styling", "/styling"], ["Remote styling", "/styling#services"], ["Fit Studio", "/fit-studio"], ["Returns & exchanges", "/help#returns"]] },
+];
 
 export function Footer() {
   const pathname = usePathname();
   if (pathname.startsWith("/admin")) return null;
   return (
-    <footer className="mt-auto bg-wine-deep text-ivory">
-      <div className="container-x grid gap-14 py-16 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:py-20">
-        <div>
-          <Logo tone="light" />
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-ivory/65">{brand.description}</p>
-          <div className="mt-8">
-            <p className="eyebrow !text-butter">Join our list</p>
-            <p className="mt-2 text-sm text-ivory/65">New arrivals, styling notes and private sales — once a week, never more.</p>
-            <NewsletterForm />
+    <footer className="mt-auto bg-wine-deep px-0 pt-0 sm:p-6 lg:p-10">
+      <div className="overflow-hidden bg-sand text-ink">
+        <div className="container-x pt-14">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-start">
+            <div>
+              <Logo />
+              <p className="mt-5 max-w-xl text-[14px] leading-relaxed text-muted">
+                {brand.name} is a modest corporate wear store and styling service in Benin City. <span className="font-medium text-wine">The beauty of every outfit is you</span> — we simply help it show.
+              </p>
+            </div>
+            <div>
+              <p className="font-display text-lg font-semibold text-wine-deep">Newsletter</p>
+              <NewsletterForm tone="light" />
+              <p className="mt-3 text-[13px] leading-relaxed text-muted">New arrivals, styling notes and exclusive offers — once a week, never more.</p>
+            </div>
           </div>
-        </div>
-        <FooterCol title="Shop" links={[["Shop all", "/shop"], ["Corporate", "/shop?category=corporate"], ["Sets", "/shop?category=sets"], ["Tops & Blouses", "/shop?category=tops"], ["Men", "/shop?gender=men"]]} />
-        <FooterCol title="Services" links={[["Personal styling", "/styling"], ["Remote styling", "/styling#services"], ["Fit Studio", "/fit-studio"], ["About us", "/about"], ["Follow on TikTok", brand.tiktok]]} />
-        <div>
-          <p className="eyebrow !text-butter">Visit & contact</p>
-          <ul className="mt-5 space-y-3 text-sm text-ivory/65">
-            <li>{brand.address}</li>
-            <li>{brand.hours}</li>
-            <li>
-              <a className="link-underline" href={`https://wa.me/${brand.whatsapp}`} target="_blank" rel="noreferrer">
-                WhatsApp {brand.phoneDisplay}
-              </a>
-            </li>
-            <li>
-              <a className="link-underline" href={`mailto:${brand.email}`}>
-                {brand.email}
-              </a>
-            </li>
-          </ul>
-          <div className="mt-6 flex gap-3">
-            {[
-              [brand.instagram, <InstagramIcon key="i" />, "Instagram"],
-              [brand.tiktok, <TikTokIcon key="t" />, "TikTok"],
-              [`https://wa.me/${brand.whatsapp}`, <WhatsAppIcon key="w" />, "WhatsApp"],
-            ].map(([href, icon, label]) => (
-              <a key={label as string} href={href as string} target="_blank" rel="noreferrer" aria-label={label as string} className="grid size-10 place-items-center border border-ivory/20 transition hover:border-butter hover:text-butter">
-                {icon}
-              </a>
+
+          <div className="mt-12 grid grid-cols-2 gap-10 border-t border-wine/15 pt-10 lg:grid-cols-4">
+            {columns.map((c) => (
+              <div key={c.title}>
+                <p className="font-display text-[15px] font-semibold text-wine-deep">{c.title}</p>
+                <ul className="mt-4 space-y-2.5 text-[14px] text-muted">
+                  {c.links.map(([l, h]) => (
+                    <li key={l}>
+                      {h.startsWith("http") ? (
+                        <a href={h} target="_blank" rel="noreferrer" className="transition hover:text-wine">
+                          {l}
+                        </a>
+                      ) : (
+                        <Link href={h} className="transition hover:text-wine">
+                          {l}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
+            <div className="col-span-2 lg:col-span-1">
+              <p className="font-display text-[15px] font-semibold text-wine-deep">Connect with us</p>
+              <ul className="mt-4 space-y-2.5 text-[14px] text-muted">
+                <li>
+                  <a href={`mailto:${brand.email}`} className="hover:text-wine">
+                    {brand.email}
+                  </a>
+                </li>
+                <li>
+                  <a href={`tel:+${brand.whatsapp}`} className="hover:text-wine">
+                    {brand.phoneDisplay}
+                  </a>
+                </li>
+                <li>{brand.addressShort}</li>
+              </ul>
+              <div className="mt-5 flex gap-3">
+                {[
+                  [brand.instagram, <InstagramIcon key="i" className="size-[18px]" />, "Instagram"],
+                  [brand.tiktok, <TikTokIcon key="t" className="size-[18px]" />, "TikTok"],
+                  [`https://wa.me/${brand.whatsapp}`, <WhatsAppIcon key="w" className="size-[18px]" />, "WhatsApp"],
+                ].map(([href, icon, label]) => (
+                  <a key={label as string} href={href as string} target="_blank" rel="noreferrer" aria-label={label as string} className="grid size-11 place-items-center rounded-full bg-paper text-wine shadow-[0_1px_2px_rgba(67,42,26,0.12)] transition hover:bg-wine hover:text-butter">
+                    {icon}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
+
+          <p className="mt-12 border-t border-wine/15 py-6 text-center text-[13px] text-muted">
+            © {new Date().getFullYear()} {brand.name}. All rights reserved.
+          </p>
         </div>
-      </div>
-      <div className="border-t border-ivory/10">
-        <div className="container-x flex flex-col justify-between gap-2 py-6 text-[12px] text-ivory/45 sm:flex-row">
-          <span>© {new Date().getFullYear()} {brand.name}. Modesty Arena.</span>
-          <span>Made with care in Benin City</span>
-        </div>
+        <FashionFrieze className="block h-[110px] w-full sm:h-[150px] lg:h-[176px]" />
       </div>
     </footer>
-  );
-}
-
-function FooterCol({ title, links }: { title: string; links: [string, string][] }) {
-  return (
-    <div>
-      <p className="eyebrow !text-butter">{title}</p>
-      <ul className="mt-5 space-y-3 text-sm text-ivory/65">
-        {links.map(([l, h]) => (
-          <li key={l}>
-            <Link href={h} className="link-underline hover:text-ivory">
-              {l}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }

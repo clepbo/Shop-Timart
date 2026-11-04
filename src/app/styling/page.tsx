@@ -29,7 +29,7 @@ export default function StylingPage() {
           <div className="flex flex-col justify-center bg-sand px-6 py-10 sm:px-10">
             <p className="eyebrow">Personal styling</p>
             <h1 className="display mt-4 text-[38px] sm:text-[52px]">
-              Styling for <span className="text-wine">global people.</span>
+              Styling for <span className="text-camel">the global you.</span>
             </h1>
             <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-muted">
               Whether you&apos;re in Benin City or miles away, we&apos;ll put together the full look for your next corporate event, seminar or special day — modest, polished and true to you.
@@ -41,9 +41,9 @@ export default function StylingPage() {
               </a>
             </div>
           </div>
-          <div className="relative min-h-[420px] overflow-hidden bg-[#7e0913]">
+          <div className="relative min-h-[420px] overflow-hidden bg-linen">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={studio("founder")} alt={`${brand.name}'s founder and lead stylist`} className="absolute inset-0 size-full object-cover object-[50%_15%]" />
+            <img src={studio("founder-cutout")} alt={`${brand.name}'s founder and lead stylist`} className="absolute bottom-0 left-1/2 h-[94%] w-auto max-w-none -translate-x-1/2 object-contain object-bottom" />
             <span className="absolute bottom-0 left-0 bg-butter px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-wine">Your stylist · Founder, {brand.name}</span>
           </div>
         </div>

@@ -37,45 +37,43 @@ export default async function Home() {
   return (
     <>
       {/* ---------- Hero ---------- */}
-      <section className="relative overflow-hidden bg-[#7e0913] text-ivory">
-        <div className="container-x grid grid-cols-1 items-center lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="relative z-10 animate-rise py-14 lg:py-24">
-            <p className="eyebrow !text-butter">Modesty Arena · Benin City</p>
-            <h1 className="display mt-5 text-[40px] sm:text-[56px] xl:text-[66px]">
-              Corporate wear that covers you in <span className="text-butter">confidence.</span>
+      <section className="relative overflow-hidden bg-linen">
+        <div className="container-x grid grid-cols-1 items-end lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="relative z-10 animate-rise py-14 lg:self-center lg:py-24">
+            <p className="eyebrow">Modest corporate wear · Benin City</p>
+            <h1 className="display mt-5 text-[44px] text-wine-deep sm:text-[64px] xl:text-[80px]">
+              The beauty of every outfit is <span className="text-camel">you.</span>
             </h1>
-            <p className="mt-6 max-w-md text-[15px] leading-relaxed text-ivory/80">
-              Blazers, suits and sets for women and men who mean business — modest, polished and styled for global people. Shop online or visit our store in Benin City.
+            <p className="mt-6 max-w-md text-[15px] leading-relaxed text-ink/75">
+              Blazers, suits and sets for women and men who mean business — modest, polished and styled for the global you. Shop online or visit our store in Benin City.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Link href="/shop" className="btn-light">
+              <Link href="/shop" className="btn-primary">
                 Shop the collection <ArrowIcon />
               </Link>
-              <a href={whatsappLink(`Hello ${brand.name}! I'd like to book a styling session.`)} target="_blank" rel="noreferrer" className="btn border border-butter/70 text-butter hover:bg-butter hover:text-wine">
+              <a href={whatsappLink(`Hello ${brand.name}! I'd like to book a styling session.`)} target="_blank" rel="noreferrer" className="btn-outline">
                 <WhatsAppIcon className="size-4" /> Book styling
               </a>
             </div>
-            <dl className="mt-12 grid max-w-md grid-cols-3 gap-6 border-t border-ivory/20 pt-6">
+            <dl className="mt-12 grid max-w-md grid-cols-3 gap-6 border-t border-wine/15 pt-6">
               {[
                 ["4–20", "UK sizes"],
                 ["₦16k+", "Sets from"],
                 ["1:1", "Styling"],
               ].map(([k, v]) => (
                 <div key={v}>
-                  <dt className="font-display text-2xl font-semibold text-butter">{k}</dt>
-                  <dd className="mt-1 text-[11px] uppercase tracking-[0.14em] text-ivory/65">{v}</dd>
+                  <dt className="font-display text-2xl font-semibold text-wine">{k}</dt>
+                  <dd className="mt-1 text-[11px] uppercase tracking-[0.14em] text-muted">{v}</dd>
                 </div>
               ))}
             </dl>
           </div>
-          <div className="relative -mx-4 h-[460px] sm:mx-0 sm:h-[560px] lg:h-[640px]">
+          <div className="relative mx-auto h-[440px] w-full max-w-[520px] sm:h-[560px] lg:h-[640px]">
+            <div className="absolute bottom-0 left-1/2 aspect-square w-[88%] -translate-x-1/2 translate-y-[18%] rounded-full bg-sand" aria-hidden />
+            <div className="absolute bottom-0 left-1/2 aspect-square w-[64%] -translate-x-1/2 translate-y-[8%] rounded-full border border-wine/15" aria-hidden />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={studio("founder")}
-              alt={`The founder of ${brand.name} in a black trouser suit, white shirt and red tie`}
-              className="absolute bottom-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2 object-contain object-bottom [mask-image:linear-gradient(to_right,transparent,black_14%,black_86%,transparent)]"
-            />
-            <span className="absolute bottom-6 right-4 bg-butter px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-wine sm:right-0">Founder · {brand.name}</span>
+            <img src={studio("founder-cutout")} alt={`The founder of ${brand.name} in a black trouser suit, white shirt and red tie`} className="absolute bottom-0 left-1/2 h-[96%] w-auto max-w-none -translate-x-1/2 object-contain object-bottom drop-shadow-[0_20px_30px_rgba(67,42,26,0.18)]" />
+            <span className="absolute bottom-8 right-0 bg-wine px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-butter">Founder · {brand.name}</span>
           </div>
         </div>
       </section>
@@ -215,8 +213,16 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ---------- Statement ---------- */}
+      <section className="bg-wine text-butter">
+        <div className="container-x py-16 text-center lg:py-24">
+          <p className="display mx-auto max-w-5xl text-[40px] sm:text-[64px] lg:text-[84px]">The beauty of every outfit is you.</p>
+          <p className="mt-6 text-[12px] font-semibold uppercase tracking-[0.24em] text-butter/70">{brand.name} · Modesty Arena</p>
+        </div>
+      </section>
+
       {/* ---------- Featured ---------- */}
-      <section className="container-x pb-16 lg:pb-24">
+      <section className="container-x py-16 lg:py-24">
         <SectionHeading eyebrow="Most loved" title="Boss lady favourites" href="/shop" />
         <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 lg:grid-cols-4 lg:gap-x-5">
           {featured.map((p) => (
@@ -228,13 +234,13 @@ export default async function Home() {
       {/* ---------- Styling ---------- */}
       <section className="bg-wine text-ivory">
         <div className="container-x grid items-center gap-10 py-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:py-20">
-          <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden bg-[#7e0913]">
+          <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden bg-butter">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={studio("founder")} alt={`${brand.name}'s founder and lead stylist`} className="absolute inset-0 size-full object-cover object-[50%_10%]" />
+            <img src={studio("founder-cutout")} alt={`${brand.name}'s founder and lead stylist`} className="absolute bottom-0 left-1/2 h-[112%] w-auto max-w-none -translate-x-1/2 object-contain object-top" />
           </div>
           <div>
             <p className="eyebrow !text-butter">Personal styling</p>
-            <h2 className="display mt-4 text-4xl sm:text-5xl">Styling for global people.</h2>
+            <h2 className="display mt-4 text-4xl sm:text-5xl">Styling for the global you.</h2>
             <p className="mt-5 max-w-lg leading-relaxed text-ivory/75">
               Seminar tomorrow? Interview on Monday? Tell us the occasion and we&apos;ll put the full look together — outfit, bag and accessories. Visit us in Benin City, or get styled remotely wherever you are.
             </p>
@@ -294,22 +300,22 @@ export default async function Home() {
       </section>
 
       {/* ---------- Visit ---------- */}
-      <section className="bg-wine-deep text-ivory">
+      <section className="bg-camel text-wine-deep">
         <div className="container-x grid gap-10 py-14 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:py-16">
           <div>
-            <p className="eyebrow !text-butter">Visit the store</p>
+            <p className="eyebrow !text-wine-deep">Visit the store</p>
             <h2 className="display mt-4 text-3xl sm:text-4xl">Come try it on.</h2>
-            <p className="mt-4 max-w-md leading-relaxed text-ivory/75">{brand.address}.</p>
-            <p className="mt-2 text-ivory/75">{brand.hours}</p>
+            <p className="mt-4 max-w-md leading-relaxed text-wine-deep/80">{brand.address}.</p>
+            <p className="mt-2 text-wine-deep/80">{brand.hours}</p>
           </div>
           <div className="flex flex-wrap gap-3 lg:justify-end">
-            <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Divine Plaza Uselu Lagos Road Benin City")}`} target="_blank" rel="noreferrer" className="btn-light">
+            <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Divine Plaza Uselu Lagos Road Benin City")}`} target="_blank" rel="noreferrer" className="btn-primary">
               Get directions
             </a>
-            <a href={`tel:+${brand.whatsapp}`} className="btn border border-butter/60 text-butter hover:bg-butter hover:text-wine">
+            <a href={`tel:+${brand.whatsapp}`} className="btn border border-wine-deep/40 text-wine-deep hover:bg-wine-deep hover:text-butter">
               Call {brand.phoneDisplay}
             </a>
-            <a href={brand.tiktok} target="_blank" rel="noreferrer" className="btn border border-butter/60 text-butter hover:bg-butter hover:text-wine">
+            <a href={brand.tiktok} target="_blank" rel="noreferrer" className="btn border border-wine-deep/40 text-wine-deep hover:bg-wine-deep hover:text-butter">
               Follow {brand.tiktokHandle}
             </a>
           </div>

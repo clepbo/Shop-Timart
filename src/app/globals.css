@@ -5,18 +5,20 @@
  * and a muted champagne gold for detail. Editorial serif display + clean geometric sans.
  */
 @theme {
-  /* Palette drawn from the brand's references: deep burgundy, butter yellow, warm white. */
-  --color-ivory: #fffaf3;
+  /* Palette: beige and brown. Token names are historical — "wine" is now the primary brown
+     and "butter" the light beige accent — so components keep working unchanged. */
+  --color-ivory: #faf6f0;
   --color-paper: #ffffff;
-  --color-sand: #f6efe4;
-  --color-linen: #eadfce;
-  --color-ink: #141111;
-  --color-muted: #5f5853;
-  --color-wine: #74070e;
-  --color-wine-deep: #4f0509;
-  --color-blush: #f7e3df;
-  --color-gold: #74070e;
-  --color-butter: #ffeda8;
+  --color-sand: #f3ebdf;
+  --color-linen: #e6d6bf;
+  --color-ink: #2b1e16;
+  --color-muted: #6e5e52;
+  --color-wine: #6b4429;
+  --color-wine-deep: #432a1a;
+  --color-blush: #efe3d3;
+  --color-gold: #6b4429;
+  --color-butter: #ead9bf;
+  --color-camel: #b48a5e;
   --color-sky: #d2e8ff;
   --color-sage: #8a9a82;
 

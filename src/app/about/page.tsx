@@ -25,9 +25,9 @@ export default function AboutPage() {
         </p>
       </section>
       <section className="container-x mt-12 grid items-center gap-10 lg:grid-cols-2">
-        <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden bg-[#7e0913]">
+        <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden bg-linen">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={studio("founder")} alt={`The founder of ${brand.name}`} className="absolute inset-0 size-full object-cover object-top" />
+          <img src={studio("founder-cutout")} alt={`The founder of ${brand.name}`} className="absolute bottom-0 left-1/2 h-[96%] w-auto max-w-none -translate-x-1/2 object-contain object-bottom" />
         </div>
         <div>
           <p className="eyebrow">Meet the founder</p>
