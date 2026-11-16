@@ -202,7 +202,7 @@ export default async function Home() {
           <p className="display mx-auto max-w-5xl text-[40px] sm:text-[64px] lg:text-[84px]">
             <WordReveal text="The beauty of every outfit is you in it." accent={["you", "in", "it."]} accentClass="accent text-camel" step={140} />
           </p>
-          <p className="mt-6 text-[12px] font-semibold uppercase tracking-[0.24em] text-butter/70">{brand.name} · Modesty Arena</p>
+          <p className="mt-6 text-[12px] font-semibold uppercase tracking-[0.24em] text-butter/70">{brand.name} · {brand.slogan}</p>
         </div>
       </section>
 

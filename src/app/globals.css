@@ -5,26 +5,28 @@
  * and a muted champagne gold for detail. Editorial serif display + clean geometric sans.
  */
 @theme {
-  /* Palette: beige and brown. Token names are historical — "wine" is now the primary brown
-     and "butter" the light beige accent — so components keep working unchanged. */
-  --color-ivory: #faf6f0;
-  --color-paper: #ffffff;
-  --color-sand: #f3ebdf;
-  --color-linen: #e6d6bf;
-  --color-ink: #2b1e16;
-  --color-muted: #6e5e52;
-  --color-wine: #6b4429;
-  --color-wine-deep: #432a1a;
-  --color-blush: #efe3d3;
-  --color-gold: #6b4429;
-  --color-butter: #ead9bf;
-  --color-camel: #b48a5e;
+  /* Palette from the Shop Timart brand guidelines. Token names are historical:
+     wine = Cocoa (primary brand colour), wine-deep/ink = Espresso, camel = Camel,
+     linen = Oat Beige, butter = light Oat for text on dark, gold = Sand. */
+  --color-ivory: #f7f2ea;   /* Ivory — main background */
+  --color-paper: #fcfaf6;
+  --color-sand: #efe6d8;    /* Oat Beige tint — light panels */
+  --color-linen: #e6d8c3;   /* Oat Beige */
+  --color-oat: #e6d8c3;
+  --color-gold: #cdb99a;    /* Sand — secondary neutral, patterns */
+  --color-camel: #a67b5b;   /* Camel — accent */
+  --color-wine: #6b4a35;    /* Cocoa — primary brand colour */
+  --color-wine-deep: #2e1f17; /* Espresso — text, dark backgrounds */
+  --color-ink: #2e1f17;
+  --color-muted: #6e5d50;
+  --color-blush: #efe6d8;
+  --color-butter: #e6d8c3;
   --color-sky: #d2e8ff;
   --color-sage: #8a9a82;
 
-  --font-display: var(--font-sora), "Sora", system-ui, sans-serif;
-  --font-sans: var(--font-poppins), "Poppins", system-ui, sans-serif;
-  --font-accent: var(--font-instrument), "Instrument Serif", Georgia, serif;
+  --font-display: var(--font-alyamama), "Alyamama", Georgia, serif;
+  --font-sans: var(--font-plex), "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-accent: var(--font-alyamama), "Alyamama", Georgia, serif;
 
   --tracking-eyebrow: 0.22em;
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -75,7 +77,7 @@ body {
   @apply text-[11px] font-semibold uppercase tracking-[0.24em] text-wine;
 }
 @utility display {
-  @apply font-display font-bold leading-[1.02] tracking-[-0.045em];
+  @apply font-display font-semibold leading-[1.02] tracking-[-0.01em];
 }
 @utility btn {
   @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 text-[12px] font-semibold uppercase tracking-[0.16em] transition duration-300;
@@ -195,10 +197,7 @@ body {
 
 /* Expressive heading accent: italic serif words set inside the bold Sora headings. */
 .accent {
+  /* Brand accent: the same serif, lighter, in Camel. */
   font-family: var(--font-accent);
-  font-style: italic;
   font-weight: 400;
-  letter-spacing: -0.01em;
-  font-size: 1.12em;
-  line-height: 0.9;
 }

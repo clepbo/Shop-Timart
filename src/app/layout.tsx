@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Poppins, Sora } from "next/font/google";
+import { Alyamama, IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 import { brand } from "@/lib/brand";
 import { CartProvider } from "@/components/cart/CartProvider";
@@ -10,33 +10,28 @@ import { Footer } from "@/components/layout/Footer";
 import { Dock } from "@/components/layout/Dock";
 import { NavProgress } from "@/components/layout/NavProgress";
 
-const sora = Sora({
-  variable: "--font-sora",
+// Brand guidelines: Alyamama for headings, IBM Plex Sans Arabic for body and captions.
+const alyamama = Alyamama({
+  variable: "--font-alyamama",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const instrument = Instrument_Serif({
-  variable: "--font-instrument",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-});
-
-const poppins = Poppins({
-  variable: "--font-poppins",
+const plex = IBM_Plex_Sans_Arabic({
+  variable: "--font-plex",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
 });
 
 export const metadata: Metadata = {
-  title: { default: `${brand.name} — ${brand.tagline}`, template: `%s · ${brand.name}` },
+  title: { default: `${brand.name} — ${brand.slogan}`, template: `%s · ${brand.name}` },
+  metadataBase: new URL(`https://${brand.domain}`),
   description: brand.description,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${sora.variable} ${poppins.variable} ${instrument.variable} h-full`}>
+    <html lang="en" className={`${alyamama.variable} ${plex.variable} h-full`}>
       <body className="flex min-h-full flex-col">
         <noscript>
           <style>{`.reveal{opacity:1!important;transform:none!important}.word-in,.opacity-0{opacity:1!important}`}</style>

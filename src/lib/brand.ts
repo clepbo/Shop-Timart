@@ -3,14 +3,17 @@
  * Change the name, contacts and copy here — every page reads from this file.
  */
 export const brand = {
-  name: "Timart",
+  name: "Shop Timart",
   fullName: "Shop Timart",
+  domain: "shop-timart.com",
   tagline: "The beauty of every outfit is you in it.",
+  /** Official tagline from the brand guidelines. */
+  slogan: "Confidence in style",
   description:
     "Modest corporate wear and personal styling from Benin City — blazers, suits, sets and everyday elegance for women and men, delivered nationwide.",
   whatsapp: "2349168814108", // 0916 881 4108, international format without "+"
   phoneDisplay: "0916 881 4108",
-  email: "hello@shoptimart.com",
+  email: "hello@shop-timart.com",
   instagram: "https://www.instagram.com/shop_teemart/",
   instagramHandle: "@shop_teemart",
   tiktok: "https://www.tiktok.com/@shop_teemart",
