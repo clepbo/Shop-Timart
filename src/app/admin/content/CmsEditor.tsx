@@ -24,7 +24,7 @@ const DEVICES = {
 type Device = keyof typeof DEVICES;
 
 /** Scales a fixed-size iframe to fit its container, like a device mock-up. */
-function Frame({ src, device, onLoad }: { src: string; device: Device; onLoad?: () => void }) {
+function Frame({ src, device, anchor }: { src: string; device: Device; anchor?: string }) {
   const box = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0.5);
   const d = DEVICES[device];
@@ -41,7 +41,22 @@ function Frame({ src, device, onLoad }: { src: string; device: Device; onLoad?: 
         <iframe
           title={`${d.label} preview`}
           src={src}
-          onLoad={onLoad}
+          onLoad={(e) => {
+            // Jump to the section being edited once the page (and its animations) have settled.
+            if (!anchor) return;
+            const win = (e.currentTarget as HTMLIFrameElement).contentWindow;
+            let tries = 0;
+            const go = () => {
+              const el = win?.document.getElementById(anchor);
+              if (el && win) {
+                const top = el.getBoundingClientRect().top + win.scrollY - 76;
+                win.document.documentElement.style.scrollBehavior = "auto";
+                win.scrollTo(0, Math.max(0, top));
+              }
+              if (++tries < 6) setTimeout(go, 250);
+            };
+            go();
+          }}
           className="absolute left-0 top-0 origin-top-left border-0"
           style={{ width: d.w, height: d.h, transform: `scale(${scale})` }}
         />
@@ -126,7 +141,7 @@ export function CmsEditor({ sections, initial }: { sections: CmsSection[]; initi
     else setMessage({ ok: false, text: r.message ?? "Upload failed." });
   };
 
-  const src = `${section.preview.path}?__cms=draft&t=${stamp}${section.preview.anchor ? `#${section.preview.anchor}` : ""}`;
+  const src = `${section.preview.path}?__cms=draft&t=${stamp}`;
 
   return (
     <div className="flex min-h-screen flex-col xl:h-screen xl:flex-row xl:overflow-hidden">
@@ -218,7 +233,7 @@ export function CmsEditor({ sections, initial }: { sections: CmsSection[]; initi
           </div>
         </div>
         <div className="flex-1 overflow-y-auto p-5">
-          <Frame key={device} src={src} device={device} />
+          <Frame key={device} src={src} device={device} anchor={section.preview.anchor} />
           <p className="mt-3 text-center text-[12px] text-muted">Preview of the real page with your draft. Scroll inside it to look around.</p>
         </div>
       </div>
