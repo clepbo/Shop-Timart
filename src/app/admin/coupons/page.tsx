@@ -2,9 +2,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { isAdmin } from "@/lib/auth";
 import { listCoupons, QR_COUPON } from "@/lib/coupons";
-import { promoUrl, qrSvg } from "@/lib/qr";
+import { promoLink, qrCardSvg } from "@/lib/qr-card";
 import { formatPrice } from "@/lib/brand";
-import { QrCard } from "@/components/brand/QrCard";
 import { CouponForm } from "./CouponForm";
 import { PrintButton } from "./PrintButton";
 import { deleteCouponAction, toggleCouponAction } from "../actions";
@@ -18,7 +17,7 @@ export default async function CouponsPage({ searchParams }: PageProps<"/admin/co
   const qrCode = (typeof sp.qr === "string" && coupons.find((c) => c.code === sp.qr)?.code) || QR_COUPON;
   const qrCoupon = coupons.find((c) => c.code === qrCode)!;
   const offer = qrCoupon.kind === "percent" ? `${qrCoupon.value}% off` : `${formatPrice(qrCoupon.value)} off`;
-  const svg = await qrSvg(qrCode);
+  const card = qrCardSvg(qrCode, offer);
 
   return (
     <div className="container-x py-10">
@@ -91,14 +90,16 @@ export default async function CouponsPage({ searchParams }: PageProps<"/admin/co
         </div>
 
         <aside className="space-y-4 lg:sticky lg:top-6 lg:self-start">
-          <QrCard svg={svg} code={qrCode} offer={offer} url={promoUrl(qrCode)} />
-          <div className="flex flex-wrap gap-2 print:hidden">
-            <a href={`/api/admin/qr?code=${qrCode}&format=png`} className="btn-primary flex-1 !py-3">Download PNG</a>
-            <a href={`/api/admin/qr?code=${qrCode}&format=svg`} className="btn-outline flex-1 !py-3">SVG (for print)</a>
+          <div className="mx-auto w-full max-w-[420px] [&_svg]:block [&_svg]:h-auto [&_svg]:w-full" dangerouslySetInnerHTML={{ __html: card }} />
+          <div className="grid grid-cols-2 gap-2 print:hidden [&>*]:!px-3">
+            <a href={`/api/admin/qr?code=${qrCode}&kind=card&format=png`} className="btn-primary flex-1 !py-3">Card · PNG</a>
+            <a href={`/api/admin/qr?code=${qrCode}&kind=card&format=svg`} className="btn-outline flex-1 !py-3">Card · SVG (print)</a>
+            <a href={`/api/admin/qr?code=${qrCode}&kind=qr&format=png`} className="btn-outline flex-1 !py-3">QR only · PNG</a>
+            <a href={`/api/admin/qr?code=${qrCode}&kind=qr&format=svg`} className="btn-outline flex-1 !py-3">QR only · SVG</a>
             <PrintButton />
           </div>
           <p className="text-[12px] text-muted print:hidden">
-            Links to <span className="font-medium text-ink">{promoUrl(qrCode)}</span>. Test it with your phone camera before printing. Pausing the code stops the discount without reprinting.
+            Links to <span className="font-medium text-ink">{promoLink(qrCode)}</span>. Test it with your phone camera before printing. Pausing the code stops the discount without reprinting.
           </p>
         </aside>
       </div>

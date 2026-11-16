@@ -81,7 +81,7 @@ Styling sessions are booked through the form and confirmed on WhatsApp from `/ad
 ## Discounts & QR code
 - `/admin/coupons` — create percentage or naira codes with optional minimum order, max uses, expiry and once-per-customer (by phone).
 - The QR code links to `https://shop-timart.com/?promo=SCAN5`. Visiting any page with `?promo=CODE` saves the code in the browser and applies it at checkout. The server re-checks every code when the order is placed; Paystack orders count a use once payment is confirmed.
-- `SCAN5` (5% off, once per customer) is created automatically. Pause it in the admin to stop the offer without reprinting. Print-ready files: `docs/shop-timart-qr-card.png`, `docs/shop-timart-qr-scan5.svg`.
+- `SCAN5` (5% off, once per customer) is created automatically. Pause it in the admin to stop the offer without reprinting. Downloads (card or QR only, PNG or SVG) are rendered from the same SVG as the admin preview, with text as outlines so it prints identically. Copies: `docs/shop-timart-qr-card.png`, `docs/shop-timart-qr-card-scan5.svg`, `docs/shop-timart-qr-scan5.png`, `docs/shop-timart-qr-scan5.svg`.
 
 ## Editable site content
 - `/admin/content` — headings, paragraphs, bullet lists and images for every homepage section, the announcement bar, footer and care page. Defaults live in `src/lib/content-schema.ts`; only changed values are stored (record `content/site`).
