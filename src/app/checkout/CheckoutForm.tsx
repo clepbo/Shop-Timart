@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useCart } from "@/components/cart/CartProvider";
 import { ProductArt } from "@/components/shop/ProductArt";
 import { formatPrice } from "@/lib/brand";
 import { deliveryOptions } from "@/lib/delivery";
-import { placeOrder, type OrderResult } from "../actions/public";
+import { placeOrder, previewCoupon, type CouponPreview, type OrderResult } from "../actions/public";
+import { getStoredPromo, setStoredPromo } from "@/lib/promo-client";
 import { WhatsAppIcon } from "@/components/Icons";
 import { Receipt } from "@/components/shop/Receipt";
 
@@ -15,8 +16,33 @@ export function CheckoutForm({ paystack }: { paystack: boolean }) {
   const [delivery, setDelivery] = useState(deliveryOptions[0].id);
   const [result, setResult] = useState<OrderResult>(null);
   const [pending, start] = useTransition();
+  const [code, setCode] = useState("");
+  const [coupon, setCoupon] = useState<CouponPreview | null>(null);
+  const [checking, setChecking] = useState(false);
+  const discount = coupon?.ok ? coupon.discount : 0;
   const opt = deliveryOptions.find((d) => d.id === delivery)!;
-  const fee = opt.fee(subtotal);
+  const fee = opt.fee(subtotal - discount);
+  const total = subtotal - discount + fee;
+
+  const apply = async (raw: string, phone?: string) => {
+    if (!raw.trim()) return;
+    setChecking(true);
+    const r = await previewCoupon(raw, subtotal, phone).catch((): CouponPreview => ({ ok: false, message: "Couldn't check that code." }));
+    setCoupon(r);
+    setChecking(false);
+    if (r.ok) setStoredPromo({ code: r.code, label: r.label });
+  };
+
+  // Codes from the QR link are applied automatically; re-checked when the bag changes.
+  useEffect(() => {
+    const stored = getStoredPromo();
+    const c = coupon?.ok ? coupon.code : stored?.code;
+    if (!c || !subtotal) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync the field with the stored promo
+    setCode(c);
+    void apply(c);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subtotal]);
 
   if (result?.ok && !result.redirect)
     return (
@@ -50,6 +76,7 @@ export function CheckoutForm({ paystack }: { paystack: boolean }) {
       const res = await placeOrder({
         customer: { name: get("name"), phone: get("phone"), email: get("email"), address: get("address"), city: get("city"), state: get("state"), notes: get("notes") },
         delivery,
+        couponCode: coupon?.ok ? coupon.code : undefined,
         items: items.map((i) => ({ productId: i.productId, name: i.name, colour: i.colour, size: i.size, quantity: i.quantity })),
       }).catch((e: Error): OrderResult => ({ ok: false, message: e.message }));
       setResult(res);
@@ -57,7 +84,10 @@ export function CheckoutForm({ paystack }: { paystack: boolean }) {
         window.location.assign(res.redirect); // Paystack hosted checkout; cart clears on confirmation
         return;
       }
-      if (res?.ok) clear();
+      if (res?.ok) {
+        clear();
+        if (coupon?.ok) setStoredPromo(null);
+      }
     });
   };
 
@@ -82,7 +112,7 @@ export function CheckoutForm({ paystack }: { paystack: boolean }) {
                   <input type="radio" name="delivery" checked={delivery === d.id} onChange={() => setDelivery(d.id)} className="accent-wine" />
                   {d.label}
                 </span>
-                <span className="text-sm">{d.fee(subtotal) === 0 ? "Free" : formatPrice(d.fee(subtotal))}</span>
+                <span className="text-sm">{d.fee(subtotal - discount) === 0 ? "Free" : formatPrice(d.fee(subtotal - discount))}</span>
               </label>
             ))}
           </div>
@@ -105,14 +135,42 @@ export function CheckoutForm({ paystack }: { paystack: boolean }) {
             </li>
           ))}
         </ul>
-        <dl className="mt-6 space-y-2 border-t border-ink/10 pt-5 text-sm">
+        <div className="mt-6 border-t border-ink/10 pt-5">
+          <label className="label" htmlFor="coupon">Discount code</label>
+          <div className="flex gap-2">
+            <input
+              id="coupon"
+              value={code}
+              onChange={(e) => { setCode(e.target.value.toUpperCase()); if (coupon) setCoupon(null); }}
+              onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); void apply(code, (document.querySelector('input[name="phone"]') as HTMLInputElement | null)?.value); } }}
+              placeholder="e.g. SCAN5"
+              className="field !py-2.5 uppercase tracking-[0.12em]"
+              autoComplete="off"
+            />
+            <button type="button" onClick={() => apply(code, (document.querySelector('input[name="phone"]') as HTMLInputElement | null)?.value)} disabled={checking || !code.trim()} className="btn-outline shrink-0 !px-5 !py-2.5">
+              {checking ? "…" : coupon?.ok ? "Applied" : "Apply"}
+            </button>
+          </div>
+          {coupon && (
+            <p className={`mt-2 text-[13px] ${coupon.ok ? "text-wine" : "text-red-700"}`}>
+              {coupon.ok ? `✓ ${coupon.code} — ${coupon.label}${coupon.description ? ` (${coupon.description})` : ""}` : coupon.message}
+              {coupon.ok && (
+                <button type="button" onClick={() => { setCoupon(null); setCode(""); setStoredPromo(null); }} className="ml-2 underline underline-offset-2 text-muted">Remove</button>
+              )}
+            </p>
+          )}
+        </div>
+        <dl className="mt-5 space-y-2 border-t border-ink/10 pt-5 text-sm">
           <div className="flex justify-between"><dt className="text-muted">Subtotal</dt><dd>{formatPrice(subtotal)}</dd></div>
+          {discount > 0 && coupon?.ok && (
+            <div className="flex justify-between text-wine"><dt>Discount · {coupon.code}</dt><dd>−{formatPrice(discount)}</dd></div>
+          )}
           <div className="flex justify-between"><dt className="text-muted">Delivery</dt><dd>{fee === 0 ? "Free" : formatPrice(fee)}</dd></div>
-          <div className="flex justify-between border-t border-ink/10 pt-3 text-lg"><dt>Total</dt><dd>{formatPrice(subtotal + fee)}</dd></div>
+          <div className="flex justify-between border-t border-ink/10 pt-3 text-lg"><dt>Total</dt><dd>{formatPrice(total)}</dd></div>
         </dl>
         {result && !result.ok && <p className="mt-4 text-sm text-red-700">{result.message}</p>}
         <button disabled={pending || !!result?.redirect} className="btn-primary mt-6 w-full">
-          {result?.redirect ? "Redirecting to Paystack…" : pending ? "Placing order…" : paystack ? `Pay ${formatPrice(subtotal + fee)} securely` : "Place order"}
+          {result?.redirect ? "Redirecting to Paystack…" : pending ? "Placing order…" : paystack ? `Pay ${formatPrice(total)} securely` : "Place order"}
         </button>
         <p className="mt-3 text-center text-[12px] text-muted">
           {paystack ? "Card, bank transfer & USSD via Paystack. Payments are in Naira (₦)." : "We'll confirm payment and delivery with you on WhatsApp."}

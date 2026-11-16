@@ -6,6 +6,7 @@ import { categories, garmentTypes, menSizes, occasions, womenSizes } from "@/lib
 import { bodiesFor } from "@/lib/bodies";
 import { Figure } from "@/components/figure/Figure";
 import { saveProductAction } from "../actions";
+import { careGuides } from "@/lib/care";
 
 const presetColours: Colorway[] = [
   { name: "Wine", hex: "#6B2333" },
@@ -87,6 +88,14 @@ export function ProductForm({ product }: { product?: Product }) {
           <label><span className="label">Compare-at price (₦)</span><input name="compareAtPrice" type="number" min={0} defaultValue={product?.compareAtPrice} className="field" placeholder="Optional, for sales" /></label>
           <label className="sm:col-span-2"><span className="label">Description</span><textarea name="description" rows={3} defaultValue={product?.description} className="field" /></label>
           <label className="sm:col-span-2"><span className="label">Details (one per line)</span><textarea name="details" rows={3} defaultValue={product?.details.join("\n")} className="field" placeholder={"Fully lined\nConcealed back zip"} /></label>
+          <label className="sm:col-span-2"><span className="label">Care instructions (one per line)</span><textarea name="care" rows={3} defaultValue={product?.care?.join("\n")} className="field" placeholder={"Dry clean only\nSteam, don't iron\nHang on a shaped hanger"} /><span className="mt-1 block text-[12px] text-muted">Leave empty to show the standard tips for this type of garment.</span></label>
+          <label className="sm:col-span-2">
+            <span className="label">Care guide section</span>
+            <select name="careGuide" defaultValue={product?.careGuide ?? ""} className="field">
+              <option value="">Automatic (from garment type)</option>
+              {careGuides.map((g) => <option key={g.id} value={g.id}>{g.title}</option>)}
+            </select>
+          </label>
           <div className="sm:col-span-2">
             <span className="label">Occasions</span>
             <div className="flex flex-wrap gap-2">

@@ -7,6 +7,8 @@ export interface ReceiptData {
   date: string;
   lines: { name: string; colour: string; size: string; quantity: number; total: number }[];
   subtotal: number;
+  discount?: number;
+  couponCode?: string;
   deliveryFee: number;
   total: number;
   paid?: boolean;
@@ -42,6 +44,9 @@ export function Receipt({ data }: { data: ReceiptData }) {
           <div className="my-4 border-t border-dashed border-ink/30" />
           <div className="space-y-1">
             <div className="flex justify-between text-muted"><span>Subtotal</span><span>{formatPrice(data.subtotal)}</span></div>
+            {!!data.discount && (
+              <div className="flex justify-between text-muted"><span>Discount{data.couponCode ? ` (${data.couponCode})` : ""}</span><span>−{formatPrice(data.discount)}</span></div>
+            )}
             <div className="flex justify-between text-muted"><span>Delivery</span><span>{data.deliveryFee ? formatPrice(data.deliveryFee) : "Free"}</span></div>
             <div className="flex justify-between pt-1 text-[14px] font-bold"><span>{data.paid ? "TOTAL PAID" : "TOTAL"}</span><span>{formatPrice(data.total)}</span></div>
           </div>

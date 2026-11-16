@@ -10,11 +10,11 @@ import { FashionFrieze } from "./FashionFrieze";
 
 const columns: { title: string; links: [string, string][] }[] = [
   { title: "Quick links", links: [["Home", "/"], ["Shop all", "/shop"], ["Corporate", "/shop?category=corporate"], ["Men", "/shop?gender=men"], ["About us", "/about"]] },
-  { title: "Customer care", links: [["FAQs", "/help#faqs"], ["Shipping & delivery", "/help#delivery"], ["Size & care guide", "/help#sizes"], ["Track your order", whatsappLink(`Hello ${brand.name}! I'd like to track my order.`)]] },
+  { title: "Customer care", links: [["FAQs", "/help#faqs"], ["Shipping & delivery", "/help#delivery"], ["Care guide", "/care"], ["Size guide", "/help#sizes"], ["Track your order", whatsappLink(`Hello ${brand.name}! I'd like to track my order.`)]] },
   { title: "Services", links: [["Personal styling", "/styling"], ["Remote styling", "/styling#services"], ["Fit Studio", "/fit-studio"], ["Returns & exchanges", "/help#returns"]] },
 ];
 
-export function Footer() {
+export function Footer({ about }: { about: string }) {
   const pathname = usePathname();
   if (pathname.startsWith("/admin")) return null;
   return (
@@ -25,7 +25,7 @@ export function Footer() {
             <div>
               <Logo />
               <p className="mt-5 max-w-xl text-[14px] leading-relaxed text-muted">
-                {brand.name} is a modest corporate wear store and styling service in Benin City. <span className="font-medium text-wine">The beauty of every outfit is you in it</span> — we simply help it show.
+                {about}
               </p>
             </div>
             <div>

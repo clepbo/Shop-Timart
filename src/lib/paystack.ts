@@ -52,7 +52,7 @@ export function validWebhookSignature(rawBody: string, signature: string | null)
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
-type Order = { id: string; total: number; status: string };
+type Order = { id: string; total: number; status: string; couponCode?: string };
 
 /**
  * Re-verifies a transaction with Paystack and marks the order paid only if the amount
@@ -65,6 +65,7 @@ export async function confirmOrderPayment(reference: string) {
   const tx = await verifyPayment(reference);
   if (tx.status === "success" && tx.currency === "NGN" && tx.amount === Math.round(order.total * 100)) {
     await updateRecord("orders", reference, { status: "paid", paidAt: tx.paid_at ?? new Date().toISOString(), paymentChannel: tx.channel });
+    if (order.couponCode) await (await import("./coupons")).recordCouponUse(order.couponCode);
     return { ok: true as const, order: { ...order, status: "paid" } };
   }
   if (tx.status === "failed" || tx.status === "abandoned") await updateRecord("orders", reference, { status: "payment_failed" });

@@ -46,6 +46,10 @@ export interface Product {
   compareAtPrice?: number;
   description: string;
   details: string[];
+  /** Care instructions for this piece (one per line in the admin). */
+  care?: string[];
+  /** Which section of the care guide applies; picked from the garment type if empty. */
+  careGuide?: string;
   garmentType: GarmentType;
   colors: Colorway[];
   sizes: string[];

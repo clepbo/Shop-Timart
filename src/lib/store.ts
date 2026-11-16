@@ -17,7 +17,7 @@ import seed from "../../data/products.json";
  * Uploads go to Vercel Blob when BLOB_READ_WRITE_TOKEN is set, otherwise to /public/uploads.
  */
 
-export type Collection = "orders" | "bookings" | "subscribers";
+export type Collection = "orders" | "bookings" | "subscribers" | "coupons" | "content";
 
 // ---------------------------------------------------------------- Postgres
 
@@ -200,7 +200,7 @@ export async function listRecords<T = Rec>(collection: Collection): Promise<T[]>
 export async function getRecord<T = Rec>(collection: Collection, id: string): Promise<T | null> {
   const q = await db();
   if (q) {
-    const rows = (await q.query(`select data from records where collection = $1 and id = $2`, [collection, id])) as { data: T }[];
+    const rows = (await q.query(`select data from records where collection = $1 and (id = $2 or id = $3)`, [collection, id, `${collection}:${id}`])) as { data: T }[];
     return rows[0]?.data ?? null;
   }
   const items = await readJson<Rec[]>(path.join(DATA_DIR, `${collection}.json`), []);
@@ -210,7 +210,7 @@ export async function getRecord<T = Rec>(collection: Collection, id: string): Pr
 export async function updateRecord(collection: Collection, id: string, patch: object) {
   const q = await db();
   if (q) {
-    await q.query(`update records set data = data || $3::jsonb where collection = $1 and id = $2`, [collection, id, JSON.stringify(patch)]);
+    await q.query(`update records set data = data || $3::jsonb where collection = $1 and (id = $2 or id = $4)`, [collection, id, JSON.stringify(patch), `${collection}:${id}`]);
     return;
   }
   const file = path.join(DATA_DIR, `${collection}.json`);
@@ -220,6 +220,36 @@ export async function updateRecord(collection: Collection, id: string, patch: ob
     items[i] = { ...items[i], ...patch };
     await writeJson(file, items);
   }
+}
+
+/** Creates or fully replaces a record with a chosen id (coupons, site content). */
+export async function putRecord(collection: Collection, id: string, data: object) {
+  const existing = await getRecord<Rec>(collection, id);
+  const entry: Rec = { createdAt: existing?.createdAt ?? new Date().toISOString(), ...data, id } as Rec;
+  const q = await db();
+  if (q) {
+    await q.query(
+      `insert into records (id, collection, data, created_at) values ($1, $2, $3, $4)
+       on conflict (id) do update set data = excluded.data`,
+      [`${collection}:${id}`, collection, JSON.stringify(entry), entry.createdAt],
+    );
+    return entry;
+  }
+  const file = path.join(DATA_DIR, `${collection}.json`);
+  const items = (await readJson<Rec[]>(file, [])).filter((r) => r.id !== id);
+  items.push(entry);
+  await writeJson(file, items);
+  return entry;
+}
+
+export async function deleteRecord(collection: Collection, id: string) {
+  const q = await db();
+  if (q) {
+    await q.query(`delete from records where collection = $1 and (id = $2 or id = $3)`, [collection, id, `${collection}:${id}`]);
+    return;
+  }
+  const file = path.join(DATA_DIR, `${collection}.json`);
+  await writeJson(file, (await readJson<Rec[]>(file, [])).filter((r) => r.id !== id));
 }
 
 // ---------------------------------------------------------------- Files

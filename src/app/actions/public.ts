@@ -23,6 +23,7 @@ export async function bookStyling(_: FormState, form: FormData): Promise<FormSta
 export interface OrderPayload {
   customer: { name: string; phone: string; email: string; address: string; city: string; state: string; notes?: string };
   delivery: string;
+  couponCode?: string;
   items: { productId: string; name: string; colour: string; size: string; quantity: number }[];
 }
 
@@ -31,6 +32,8 @@ export type OrderReceipt = {
   date: string;
   lines: { name: string; colour: string; size: string; quantity: number; total: number }[];
   subtotal: number;
+  discount?: number;
+  couponCode?: string;
   deliveryFee: number;
   total: number;
 };
@@ -57,11 +60,25 @@ export async function placeOrder(payload: OrderPayload): Promise<OrderResult> {
     lines.push({ productId: p.id, name: p.name, colour: i.colour, size: i.size, quantity, unitPrice: p.price, total: p.price * quantity });
   }
   const subtotal = lines.reduce((n, l) => n + l.total, 0);
+
+  // Coupons are re-checked on the server with the customer's phone number.
+  let discount = 0;
+  let couponCode: string | undefined;
+  if (payload.couponCode) {
+    const { checkCoupon } = await import("@/lib/coupons");
+    const check = await checkCoupon(payload.couponCode, subtotal, c.phone);
+    if (!check.ok) return { ok: false, message: `Discount code: ${check.message}` };
+    discount = check.discount;
+    couponCode = check.coupon.code;
+  }
+
   const opt = deliveryOptions.find((d) => d.id === payload.delivery) ?? deliveryOptions[0];
-  const deliveryFee = opt.fee(subtotal);
-  const total = subtotal + deliveryFee;
+  const deliveryFee = opt.fee(subtotal - discount);
+  const total = subtotal - discount + deliveryFee;
   const method = paystackEnabled() ? "paystack" : "whatsapp";
-  const order = await appendRecord("orders", { customer: c, delivery: opt.id, lines, subtotal, deliveryFee, total, status: "awaiting_payment", method });
+  const order = await appendRecord("orders", { customer: c, delivery: opt.id, lines, subtotal, discount, couponCode, deliveryFee, total, status: "awaiting_payment", method });
+  // Paystack orders count a coupon use once payment is confirmed; WhatsApp orders count now.
+  if (couponCode && method === "whatsapp") await (await import("@/lib/coupons")).recordCouponUse(couponCode);
 
   if (method === "paystack") {
     try {
@@ -81,12 +98,22 @@ export async function placeOrder(payload: OrderPayload): Promise<OrderResult> {
   const msg =
     `Hello ${brand.name}! New order ${order.id}\n` +
     lines.map((l) => `• ${l.name} — ${l.colour}, ${l.size} × ${l.quantity} (${formatPrice(l.total)})`).join("\n") +
+    (discount ? `\nDiscount (${couponCode}): −${formatPrice(discount)}` : "") +
     `\nDelivery: ${opt.label} (${formatPrice(deliveryFee)})\nTotal: ${formatPrice(total)}\n\n${c.name} · ${c.phone}\n${c.address}, ${c.city}, ${c.state}`;
   return {
     ok: true,
     message: `Order ${order.id} received — total ${formatPrice(total)}.`,
     link: whatsappLink(msg),
-    receipt: { id: order.id, date: order.createdAt, lines: lines.map(({ name, colour, size, quantity, total }) => ({ name, colour, size, quantity, total })), subtotal, deliveryFee, total },
+    receipt: { id: order.id, date: order.createdAt, lines: lines.map(({ name, colour, size, quantity, total }) => ({ name, colour, size, quantity, total })), subtotal, discount, couponCode, deliveryFee, total },
   };
 }
 
+
+export type CouponPreview = { ok: true; code: string; label: string; discount: number; description?: string } | { ok: false; message: string };
+
+/** Lets the checkout preview a code before the order is placed (the server checks it again on submit). */
+export async function previewCoupon(code: string, subtotal: number, phone?: string): Promise<CouponPreview> {
+  const { checkCoupon } = await import("@/lib/coupons");
+  const r = await checkCoupon(code, Math.max(0, Number(subtotal) || 0), phone || undefined);
+  return r.ok ? { ok: true, code: r.coupon.code, label: r.label, discount: r.discount, description: r.coupon.description } : r;
+}

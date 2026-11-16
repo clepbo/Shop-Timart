@@ -1,11 +1,10 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { brand } from "@/lib/brand";
 
-export function AnnouncementBar() {
+export function AnnouncementBar({ messages }: { messages: string[] }) {
   const pathname = usePathname();
-  const items = [...brand.announcements, ...brand.announcements];
+  const items = [...messages, ...messages];
   if (pathname.startsWith("/admin")) return null;
   return (
     <div className="overflow-hidden border-b border-wine/10 bg-butter text-wine">

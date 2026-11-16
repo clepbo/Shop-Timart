@@ -69,6 +69,8 @@ export async function saveProductAction(_: AdminState, form: FormData): Promise<
     compareAtPrice: Number(form.get("compareAtPrice")) || undefined,
     description: String(form.get("description") ?? "").trim(),
     details: String(form.get("details") ?? "").split("\n").map((s) => s.trim()).filter(Boolean),
+    care: String(form.get("care") ?? "").split("\n").map((s) => s.trim()).filter(Boolean),
+    careGuide: String(form.get("careGuide") ?? "") || undefined,
     garmentType,
     colors,
     sizes: sizes.length ? sizes : gt.gender === "women" ? womenSizes : menSizes,
@@ -112,4 +114,77 @@ export async function setOrderStatus(form: FormData) {
   const { updateRecord } = await import("@/lib/store");
   await updateRecord("orders", String(form.get("id")), { status });
   revalidatePath("/admin/orders");
+}
+
+export async function saveCouponAction(_: AdminState, form: FormData): Promise<AdminState> {
+  await guard();
+  const { saveCoupon, normaliseCode } = await import("@/lib/coupons");
+  const code = normaliseCode(String(form.get("code") ?? ""));
+  const kind = form.get("kind") === "fixed" ? "fixed" : "percent";
+  const value = Number(form.get("value"));
+  if (!code || code.length < 3) return { ok: false, message: "Use a code of at least 3 letters or numbers." };
+  if (!value || value <= 0 || (kind === "percent" && value > 90)) return { ok: false, message: kind === "percent" ? "Percent must be between 1 and 90." : "Enter an amount in naira." };
+  const num = (k: string) => (Number(form.get(k)) > 0 ? Number(form.get(k)) : undefined);
+  const expires = String(form.get("expiresAt") ?? "");
+  await saveCoupon({
+    code,
+    kind,
+    value,
+    active: form.get("active") === "on",
+    description: String(form.get("description") ?? "").trim() || undefined,
+    minSubtotal: num("minSubtotal"),
+    maxUses: num("maxUses"),
+    oncePerCustomer: form.get("oncePerCustomer") === "on",
+    expiresAt: expires ? new Date(`${expires}T23:59:59+01:00`).toISOString() : undefined,
+  });
+  revalidatePath("/admin/coupons");
+  return { ok: true, message: `Saved ${code}.` };
+}
+
+export async function toggleCouponAction(form: FormData) {
+  await guard();
+  const { listCoupons, saveCoupon } = await import("@/lib/coupons");
+  const code = String(form.get("code"));
+  const c = (await listCoupons()).find((x) => x.code === code);
+  if (c) await saveCoupon({ ...c, active: !c.active });
+  revalidatePath("/admin/coupons");
+}
+
+export async function deleteCouponAction(form: FormData) {
+  await guard();
+  const { removeCoupon, QR_COUPON } = await import("@/lib/coupons");
+  const code = String(form.get("code"));
+  if (code !== QR_COUPON) await removeCoupon(code);
+  revalidatePath("/admin/coupons");
+}
+
+export async function saveContentAction(_: AdminState, form: FormData): Promise<AdminState> {
+  await guard();
+  const { contentSchema } = await import("@/lib/content-schema");
+  const { saveSection, getContent } = await import("@/lib/content");
+  const section = String(form.get("__section"));
+  const def = (contentSchema as Record<string, { fields: Record<string, { type: string; default: string }> }>)[section];
+  if (!def) return { ok: false, message: "Unknown section." };
+  const current = (await getContent()) as unknown as Record<string, Record<string, string>>;
+  const values: Record<string, string> = {};
+  for (const [f, fd] of Object.entries(def.fields)) {
+    if (form.get(`${f}__reset`) === "on") {
+      values[f] = fd.default;
+      continue;
+    }
+    if (fd.type === "image") {
+      const file = form.get(f);
+      if (file instanceof File && file.size > 0) {
+        if (!file.type.startsWith("image/")) return { ok: false, message: "Please upload an image file." };
+        values[f] = await saveUpload(file, "content");
+      } else {
+        values[f] = current[section]?.[f] ?? fd.default;
+      }
+    } else {
+      values[f] = String(form.get(f) ?? "").replace(/\r\n/g, "\n").trim();
+    }
+  }
+  await saveSection(section, values);
+  revalidatePath("/", "layout");
+  return { ok: true, message: "Saved — the live site is updated." };
 }

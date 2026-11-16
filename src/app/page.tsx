@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { getProducts } from "@/lib/store";
+import { getContent } from "@/lib/content";
+import { lines } from "@/lib/content-schema";
+import { Highlight } from "@/components/Highlight";
 import { bodyProfiles } from "@/lib/bodies";
 import { brand, formatPrice, whatsappLink } from "@/lib/brand";
 import type { Product } from "@/lib/types";
@@ -17,7 +20,6 @@ import { CategoryTile } from "@/components/home/CategoryTile";
 
 export const dynamic = "force-dynamic";
 
-const studio = (n: string) => `/images/studio/${n}.webp`;
 
 const perks = [
   ["Walk-in store", "Divine Plaza, Uselu, Benin City"],
@@ -32,7 +34,7 @@ function GhostTile({ p, ci = 0, swatches = true, className = "", zoom = false }:
 }
 
 export default async function Home() {
-  const products = await getProducts();
+  const [products, c] = await Promise.all([getProducts(), getContent()]);
   const by = (slug: string) => products.find((p) => p.slug === slug);
   const women = products.filter((p) => p.gender === "women");
   const newIn = women.filter((p) => p.isNew).slice(0, 4);
@@ -46,12 +48,12 @@ export default async function Home() {
       <section className="relative overflow-hidden bg-linen">
         <div className="container-x grid grid-cols-1 items-end lg:grid-cols-[1.1fr_0.9fr]">
           <div className="relative z-10 py-14 lg:self-center lg:py-24">
-            <p className="eyebrow">Modest corporate wear · Benin City</p>
+            <p className="eyebrow">{c.hero.eyebrow}</p>
             <h1 className="display mt-5 text-[48px] text-wine-deep sm:text-[72px] xl:text-[88px]">
-              <WordReveal text="The beauty of every outfit is you in it." accent={["you", "in", "it."]} accentClass="accent text-camel" onLoad step={110} />
+              <WordReveal text={c.hero.title} accent={c.hero.highlight.split(" ").filter(Boolean)} accentClass="accent text-camel" onLoad step={110} />
             </h1>
             <p className="mt-6 max-w-md animate-rise text-[15px] leading-relaxed text-ink/75 [animation-delay:700ms]">
-              Blazers, suits and sets for women and men who mean business — modest, polished and styled for the global you. Shop online or visit our store in Benin City.
+              {c.hero.body}
             </p>
             <div className="mt-9 flex animate-rise flex-wrap gap-3 [animation-delay:850ms]">
               <Link href="/shop" className="btn-primary">
@@ -74,7 +76,7 @@ export default async function Home() {
               ))}
             </dl>
           </div>
-          <HeroPortrait src={studio("founder-cutout")} alt={`The founder of ${brand.name} in a black trouser suit, white shirt and red tie`} badge={`Founder · ${brand.name}`} />
+          <HeroPortrait src={c.hero.image} alt={`${brand.name} — ${c.hero.badge}`} badge={c.hero.badge} />
         </div>
       </section>
 
@@ -92,7 +94,7 @@ export default async function Home() {
 
       {/* ---------- Categories ---------- */}
       <section className="container-x py-16 lg:py-24">
-        <Reveal><SectionHeading eyebrow="Shop by category" title={<>Dress for the room you&apos;re <span className="accent text-camel">walking into</span></>} href="/shop" cta="Shop all" /></Reveal>
+        <Reveal><SectionHeading eyebrow={c.categories.eyebrow} title={<Highlight text={c.categories.title} highlight={c.categories.highlight} />} href="/shop" cta="Shop all" /></Reveal>
         <div className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-5">
           {[
             { href: "/shop?category=corporate", name: "Corporate", sub: "Suits & blazers", p: by("the-timart-set") },
@@ -104,14 +106,14 @@ export default async function Home() {
             </Reveal>
           ))}
           <Reveal delay={270}>
-            <CategoryTile href="/shop?gender=men" name="Men" sub="Jackets & suits" photo={studio("men-suede-taupe")} />
+            <CategoryTile href="/shop?gender=men" name="Men" sub="Jackets & suits" photo={c.categories.menImage} />
           </Reveal>
         </div>
       </section>
 
       {/* ---------- New in ---------- */}
       <section className="container-x pb-16 lg:pb-24">
-        <Reveal><SectionHeading eyebrow="Just in" title={<>New <span className="accent text-camel">arrivals</span></>} href="/shop" cta="View all" /></Reveal>
+        <Reveal><SectionHeading eyebrow={c.newIn.eyebrow} title={<Highlight text={c.newIn.title} highlight={c.newIn.highlight} />} href="/shop" cta="View all" /></Reveal>
         <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 lg:grid-cols-4 lg:gap-x-5">
           {newIn.map((p, i) => (
             <Reveal key={p.id} delay={i * 90}>
@@ -134,10 +136,10 @@ export default async function Home() {
               ))}
             </div>
             <div>
-              <p className="eyebrow">Our signature</p>
-              <h2 className="display mt-4 text-[44px] sm:text-[64px] lg:text-[72px]">The <span className="accent text-camel">Timart</span> Set.</h2>
+              <p className="eyebrow">{c.signature.eyebrow}</p>
+              <h2 className="display mt-4 text-[44px] sm:text-[64px] lg:text-[72px]"><Highlight text={c.signature.title} highlight={c.signature.highlight} /></h2>
               <p className="mt-5 max-w-md leading-relaxed text-muted">
-                A blend of comfort and elegance, specially curated for the working woman. One textured blazer, a camisole and wide-leg trousers — styled two ways, for the office and everywhere after.
+                {c.signature.body}
               </p>
               <div className="mt-8 flex gap-3">
                 {[
@@ -177,9 +179,9 @@ export default async function Home() {
       <section className="container-x py-16 lg:py-24">
         <div className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <div>
-            <p className="eyebrow">For him</p>
-            <h2 className="display mt-4 text-[44px] sm:text-[64px] lg:text-[72px]">Smart, relaxed, <span className="accent text-camel">never sloppy.</span></h2>
-            <p className="mt-5 max-w-md leading-relaxed text-muted">Corduroy and suede-feel jackets that work over a shirt and tie or a simple knit — in rich, easy colours: forest, taupe, chocolate and cream.</p>
+            <p className="eyebrow">{c.men.eyebrow}</p>
+            <h2 className="display mt-4 text-[44px] sm:text-[64px] lg:text-[72px]"><Highlight text={c.men.title} highlight={c.men.highlight} /></h2>
+            <p className="mt-5 max-w-md leading-relaxed text-muted">{c.men.body}</p>
             <Link href="/shop?gender=men" className="btn-outline mt-8">
               Shop men <ArrowIcon />
             </Link>
@@ -200,7 +202,7 @@ export default async function Home() {
       <section className="bg-wine text-butter">
         <div className="container-x py-16 text-center lg:py-24">
           <p className="display mx-auto max-w-5xl text-[40px] sm:text-[64px] lg:text-[84px]">
-            <WordReveal text="The beauty of every outfit is you in it." accent={["you", "in", "it."]} accentClass="accent text-camel" step={140} />
+            <WordReveal text={c.statement.text} accent={c.statement.highlight.split(" ").filter(Boolean)} accentClass="accent text-camel" step={140} />
           </p>
           <p className="mt-6 text-[12px] font-semibold uppercase tracking-[0.24em] text-butter/70">{brand.name} · {brand.slogan}</p>
         </div>
@@ -208,7 +210,7 @@ export default async function Home() {
 
       {/* ---------- Featured ---------- */}
       <section className="container-x py-16 lg:py-24">
-        <Reveal><SectionHeading eyebrow="Most loved" title={<>Boss lady <span className="accent text-camel">favourites</span></>} href="/shop" /></Reveal>
+        <Reveal><SectionHeading eyebrow={c.favourites.eyebrow} title={<Highlight text={c.favourites.title} highlight={c.favourites.highlight} />} href="/shop" /></Reveal>
         <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 lg:grid-cols-4 lg:gap-x-5">
           {featured.map((p, i) => (
             <Reveal key={p.id} delay={i * 90}>
@@ -223,16 +225,16 @@ export default async function Home() {
         <div className="container-x grid items-center gap-10 py-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:py-20">
           <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden bg-butter">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={studio("founder-cutout")} alt={`${brand.name}'s founder and lead stylist`} className="absolute bottom-0 left-1/2 h-[94%] w-auto max-w-none -translate-x-1/2 object-contain object-bottom transition duration-700 hover:scale-[1.03]" />
+            <img src={c.styling.image} alt={`${brand.name} — personal styling`} className="absolute bottom-0 left-1/2 h-[94%] w-auto max-w-none -translate-x-1/2 object-contain object-bottom transition duration-700 hover:scale-[1.03]" />
           </div>
           <div>
-            <p className="eyebrow !text-butter">Personal styling</p>
-            <h2 className="display mt-4 text-[48px] sm:text-[72px] lg:text-[84px]">Styling for <span className="accent text-butter">the global you.</span></h2>
+            <p className="eyebrow !text-butter">{c.styling.eyebrow}</p>
+            <h2 className="display mt-4 text-[48px] sm:text-[72px] lg:text-[84px]"><Highlight text={c.styling.title} highlight={c.styling.highlight} className="accent text-butter" /></h2>
             <p className="mt-5 max-w-lg leading-relaxed text-ivory/75">
-              Seminar tomorrow? Interview on Monday? Tell us the occasion and we&apos;ll put the full look together — outfit, bag and accessories. Visit us in Benin City, or get styled remotely wherever you are.
+              {c.styling.body}
             </p>
             <ul className="mt-7 grid max-w-lg gap-3 text-[14px] sm:grid-cols-2">
-              {["In-store fittings at Divine Plaza", "Remote styling over WhatsApp", "Corporate & event wardrobes", "Delivery to any city"].map((t) => (
+              {lines(c.styling.points).map((t) => (
                 <li key={t} className="flex items-center gap-3">
                   <span className="size-1.5 shrink-0 bg-butter" /> {t}
                 </li>
@@ -257,8 +259,8 @@ export default async function Home() {
             <p className="eyebrow flex items-center gap-2">
               <SparkIcon className="size-3.5" /> Fit Studio
             </p>
-            <h2 className="display mt-4 text-[38px] sm:text-[52px]">Not sure how it&apos;ll sit <span className="accent text-camel">on you?</span></h2>
-            <p className="mt-4 max-w-md leading-relaxed text-muted">Preview any piece on six body types — petite to plus — and in every colour it comes in. We&apos;ll even suggest your size.</p>
+            <h2 className="display mt-4 text-[38px] sm:text-[52px]"><Highlight text={c.fit.title} highlight={c.fit.highlight} /></h2>
+            <p className="mt-4 max-w-md leading-relaxed text-muted">{c.fit.body}</p>
             <Link href="/fit-studio" className="btn-outline mt-7">
               Try the Fit Studio
             </Link>
@@ -279,9 +281,9 @@ export default async function Home() {
       {/* ---------- Testimonials ---------- */}
       <section className="bg-paper py-16 lg:py-24">
         <div className="container-x">
-          <Reveal><SectionHeading eyebrow="From our WhatsApp" title={<>What our customers <span className="accent text-camel">say</span></>} center /></Reveal>
+          <Reveal><SectionHeading eyebrow="From our WhatsApp" title={<Highlight text={c.reviews.title} highlight={c.reviews.highlight} />} center /></Reveal>
           <div className="mt-10">
-            <Testimonials />
+            <Testimonials quotes={lines(c.reviews.quotes)} />
           </div>
         </div>
       </section>
@@ -291,9 +293,9 @@ export default async function Home() {
         <div className="container-x grid gap-10 py-14 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:py-16">
           <div>
             <p className="eyebrow !text-wine-deep">Visit the store</p>
-            <h2 className="display mt-4 text-[52px] sm:text-[80px] lg:text-[96px]">Come <span className="accent">try it on.</span></h2>
+            <h2 className="display mt-4 text-[52px] sm:text-[80px] lg:text-[96px]"><Highlight text={c.visit.title} highlight={c.visit.highlight} className="accent" /></h2>
             <p className="mt-4 max-w-md leading-relaxed text-wine-deep/80">{brand.address}.</p>
-            <p className="mt-2 text-wine-deep/80">{brand.hours}</p>
+            <p className="mt-2 text-wine-deep/80">{c.visit.hours}</p>
           </div>
           <div className="flex flex-wrap gap-3 lg:justify-end">
             <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Divine Plaza Uselu Lagos Road Benin City")}`} target="_blank" rel="noreferrer" className="btn-primary">

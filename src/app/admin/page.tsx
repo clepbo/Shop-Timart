@@ -39,6 +39,8 @@ export default async function AdminHome({ searchParams }: PageProps<"/admin">) {
         <div className="flex gap-3">
           <form action={logout}><button className="btn-outline !py-3">Sign out</button></form>
           <Link href="/admin/orders" className="btn-outline !py-3">Orders & bookings</Link>
+          <Link href="/admin/coupons" className="btn-outline !py-3">Discounts & QR</Link>
+          <Link href="/admin/content" className="btn-outline !py-3">Site content</Link>
           <Link href="/admin/products/new" className="btn-primary !py-3">+ New product</Link>
         </div>
       </div>

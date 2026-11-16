@@ -9,6 +9,7 @@ import { Figure } from "../figure/Figure";
 import { useCart } from "../cart/CartProvider";
 import { CheckIcon, SparkIcon, WhatsAppIcon } from "../Icons";
 import { MorphButton } from "../motion/MorphButton";
+import { careGuideFor } from "@/lib/care";
 
 function recommendedSize(body: BodyProfile, sizes: string[]) {
   const first = body.sizes.split(/[–-]/)[0].trim(); // "UK 14–16" → "UK 14", "M–L" → "M"
@@ -269,13 +270,29 @@ export function ProductExperience({ product, initialColour }: { product: Product
         <div className="mt-8 divide-y divide-ink/10 border-y border-ink/10">
           <details open className="group py-4">
             <summary className="flex cursor-pointer list-none items-center justify-between text-[13px] uppercase tracking-[0.14em]">
-              Details & care <span className="transition group-open:rotate-45">+</span>
+              Details <span className="transition group-open:rotate-45">+</span>
             </summary>
             <ul className="mt-3 space-y-1.5 text-sm text-muted">
               {product.details.map((d) => (
                 <li key={d}>— {d}</li>
               ))}
             </ul>
+          </details>
+          <details open className="group py-4">
+            <summary className="flex cursor-pointer list-none items-center justify-between text-[13px] uppercase tracking-[0.14em]">
+              How to care for it <span className="transition group-open:rotate-45">+</span>
+            </summary>
+            <ul className="mt-3 space-y-1.5 text-sm text-muted">
+              {(product.care?.length ? product.care : careGuideFor(product).steps.slice(0, 3)).map((d) => (
+                <li key={d} className="flex gap-2">
+                  <span className="mt-[7px] size-1.5 shrink-0 rounded-full bg-camel" />
+                  {d}
+                </li>
+              ))}
+            </ul>
+            <a href={`/care#${careGuideFor(product).id}`} className="mt-3 inline-block text-[12px] uppercase tracking-[0.16em] text-wine link-underline">
+              Full care guide: {careGuideFor(product).title}
+            </a>
           </details>
           <details className="group py-4">
             <summary className="flex cursor-pointer list-none items-center justify-between text-[13px] uppercase tracking-[0.14em]">
