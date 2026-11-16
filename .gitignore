@@ -48,3 +48,6 @@ next-env.d.ts
 /public/uploads/
 /public/renders/
 !.env.example
+/data/coupons.json
+/data/content.json
+/public/content/
