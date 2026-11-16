@@ -37,7 +37,6 @@ export default async function OrdersPage({ searchParams }: PageProps<"/admin/ord
 
   return (
     <div className="container-x py-10">
-      <Link href="/admin" className="text-[12px] uppercase tracking-[0.14em] text-muted hover:text-ink">← Dashboard</Link>
       <h1 className="display mt-2 text-5xl">{tab === "orders" ? "Orders" : "Styling requests"}</h1>
       <div className="mt-6 flex gap-2">
         <Link href="/admin/orders" className={`border px-4 py-2 text-[12px] uppercase tracking-[0.12em] ${tab === "orders" ? "border-ink bg-ink text-ivory" : "border-ink/15"}`}>Orders ({orders.length})</Link>

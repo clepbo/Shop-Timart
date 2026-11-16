@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getProducts } from "@/lib/store";
+import { getShopProducts } from "@/lib/sales";
 import { getContent } from "@/lib/content";
 import { lines } from "@/lib/content-schema";
 import { Highlight } from "@/components/Highlight";
@@ -34,7 +34,7 @@ function GhostTile({ p, ci = 0, swatches = true, className = "", zoom = false }:
 }
 
 export default async function Home() {
-  const [products, c] = await Promise.all([getProducts(), getContent()]);
+  const [products, c] = await Promise.all([getShopProducts(), getContent()]);
   const by = (slug: string) => products.find((p) => p.slug === slug);
   const women = products.filter((p) => p.gender === "women");
   const newIn = women.filter((p) => p.isNew).slice(0, 4);
@@ -45,7 +45,7 @@ export default async function Home() {
   return (
     <>
       {/* ---------- Hero ---------- */}
-      <section className="relative overflow-hidden bg-linen">
+      <section id="cms-hero" className="relative overflow-hidden bg-linen">
         <div className="container-x grid grid-cols-1 items-end lg:grid-cols-[1.1fr_0.9fr]">
           <div className="relative z-10 py-14 lg:self-center lg:py-24">
             <p className="eyebrow">{c.hero.eyebrow}</p>
@@ -93,7 +93,7 @@ export default async function Home() {
       </section>
 
       {/* ---------- Categories ---------- */}
-      <section className="container-x py-16 lg:py-24">
+      <section id="cms-categories" className="container-x py-16 lg:py-24">
         <Reveal><SectionHeading eyebrow={c.categories.eyebrow} title={<Highlight text={c.categories.title} highlight={c.categories.highlight} />} href="/shop" cta="Shop all" /></Reveal>
         <div className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-5">
           {[
@@ -112,7 +112,7 @@ export default async function Home() {
       </section>
 
       {/* ---------- New in ---------- */}
-      <section className="container-x pb-16 lg:pb-24">
+      <section id="cms-newIn" className="container-x pb-16 lg:pb-24">
         <Reveal><SectionHeading eyebrow={c.newIn.eyebrow} title={<Highlight text={c.newIn.title} highlight={c.newIn.highlight} />} href="/shop" cta="View all" /></Reveal>
         <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 lg:grid-cols-4 lg:gap-x-5">
           {newIn.map((p, i) => (
@@ -125,7 +125,7 @@ export default async function Home() {
 
       {/* ---------- Signature set: colour story ---------- */}
       {timartSet && (
-        <section className="bg-sand">
+        <section id="cms-signature" className="bg-sand">
           <div className="container-x grid items-center gap-10 py-14 lg:grid-cols-2 lg:gap-16 lg:py-20">
             <div className="grid grid-cols-2 gap-3">
               {timartSet.colors.map((c, i) => (
@@ -176,7 +176,7 @@ export default async function Home() {
       )}
 
       {/* ---------- For him ---------- */}
-      <section className="container-x py-16 lg:py-24">
+      <section id="cms-men" className="container-x py-16 lg:py-24">
         <div className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <div>
             <p className="eyebrow">{c.men.eyebrow}</p>
@@ -199,7 +199,7 @@ export default async function Home() {
       </section>
 
       {/* ---------- Statement ---------- */}
-      <section className="bg-wine text-butter">
+      <section id="cms-statement" className="bg-wine text-butter">
         <div className="container-x py-16 text-center lg:py-24">
           <p className="display mx-auto max-w-5xl text-[40px] sm:text-[64px] lg:text-[84px]">
             <WordReveal text={c.statement.text} accent={c.statement.highlight.split(" ").filter(Boolean)} accentClass="accent text-camel" step={140} />
@@ -209,7 +209,7 @@ export default async function Home() {
       </section>
 
       {/* ---------- Featured ---------- */}
-      <section className="container-x py-16 lg:py-24">
+      <section id="cms-favourites" className="container-x py-16 lg:py-24">
         <Reveal><SectionHeading eyebrow={c.favourites.eyebrow} title={<Highlight text={c.favourites.title} highlight={c.favourites.highlight} />} href="/shop" /></Reveal>
         <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 lg:grid-cols-4 lg:gap-x-5">
           {featured.map((p, i) => (
@@ -221,7 +221,7 @@ export default async function Home() {
       </section>
 
       {/* ---------- Styling ---------- */}
-      <section className="bg-wine text-ivory">
+      <section id="cms-styling" className="bg-wine text-ivory">
         <div className="container-x grid items-center gap-10 py-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:py-20">
           <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden bg-butter">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -253,7 +253,7 @@ export default async function Home() {
       </section>
 
       {/* ---------- Fit Studio ---------- */}
-      <section className="container-x py-16 lg:py-24">
+      <section id="cms-fit" className="container-x py-16 lg:py-24">
         <div className="grid items-center gap-10 border border-ink/10 bg-paper p-6 sm:p-10 lg:grid-cols-[1fr_1.3fr]">
           <div>
             <p className="eyebrow flex items-center gap-2">
@@ -279,7 +279,7 @@ export default async function Home() {
       </section>
 
       {/* ---------- Testimonials ---------- */}
-      <section className="bg-paper py-16 lg:py-24">
+      <section id="cms-reviews" className="bg-paper py-16 lg:py-24">
         <div className="container-x">
           <Reveal><SectionHeading eyebrow="From our WhatsApp" title={<Highlight text={c.reviews.title} highlight={c.reviews.highlight} />} center /></Reveal>
           <div className="mt-10">
@@ -289,7 +289,7 @@ export default async function Home() {
       </section>
 
       {/* ---------- Visit ---------- */}
-      <section className="bg-camel text-wine-deep">
+      <section id="cms-visit" className="bg-camel text-wine-deep">
         <div className="container-x grid gap-10 py-14 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:py-16">
           <div>
             <p className="eyebrow !text-wine-deep">Visit the store</p>

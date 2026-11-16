@@ -199,7 +199,12 @@ export function ProductExperience({ product, initialColour }: { product: Product
         <h1 className="display mt-3 text-4xl sm:text-[44px]">{product.name}</h1>
         <p className="mt-4 text-xl">
           {formatPrice(product.price)}
-          {product.compareAtPrice && <s className="ml-3 text-base text-muted">{formatPrice(product.compareAtPrice)}</s>}
+          {!!product.compareAtPrice && product.compareAtPrice > product.price && (
+            <>
+              <s className="ml-3 text-base text-muted">{formatPrice(product.compareAtPrice)}</s>
+              <span className="ml-3 bg-wine px-2.5 py-1 align-middle text-[11px] font-semibold uppercase tracking-[0.14em] text-butter">{product.saleLabel ?? "Sale"}</span>
+            </>
+          )}
         </p>
         <p className="mt-6 max-w-lg leading-relaxed text-muted">{product.description}</p>
 

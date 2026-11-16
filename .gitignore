@@ -51,3 +51,4 @@ next-env.d.ts
 /data/coupons.json
 /data/content.json
 /public/content/
+/data/sales.json

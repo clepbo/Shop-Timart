@@ -6,7 +6,8 @@ import { formatPrice } from "@/lib/brand";
 import { ProductArt } from "@/components/shop/ProductArt";
 import { defaultBody } from "@/lib/bodies";
 import { getTryOnProvider } from "@/lib/ai/tryon";
-import { logout, regenerateAction } from "./actions";
+import { regenerateAction } from "./actions";
+import { AdminHeader } from "@/components/admin/AdminShell";
 import type { RenderStatus } from "@/lib/types";
 
 // AI renders run in the background after saving; give them time to finish on Vercel.
@@ -31,20 +32,12 @@ export default async function AdminHome({ searchParams }: PageProps<"/admin">) {
 
   return (
     <div className="container-x py-10">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p className="eyebrow">Dashboard</p>
-          <h1 className="display mt-2 text-5xl">Good day ✦</h1>
-        </div>
-        <div className="flex gap-3">
-          <form action={logout}><button className="btn-outline !py-3">Sign out</button></form>
-          <Link href="/admin/orders" className="btn-outline !py-3">Orders & bookings</Link>
-          <Link href="/admin/coupons" className="btn-outline !py-3">Discounts & QR</Link>
-          <Link href="/admin/content" className="btn-outline !py-3">Site content</Link>
-          <Link href="/admin/products/new" className="btn-primary !py-3">+ New product</Link>
-        </div>
-      </div>
+      <AdminHeader title="Products" description="Everything in the shop. Add new stock, edit details, or put pieces on sale.">
+        <Link href="/admin/sales" className="btn-outline !py-3">Sales</Link>
+        <Link href="/admin/products/new" className="btn-primary !py-3">+ New product</Link>
+      </AdminHeader>
 
+      {sp.deleted && <p className="mt-6 rounded-md bg-sand px-4 py-3 text-sm">Product deleted.</p>}
       {sp.saved && <p className="mt-6 rounded-md bg-emerald-50 px-4 py-3 text-sm text-emerald-900">Product saved. {ai ? "AI fit previews are generating in the background." : "Customers can preview it in the Fit Studio now."}</p>}
 
       <div className="mt-8 grid gap-4 sm:grid-cols-4">

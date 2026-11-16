@@ -44,6 +44,10 @@ export interface Product {
   occasions: string[];
   price: number;
   compareAtPrice?: number;
+  /** A sale set on this product alone (from the product form). */
+  sale?: ProductSale;
+  /** Filled in for shoppers when a sale applies: e.g. "−15%" or the sale's name. */
+  saleLabel?: string;
   description: string;
   details: string[];
   /** Care instructions for this piece (one per line in the admin). */
@@ -79,4 +83,10 @@ export interface CartItem {
   accent?: string;
   gender: Gender;
   image?: string;
+}
+
+export interface ProductSale {
+  kind: "percent" | "fixed";
+  value: number;
+  endsAt?: string;
 }

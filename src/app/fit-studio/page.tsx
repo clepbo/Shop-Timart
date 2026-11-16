@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getProducts } from "@/lib/store";
+import { getShopProducts } from "@/lib/sales";
 import { ProductExperience } from "@/components/shop/ProductExperience";
 import { ProductArt } from "@/components/shop/ProductArt";
 import { defaultBody } from "@/lib/bodies";
@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Fit Studio", description: "Preview a
 
 export default async function FitStudioPage({ searchParams }: PageProps<"/fit-studio">) {
   const sp = await searchParams;
-  const products = await getProducts();
+  const products = await getShopProducts();
   const current = products.find((p) => p.slug === sp.p) ?? products.find((p) => p.featured) ?? products[0];
 
   return (

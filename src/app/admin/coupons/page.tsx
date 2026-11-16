@@ -22,7 +22,6 @@ export default async function CouponsPage({ searchParams }: PageProps<"/admin/co
   return (
     <div className="container-x py-10">
       <div className="print:hidden">
-        <Link href="/admin" className="text-[12px] uppercase tracking-[0.14em] text-muted hover:text-ink">← Dashboard</Link>
         <h1 className="display mt-2 text-5xl">Discounts & QR code</h1>
         <p className="mt-3 max-w-2xl text-muted">
           Anyone who scans the QR code lands on the shop with the code saved, and it&apos;s applied automatically at checkout. The server checks every code again when the order is placed.

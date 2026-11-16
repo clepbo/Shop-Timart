@@ -41,7 +41,7 @@ export type OrderReceipt = {
 export type OrderResult = { ok: boolean; message: string; link?: string; redirect?: string; receipt?: OrderReceipt } | null;
 
 export async function placeOrder(payload: OrderPayload): Promise<OrderResult> {
-  const { getProducts } = await import("@/lib/store");
+  const { getShopProducts: getProducts } = await import("@/lib/sales");
   const { brand, formatPrice, whatsappLink } = await import("@/lib/brand");
   const { deliveryOptions } = await import("@/lib/delivery");
   const { paystackEnabled, initializePayment } = await import("@/lib/paystack");

@@ -66,7 +66,15 @@ export async function saveProductAction(_: AdminState, form: FormData): Promise<
     category: String(form.get("category") ?? "dresses"),
     occasions: form.getAll("occasions").map(String),
     price,
-    compareAtPrice: Number(form.get("compareAtPrice")) || undefined,
+    compareAtPrice: undefined,
+    sale:
+      form.get("saleOn") === "on" && Number(form.get("saleValue")) > 0
+        ? {
+            kind: form.get("saleKind") === "fixed" ? "fixed" : "percent",
+            value: Math.min(form.get("saleKind") === "fixed" ? 1e9 : 90, Number(form.get("saleValue"))),
+            endsAt: form.get("saleEndsAt") ? new Date(`${form.get("saleEndsAt")}T23:59:59+01:00`).toISOString() : undefined,
+          }
+        : undefined,
     description: String(form.get("description") ?? "").trim(),
     details: String(form.get("details") ?? "").split("\n").map((s) => s.trim()).filter(Boolean),
     care: String(form.get("care") ?? "").split("\n").map((s) => s.trim()).filter(Boolean),
@@ -104,7 +112,7 @@ export async function deleteProductAction(form: FormData) {
   await guard();
   await deleteProduct(String(form.get("id")));
   revalidatePath("/", "layout");
-  redirect("/admin");
+  redirect("/admin?deleted=1");
 }
 
 export async function setOrderStatus(form: FormData) {
@@ -158,33 +166,87 @@ export async function deleteCouponAction(form: FormData) {
   revalidatePath("/admin/coupons");
 }
 
-export async function saveContentAction(_: AdminState, form: FormData): Promise<AdminState> {
+
+export async function saveSaleAction(_: AdminState, form: FormData): Promise<AdminState> {
   await guard();
-  const { contentSchema } = await import("@/lib/content-schema");
-  const { saveSection, getContent } = await import("@/lib/content");
-  const section = String(form.get("__section"));
-  const def = (contentSchema as Record<string, { fields: Record<string, { type: string; default: string }> }>)[section];
-  if (!def) return { ok: false, message: "Unknown section." };
-  const current = (await getContent()) as unknown as Record<string, Record<string, string>>;
-  const values: Record<string, string> = {};
-  for (const [f, fd] of Object.entries(def.fields)) {
-    if (form.get(`${f}__reset`) === "on") {
-      values[f] = fd.default;
-      continue;
-    }
-    if (fd.type === "image") {
-      const file = form.get(f);
-      if (file instanceof File && file.size > 0) {
-        if (!file.type.startsWith("image/")) return { ok: false, message: "Please upload an image file." };
-        values[f] = await saveUpload(file, "content");
-      } else {
-        values[f] = current[section]?.[f] ?? fd.default;
-      }
-    } else {
-      values[f] = String(form.get(f) ?? "").replace(/\r\n/g, "\n").trim();
-    }
-  }
-  await saveSection(section, values);
+  const { saveSale } = await import("@/lib/sales");
+  const name = String(form.get("name") ?? "").trim();
+  const scope = String(form.get("scope")) as "all" | "category" | "collection" | "products";
+  const kind = form.get("kind") === "fixed" ? "fixed" : "percent";
+  const value = Number(form.get("value"));
+  const targets = scope === "all" ? [] : form.getAll(`targets_${scope}`).map(String);
+  if (!name) return { ok: false, message: "Give the sale a name, e.g. Easter sale." };
+  if (!["all", "category", "collection", "products"].includes(scope)) return { ok: false, message: "Choose what the sale applies to." };
+  if (scope !== "all" && targets.length === 0) return { ok: false, message: "Pick at least one item for the sale to apply to." };
+  if (!value || value <= 0 || (kind === "percent" && value > 90)) return { ok: false, message: kind === "percent" ? "Percent must be between 1 and 90." : "Enter an amount in naira." };
+  const day = (k: string, end: boolean) => {
+    const v = String(form.get(k) ?? "");
+    return v ? new Date(`${v}T${end ? "23:59:59" : "00:00:00"}+01:00`).toISOString() : undefined;
+  };
+  const startsAt = day("startsAt", false);
+  const endsAt = day("endsAt", true);
+  if (startsAt && endsAt && endsAt < startsAt) return { ok: false, message: "The end date is before the start date." };
+  const id = String(form.get("id") ?? "") || `sale-${Date.now().toString(36)}`;
+  await saveSale({ id, name, scope, targets, kind, value, startsAt, endsAt, active: form.get("active") === "on" });
   revalidatePath("/", "layout");
-  return { ok: true, message: "Saved — the live site is updated." };
+  redirect(`/admin/sales?saved=${encodeURIComponent(name)}`);
+}
+
+export async function toggleSaleAction(form: FormData) {
+  await guard();
+  const { getSale, saveSale } = await import("@/lib/sales");
+  const s = await getSale(String(form.get("id")));
+  if (s) await saveSale({ ...s, active: !s.active });
+  revalidatePath("/", "layout");
+}
+
+export async function deleteSaleAction(form: FormData) {
+  await guard();
+  const { removeSale } = await import("@/lib/sales");
+  await removeSale(String(form.get("id")));
+  revalidatePath("/", "layout");
+  redirect("/admin/sales");
+}
+
+// ---------------------------------------------------------------- site content (mini CMS)
+
+function cleanValues(section: string, values: Record<string, string>) {
+  const out: Record<string, string> = {};
+  for (const [k, v] of Object.entries(values ?? {})) if (typeof v === "string") out[k] = v.replace(/\r\n/g, "\n");
+  return out;
+}
+
+/** Saves what the owner is typing as a draft, so the preview can show it. Not visible to shoppers. */
+export async function saveDraftAction(section: string, values: Record<string, string>) {
+  await guard();
+  const { saveDraftSection } = await import("@/lib/content");
+  await saveDraftSection(section, cleanValues(section, values));
+  return { ok: true };
+}
+
+export async function publishContentAction(section: string, values: Record<string, string>): Promise<AdminState> {
+  await guard();
+  const { saveSection, clearDraftSection } = await import("@/lib/content");
+  const v = cleanValues(section, values);
+  for (const k of Object.keys(v)) v[k] = v[k].trim();
+  await saveSection(section, v);
+  await clearDraftSection(section);
+  revalidatePath("/", "layout");
+  return { ok: true, message: "Published — this section is live on the website." };
+}
+
+export async function discardDraftAction(section: string) {
+  await guard();
+  const { clearDraftSection } = await import("@/lib/content");
+  await clearDraftSection(section);
+  return { ok: true };
+}
+
+export async function uploadContentImageAction(form: FormData): Promise<{ ok: boolean; url?: string; message?: string }> {
+  await guard();
+  const file = form.get("file");
+  if (!(file instanceof File) || !file.size) return { ok: false, message: "Choose an image." };
+  if (!file.type.startsWith("image/")) return { ok: false, message: "Please upload an image file." };
+  if (file.size > 10 * 1024 * 1024) return { ok: false, message: "Images must be under 10 MB." };
+  return { ok: true, url: await saveUpload(file, "content") };
 }

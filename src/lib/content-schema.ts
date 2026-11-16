@@ -15,6 +15,9 @@ export interface FieldDef {
 export interface SectionDef {
   title: string;
   where: string;
+  /** Where the admin preview opens: a page path and the section's anchor on it. */
+  preview: { path: string; anchor?: string };
+  group: "Homepage" | "Every page" | "Other pages";
   fields: Record<string, FieldDef>;
 }
 
@@ -24,6 +27,8 @@ const img = (label: string, d: string, help?: string): FieldDef => ({ label, typ
 
 export const contentSchema = {
   announcements: {
+    preview: { path: "/" },
+    group: "Every page",
     title: "Announcement bar",
     where: "The moving strip at the very top of every page",
     fields: {
@@ -34,6 +39,8 @@ export const contentSchema = {
     },
   },
   hero: {
+    preview: { path: "/", anchor: "cms-hero" },
+    group: "Homepage",
     title: "Homepage — hero",
     where: "The first thing visitors see",
     fields: {
@@ -46,6 +53,8 @@ export const contentSchema = {
     },
   },
   categories: {
+    preview: { path: "/", anchor: "cms-categories" },
+    group: "Homepage",
     title: "Homepage — shop by category",
     where: "Category tiles under the hero",
     fields: {
@@ -56,6 +65,8 @@ export const contentSchema = {
     },
   },
   newIn: {
+    preview: { path: "/", anchor: "cms-newIn" },
+    group: "Homepage",
     title: "Homepage — new arrivals",
     where: "The New arrivals product row",
     fields: {
@@ -65,6 +76,8 @@ export const contentSchema = {
     },
   },
   signature: {
+    preview: { path: "/", anchor: "cms-signature" },
+    group: "Homepage",
     title: "Homepage — signature set",
     where: "The colour-story section for the Timart Set",
     fields: {
@@ -75,6 +88,8 @@ export const contentSchema = {
     },
   },
   men: {
+    preview: { path: "/", anchor: "cms-men" },
+    group: "Homepage",
     title: "Homepage — for him",
     where: "The men's section with the card deck",
     fields: {
@@ -85,6 +100,8 @@ export const contentSchema = {
     },
   },
   statement: {
+    preview: { path: "/", anchor: "cms-statement" },
+    group: "Homepage",
     title: "Homepage — statement band",
     where: "The large phrase on the brown band",
     fields: {
@@ -93,6 +110,8 @@ export const contentSchema = {
     },
   },
   favourites: {
+    preview: { path: "/", anchor: "cms-favourites" },
+    group: "Homepage",
     title: "Homepage — favourites",
     where: "The featured products row",
     fields: {
@@ -102,6 +121,8 @@ export const contentSchema = {
     },
   },
   styling: {
+    preview: { path: "/", anchor: "cms-styling" },
+    group: "Homepage",
     title: "Homepage — personal styling",
     where: "The styling section on the brown background",
     fields: {
@@ -114,6 +135,8 @@ export const contentSchema = {
     },
   },
   fit: {
+    preview: { path: "/", anchor: "cms-fit" },
+    group: "Homepage",
     title: "Homepage — Fit Studio",
     where: "The Fit Studio teaser",
     fields: {
@@ -123,6 +146,8 @@ export const contentSchema = {
     },
   },
   reviews: {
+    preview: { path: "/", anchor: "cms-reviews" },
+    group: "Homepage",
     title: "Homepage — customer reviews",
     where: "The testimonial cards",
     fields: {
@@ -135,6 +160,8 @@ export const contentSchema = {
     },
   },
   visit: {
+    preview: { path: "/", anchor: "cms-visit" },
+    group: "Homepage",
     title: "Homepage — visit the store",
     where: "The section before the footer",
     fields: {
@@ -144,6 +171,8 @@ export const contentSchema = {
     },
   },
   footer: {
+    preview: { path: "/", anchor: "cms-footer" },
+    group: "Every page",
     title: "Footer",
     where: "Bottom of every page",
     fields: {
@@ -151,6 +180,8 @@ export const contentSchema = {
     },
   },
   care: {
+    preview: { path: "/care" },
+    group: "Other pages",
     title: "Care guide page",
     where: "/care — linked from every product",
     fields: {

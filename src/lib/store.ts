@@ -17,7 +17,7 @@ import seed from "../../data/products.json";
  * Uploads go to Vercel Blob when BLOB_READ_WRITE_TOKEN is set, otherwise to /public/uploads.
  */
 
-export type Collection = "orders" | "bookings" | "subscribers" | "coupons" | "content";
+export type Collection = "orders" | "bookings" | "subscribers" | "coupons" | "content" | "sales";
 
 // ---------------------------------------------------------------- Postgres
 

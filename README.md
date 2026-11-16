@@ -88,3 +88,13 @@ Styling sessions are booked through the form and confirmed on WhatsApp from `/ad
 
 ## Care guide
 - `/care` page plus a "How to care for it" panel on every product. Per-product care lines and the matching care section are editable in the product form.
+
+## Admin
+- A sidebar on every admin screen (a scrolling tab bar on phones): Products, Orders & styling, Sales, Discount codes & QR, Site content. Product forms have Cancel and warn before leaving with unsaved changes; deletes ask for confirmation.
+
+## Sales
+- `/admin/sales`: reduce prices for selected products, a category, a collection (Women, Men, New arrivals, Most loved) or the whole store, as a percentage or a naira amount, with optional start and end dates. A single product can also be put on sale from its edit page.
+- If several sales apply, the biggest discount wins (no stacking). Shoppers see the sale price, the original crossed out and a badge. The shop has an "On sale" filter, and checkout prices orders server-side with the same rules (`src/lib/sales.ts`). Discount codes apply on top of sale prices.
+
+## Site content (mini CMS)
+- `/admin/content`: pick a section, edit it, and see the real page update in a desktop or mobile preview beside the form. Edits save as a draft that only the signed-in admin sees (`?__cms=draft`, handled in `src/proxy.ts` + `getContent()`); Publish makes the section live, Discard drops the draft.

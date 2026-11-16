@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import type { Colorway, GarmentType, Product } from "@/lib/types";
 import { categories, garmentTypes, menSizes, occasions, womenSizes } from "@/lib/catalog";
 import { bodiesFor } from "@/lib/bodies";
@@ -23,6 +24,23 @@ const presetColours: Colorway[] = [
 
 export function ProductForm({ product }: { product?: Product }) {
   const [state, action, pending] = useActionState(saveProductAction, null);
+  const router = useRouter();
+  const [dirty, setDirty] = useState(false);
+  const [saleOn, setSaleOn] = useState(!!product?.sale);
+
+  // Warn before leaving the page with unsaved changes.
+  useEffect(() => {
+    if (!dirty || pending) return;
+    const warn = (e: BeforeUnloadEvent) => e.preventDefault();
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [dirty, pending]);
+
+  const cancel = () => {
+    if (dirty && !window.confirm("Discard your changes?")) return;
+    setDirty(false);
+    router.push("/admin");
+  };
   const [garment, setGarment] = useState<GarmentType>(product?.garmentType ?? "maxi-dress");
   const [colors, setColors] = useState<Colorway[]>(product?.colors ?? [presetColours[0]]);
   const [preview, setPreview] = useState<string | undefined>(product?.image);
@@ -35,7 +53,7 @@ export function ProductForm({ product }: { product?: Product }) {
   const updateColour = (i: number, patch: Partial<Colorway>) => setColors((cs) => cs.map((x, k) => (k === i ? { ...x, ...patch } : x)));
 
   return (
-    <form action={action} className="mt-8 grid gap-8 lg:grid-cols-[1.2fr_1fr]">
+    <form action={action} className="mt-8 grid gap-8 lg:grid-cols-[1.2fr_1fr]" onChange={() => setDirty(true)}>
       <input type="hidden" name="id" value={product?.id ?? ""} />
       <input type="hidden" name="colors" value={JSON.stringify(colors)} />
 
@@ -85,7 +103,21 @@ export function ProductForm({ product }: { product?: Product }) {
             </select>
           </label>
           <label><span className="label">Price (₦) *</span><input name="price" type="number" min={0} required defaultValue={product?.price} className="field" /></label>
-          <label><span className="label">Compare-at price (₦)</span><input name="compareAtPrice" type="number" min={0} defaultValue={product?.compareAtPrice} className="field" placeholder="Optional, for sales" /></label>
+          <div className="flex flex-col justify-end">
+            <label className="flex items-center gap-2 pb-3 text-sm">
+              <input type="checkbox" name="saleOn" checked={saleOn} onChange={(e) => setSaleOn(e.target.checked)} className="accent-wine" /> Put this product on sale
+            </label>
+          </div>
+          {saleOn && (
+            <div className="grid gap-3 border border-wine/25 bg-sand/60 p-4 sm:col-span-2 sm:grid-cols-3">
+              <label><span className="label">Discount</span><input name="saleValue" type="number" min={1} required defaultValue={product?.sale?.value ?? 10} className="field" /></label>
+              <label><span className="label">Type</span>
+                <select name="saleKind" defaultValue={product?.sale?.kind ?? "percent"} className="field"><option value="percent">% off</option><option value="fixed">₦ off</option></select>
+              </label>
+              <label><span className="label">Sale ends</span><input name="saleEndsAt" type="date" defaultValue={product?.sale?.endsAt ? new Date(new Date(product.sale.endsAt).getTime() + 3600_000).toISOString().slice(0, 10) : ""} className="field" /></label>
+              <p className="text-[12px] text-muted sm:col-span-3">The shop shows the reduced price with the original crossed out. For sales across a category or the whole store, use <a href="/admin/sales" className="text-wine underline">Sales</a> — the biggest discount wins.</p>
+            </div>
+          )}
           <label className="sm:col-span-2"><span className="label">Description</span><textarea name="description" rows={3} defaultValue={product?.description} className="field" /></label>
           <label className="sm:col-span-2"><span className="label">Details (one per line)</span><textarea name="details" rows={3} defaultValue={product?.details.join("\n")} className="field" placeholder={"Fully lined\nConcealed back zip"} /></label>
           <label className="sm:col-span-2"><span className="label">Care instructions (one per line)</span><textarea name="care" rows={3} defaultValue={product?.care?.join("\n")} className="field" placeholder={"Dry clean only\nSteam, don't iron\nHang on a shaped hanger"} /><span className="mt-1 block text-[12px] text-muted">Leave empty to show the standard tips for this type of garment.</span></label>
@@ -149,7 +181,10 @@ export function ProductForm({ product }: { product?: Product }) {
         </section>
 
         {state && !state.ok && <p className="rounded-md bg-red-50 px-4 py-3 text-sm text-red-800">{state.message}</p>}
-        <button disabled={pending} className="btn-primary w-full">{pending ? "Saving…" : product ? "Save changes" : "Publish product"}</button>
+        <div className="sticky bottom-0 z-10 -mx-4 flex gap-3 border-t border-ink/10 bg-ivory/95 px-4 py-4 backdrop-blur sm:mx-0 sm:px-0">
+          <button type="button" onClick={cancel} className="btn-outline flex-1 sm:flex-none sm:px-10">Cancel</button>
+          <button disabled={pending} className="btn-primary flex-1">{pending ? "Saving…" : product ? "Save changes" : "Publish product"}</button>
+        </div>
       </div>
 
       {/* Live preview */}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getProduct, getProducts } from "@/lib/store";
+import { getShopProduct, getShopProducts } from "@/lib/sales";
 import { categories } from "@/lib/catalog";
 import { ProductExperience } from "@/components/shop/ProductExperience";
 import { ProductCard } from "@/components/shop/ProductCard";
@@ -9,16 +9,16 @@ import { ProductCard } from "@/components/shop/ProductCard";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: PageProps<"/shop/[slug]">): Promise<Metadata> {
-  const p = await getProduct((await params).slug);
+  const p = await getShopProduct((await params).slug);
   return p ? { title: p.name, description: p.description } : {};
 }
 
 export default async function ProductPage({ params, searchParams }: PageProps<"/shop/[slug]">) {
   const { slug } = await params;
   const sp = await searchParams;
-  const product = await getProduct(slug);
+  const product = await getShopProduct(slug);
   if (!product) notFound();
-  const related = (await getProducts()).filter((p) => p.id !== product.id && (p.category === product.category || p.gender === product.gender)).slice(0, 4);
+  const related = (await getShopProducts()).filter((p) => p.id !== product.id && (p.category === product.category || p.gender === product.gender)).slice(0, 4);
   const cat = categories.find((c) => c.slug === product.category);
 
   return (

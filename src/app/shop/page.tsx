@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getProducts } from "@/lib/store";
+import { getShopProducts } from "@/lib/sales";
 import { categories, occasions } from "@/lib/catalog";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { Reveal } from "@/components/motion/Reveal";
@@ -8,7 +8,7 @@ import { Reveal } from "@/components/motion/Reveal";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Shop" };
 
-type SP = { gender?: string; category?: string; occasion?: string; sort?: string };
+type SP = { gender?: string; category?: string; occasion?: string; sort?: string; sale?: string };
 
 function href(current: SP, patch: Partial<SP>) {
   const next = { ...current, ...patch };
@@ -26,14 +26,16 @@ function Chip({ active, to, children }: { active: boolean; to: string; children:
 
 export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
   const sp = (await searchParams) as SP;
-  let items = await getProducts();
+  let items = await getShopProducts();
   if (sp.gender) items = items.filter((p) => p.gender === sp.gender);
   if (sp.category) items = items.filter((p) => p.category === sp.category);
   if (sp.occasion) items = items.filter((p) => p.occasions.includes(sp.occasion!));
+  if (sp.sale) items = items.filter((p) => !!p.compareAtPrice && p.compareAtPrice > p.price);
+  const onSale = (await getShopProducts()).some((p) => !!p.compareAtPrice && p.compareAtPrice > p.price);
   if (sp.sort === "price-asc") items = [...items].sort((a, b) => a.price - b.price);
   if (sp.sort === "price-desc") items = [...items].sort((a, b) => b.price - a.price);
 
-  const title = sp.category ? categories.find((c) => c.slug === sp.category)?.name : sp.gender === "men" ? "Men" : sp.gender === "women" ? "Women" : "The Collection";
+  const title = sp.sale ? "On sale" : sp.category ? categories.find((c) => c.slug === sp.category)?.name : sp.gender === "men" ? "Men" : sp.gender === "women" ? "Women" : "The Collection";
 
   return (
     <div className="container-x pb-24 pt-10">
@@ -48,6 +50,7 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
           <Chip active={!sp.gender && !sp.category} to={href(sp, { gender: undefined, category: undefined })}>All</Chip>
           <Chip active={sp.gender === "women"} to={href(sp, { gender: "women", category: undefined })}>Women</Chip>
           <Chip active={sp.gender === "men"} to={href(sp, { gender: "men", category: undefined })}>Men</Chip>
+          {(onSale || sp.sale) && <Chip active={!!sp.sale} to={href(sp, { sale: sp.sale ? undefined : "1" })}>On sale</Chip>}
           <span className="mx-1 w-px shrink-0 bg-ink/10" />
           {categories.filter((c) => c.slug !== "men").map((c) => (
             <Chip key={c.slug} active={sp.category === c.slug} to={href(sp, { category: sp.category === c.slug ? undefined : c.slug, gender: undefined })}>

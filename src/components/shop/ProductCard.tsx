@@ -51,7 +51,7 @@ export function ProductCard({ product }: { product: Product; priority?: boolean 
           )}
           <div className="absolute left-0 top-3 flex flex-col items-start gap-1.5">
             {product.isNew && <span className="bg-butter px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-wine">New in</span>}
-            {product.compareAtPrice && <span className="bg-wine px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-butter">Sale</span>}
+            {!!product.compareAtPrice && product.compareAtPrice > product.price && <span className="bg-wine px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-butter">{product.saleLabel ?? "Sale"}</span>}
           </div>
           <div className="absolute inset-x-0 bottom-0 translate-y-full bg-wine py-3 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-butter transition duration-500 group-hover:translate-y-0">
             View & try on your size
@@ -65,7 +65,7 @@ export function ProductCard({ product }: { product: Product; priority?: boolean 
           </Link>
           <p className="mt-0.5 text-[14px] font-semibold text-wine">
             {formatPrice(product.price)}
-            {product.compareAtPrice && <s className="ml-2 font-normal text-muted">{formatPrice(product.compareAtPrice)}</s>}
+            {!!product.compareAtPrice && product.compareAtPrice > product.price && <s className="ml-2 font-normal text-muted">{formatPrice(product.compareAtPrice)}</s>}
           </p>
         </div>
         {product.colors.length > 1 && (

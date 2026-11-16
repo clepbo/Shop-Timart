@@ -18,7 +18,7 @@ export function Footer({ about }: { about: string }) {
   const pathname = usePathname();
   if (pathname.startsWith("/admin")) return null;
   return (
-    <footer className="mt-auto bg-wine-deep px-0 pt-0 sm:p-6 lg:p-10">
+    <footer id="cms-footer" className="mt-auto bg-wine-deep px-0 pt-0 sm:p-6 lg:p-10">
       <div className="overflow-hidden bg-sand text-ink">
         <div className="container-x pt-14">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-start">
