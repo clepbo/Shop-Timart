@@ -208,6 +208,29 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ---------- Lookbook ---------- */}
+      <section id="cms-lookbook" className="bg-linen">
+        <div className="container-x grid items-center gap-8 py-16 lg:grid-cols-[0.8fr_1fr_1fr] lg:gap-6 lg:py-24">
+          <Reveal className="lg:pr-6">
+            <p className="eyebrow">{c.lookbook.eyebrow}</p>
+            <h2 className="display mt-4 text-[40px] sm:text-[52px]"><Highlight text={c.lookbook.title} highlight={c.lookbook.highlight} /></h2>
+            <p className="mt-5 max-w-sm leading-relaxed text-muted">{c.lookbook.body}</p>
+            <Link href="/shop" className="btn-primary mt-8">{c.lookbook.button} <ArrowIcon className="size-4" /></Link>
+          </Reveal>
+          {[
+            [c.lookbook.image1, c.lookbook.image1Alt],
+            [c.lookbook.image2, c.lookbook.image2Alt],
+          ].map(([src, alt], i) => (
+            <Reveal key={i} delay={120 + i * 120} className={i === 1 ? "lg:mt-16" : "lg:mb-16"}>
+              <div className="group relative aspect-[4/5] overflow-hidden bg-sand">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={src} alt={alt} loading="lazy" className="absolute inset-0 size-full object-cover transition duration-700 group-hover:scale-[1.03]" />
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
       {/* ---------- Featured ---------- */}
       <section id="cms-favourites" className="container-x py-16 lg:py-24">
         <Reveal><SectionHeading eyebrow={c.favourites.eyebrow} title={<Highlight text={c.favourites.title} highlight={c.favourites.highlight} />} href="/shop" /></Reveal>

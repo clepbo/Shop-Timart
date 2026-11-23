@@ -6,6 +6,15 @@ export const metadata: Metadata = { title: "About" };
 
 const studio = (n: string) => `/images/studio/${n}.webp`;
 
+const details: [string, string, string][] = [
+  ["detail-tag", "Hang tag", "A cream hang tag with the tm monogram on a brown knit"],
+  ["detail-ribbon", "Ribbon", "Cream ribbon printed with Shop Timart and the brand pattern"],
+  ["detail-giftcard", "Gift card", "A Timart gift card in a brown sleeve"],
+  ["detail-bag", "Shopping bag", "A white shopping bag with the Shop Timart wordmark and monogram"],
+  ["detail-tissue", "Tissue paper", "Grey tissue paper printed with the Timart pattern"],
+  ["detail-patch", "Woven label", "A frayed linen label with the Shop Timart wordmark and pattern"],
+];
+
 const values = [
   ["Modesty", "Coverage is a choice we celebrate. Every piece is chosen to be decent without being dull."],
   ["Quality", "We're known for delivering quality — fabrics that hold their shape from Monday to Friday."],
@@ -44,9 +53,28 @@ export default function AboutPage() {
           </div>
         ))}
       </section>
+      <section className="container-x mt-20">
+        <div className="max-w-2xl">
+          <p className="eyebrow">The details</p>
+          <h2 className="display mt-4 text-[36px] sm:text-[48px]">Signed in every <span className="accent text-camel">detail.</span></h2>
+          <p className="mt-4 leading-relaxed text-muted">The tm monogram, the Timart pattern and our wordmark — on tags, ribbon, gift cards and bags.</p>
+        </div>
+        <div className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-5">
+          {details.map(([file, label, alt]) => (
+            <figure key={file} className="group">
+              <div className="relative aspect-[4/5] overflow-hidden bg-sand">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`/images/brand/${file}.webp`} alt={alt} loading="lazy" className="absolute inset-0 size-full object-cover transition duration-700 group-hover:scale-[1.03]" />
+              </div>
+              <figcaption className="mt-3 text-[12px] font-semibold uppercase tracking-[0.18em] text-muted">{label}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
       <section className="container-x mt-16 flex flex-wrap justify-center gap-3">
         <Link href="/shop" className="btn-primary">Shop the collection</Link>
-        <a href={brand.tiktok} target="_blank" rel="noreferrer" className="btn-outline">Follow {brand.tiktokHandle}</a>
+        <a href={brand.instagram} target="_blank" rel="noreferrer" className="btn-outline">Instagram {brand.instagramHandle}</a>
+        <a href={brand.tiktok} target="_blank" rel="noreferrer" className="btn-outline">TikTok {brand.tiktokHandle}</a>
       </section>
     </div>
   );

@@ -109,6 +109,23 @@ export const contentSchema = {
       highlight: t("Highlighted words", "you in it."),
     },
   },
+  lookbook: {
+    preview: { path: "/", anchor: "cms-lookbook" },
+    group: "Homepage",
+    title: "Homepage — lookbook",
+    where: "Two editorial photos under the statement band",
+    fields: {
+      eyebrow: t("Small line", "The lookbook"),
+      title: t("Heading", "Confidence in style."),
+      highlight: t("Highlighted words", "in style."),
+      body: a("Paragraph", "Rich browns, clean lines and pieces that hold their own — from the first meeting of the day to the last."),
+      button: t("Button text", "Shop the collection"),
+      image1: img("First photo", "/images/brand/lookbook-walk.webp", "Portrait, about 4:5"),
+      image1Alt: t("First photo description", "A woman in a long brown coat walking with a leather handbag"),
+      image2: img("Second photo", "/images/brand/lookbook-chair.webp", "Portrait, about 4:5"),
+      image2Alt: t("Second photo description", "A woman in a black suit seated in a cream armchair"),
+    },
+  },
   favourites: {
     preview: { path: "/", anchor: "cms-favourites" },
     group: "Homepage",
