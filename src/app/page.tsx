@@ -76,7 +76,7 @@ export default async function Home() {
               ))}
             </dl>
           </div>
-          <HeroPortrait src={c.hero.image} alt={`${brand.name} — ${c.hero.badge}`} badge={c.hero.badge} />
+          <HeroPortrait src={c.hero.image} alt={`${brand.name} — ${c.hero.badge}`} badge={c.hero.badge} variant={c.hero.imageStyle.trim().toLowerCase().startsWith("cut") ? "cutout" : "photo"} />
         </div>
       </section>
 
